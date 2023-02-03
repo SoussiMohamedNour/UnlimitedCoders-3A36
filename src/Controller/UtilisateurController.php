@@ -10,9 +10,18 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
+
+
 #[Route('/utilisateur')]
 class UtilisateurController extends AbstractController
 {
+    #[Route('/home', name: 'perosperos',methods: ['GET'])]
+    public function homep(): Response {
+        return $this->render('utilisateur/home.html.twig'
+    );
+
+}
+
     #[Route('/', name: 'app_utilisateur_index', methods: ['GET'])]
     public function index(UtilisateurRepository $utilisateurRepository): Response
     {
@@ -76,11 +85,6 @@ class UtilisateurController extends AbstractController
         return $this->redirectToRoute('app_utilisateur_index', [], Response::HTTP_SEE_OTHER);
     }
 
-    #[Route('/utilisateur/home')]
-    public function home(): Response {
-        return $this->render('utilisateur/home.html.twig'
-    );
-
-}
+   
     
 }
