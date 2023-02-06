@@ -22,6 +22,7 @@
 - Gestion `Assurances`
 - Gestion `Produit`
 
-
-
+## Intégration Template
+### template Backoffice
+- ouvrable avec route `/backoffice`
 
