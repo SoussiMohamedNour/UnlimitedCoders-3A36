@@ -1,5 +1,5 @@
 # Projet PiDev 3A36
-
+![Logo Application]﻿
 ## Nom Projet : Healthified
 - Une application (Desktop/Web/Mobile) dans le domaine de santé.
 ## Nom Groupe: Unlimited Coders
