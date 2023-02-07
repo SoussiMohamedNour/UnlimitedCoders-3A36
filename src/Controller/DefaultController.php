@@ -9,10 +9,20 @@ use Symfony\Component\Routing\Annotation\Route;
 class DefaultController extends AbstractController
 {
     #[Route('/backoffice', name: 'app_default')]
-    public function index(): Response
+    public function index1(): Response
     {
         return $this->render('BackOffice/base.html.twig', [
             'controller_name' => 'DefaultController',
         ]);
+
     }
+    #[Route('/frontoffice', name: 'home')]
+    public function index2(): Response
+        {
+            return $this->render('Frontoffice/base.html.twig', [
+                'controller_name' => 'DefaultController',
+            ]);
+        }
+   
+    
 }
