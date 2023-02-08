@@ -1,0 +1,38 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Medicaments{% endblock %}
+
+{% block body %}
+    <h1>Medicaments</h1>
+
+    <table class="table">
+        <tbody>
+            <tr>
+                <th>Referencemedicament</th>
+                <td>{{ medicament.referencemedicament }}</td>
+            </tr>
+            <tr>
+                <th>Nom</th>
+                <td>{{ medicament.nom }}</td>
+            </tr>
+            <tr>
+                <th>Dosage</th>
+                <td>{{ medicament.dosage }}</td>
+            </tr>
+            <tr>
+                <th>Prix</th>
+                <td>{{ medicament.prix }}</td>
+            </tr>
+            <tr>
+                <th>Description</th>
+                <td>{{ medicament.description }}</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <a href="{{ path('app_medicaments_index') }}">back to list</a>
+
+    <a href="{{ path('app_medicaments_edit', {'referencemedicament': medicament.referencemedicament}) }}">edit</a>
+
+    {{ include('medicaments/_delete_form.html.twig') }}
+{% endblock %}

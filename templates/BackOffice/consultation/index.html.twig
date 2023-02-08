@@ -1,0 +1,60 @@
+{% extends 'BackOffice/consultation/base.html.twig' %}
+
+{% block body %}
+<section class="content-main">
+<div class="card mb-4">
+<div class="content-header">
+            <h2 class="content-title">Liste Des Consultations</h2>
+            <div>
+                <a href="{{ path('app_consultation_new') }}"  class="btn btn-primary"><i class="material-icons md-plus"></i>Ajouter</a>
+            </div>
+        </div>
+          <div class="card-body">
+          	{# <h5 class="card-title">Liste Consultation</h5> #}
+          	<div class="table-responsive">
+          	<table class="table table-hover">
+             			 <thead>
+            <tr>
+                <th>ID</th>
+                <th>Matricule Medecin</th>
+                <th>ID Patient</th>
+                <th>Date Consultation</th>
+                <th>Montant</th>
+                <th>Liste Ordonnances</th>
+                <th>Opérations</th>
+            </tr>
+        </thead>
+          		<tbody>
+        {% for consultation in consultations %}
+            <tr>
+                <td>{{ consultation.idconsultation }}</td>
+                <td>{{ consultation.matriculemedecin }}</td>
+                <td>{{ consultation.idpatient }}</td>
+                <td>{{ consultation.dateconsultation ? consultation.dateconsultation|date('Y-m-d') : '' }}</td>
+                <td>{{ consultation.montant }}</td>
+                <td>
+                <ul>
+                {% for o in consultation.ordonnances  %}
+                    <li> {{ o.referenceordonnance }}</li>
+                {% endfor %}
+                </ul>
+                </td>
+                <td>
+                    <a href="{{ path('app_consultation_show', {'idconsultation': consultation.idconsultation}) }}">Supprimer</a>
+                    <a href="{{ path('app_consultation_edit', {'idconsultation': consultation.idconsultation}) }}">Modifier</a>
+                </td>
+            </tr>
+        {% else %}
+            <tr>
+                <td colspan="6">Liste Consultations Vide</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+          	
+          		
+          	</table>
+          	</div> <!-- table-responsive end// -->
+          </div> <!-- card-body end// -->
+    </div> <!-- card end// -->
+</section>
+{% endblock %}

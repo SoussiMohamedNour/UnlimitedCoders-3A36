@@ -1,0 +1,35 @@
+{% extends 'BackOffice/ordonnance/base.html.twig' %}
+
+{% block title %}Ordonnance{% endblock %}
+
+{% block body %}
+<section class="content-main">
+    <div class="card mb-4">
+        <div class="content-header">
+            <h2 class="content-title"> Supprimer Ordonnance</h2>
+            <a href="{{ path('app_ordonnance_index')}}" class="btn btn-outline-danger"> &times; Annuler</a>
+        </div>
+        <div class="card-body">
+            <div class="table table-responsive">
+                <table class="table table-hover">
+                    <tbody>
+                        <tr>
+                            <th>Reference Ordonnance</th>
+                            <td>{{ ordonnance.referenceordonnance }}</td>
+                        </tr>
+                        <tr>
+                            <th>Validite</th>
+                            <td>{{ ordonnance.validite }}</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+        {{ include('BackOffice/ordonnance/_delete_form.html.twig') }}
+        <br>
+        <a class="btn btn-primary" href="{{ path('app_consultation_index') }}">Liste</a>
+        </div>
+    </div>
+
+</section>
+{% endblock %}

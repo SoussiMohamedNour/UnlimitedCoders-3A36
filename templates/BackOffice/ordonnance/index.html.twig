@@ -1,0 +1,53 @@
+{% extends 'BackOffice/ordonnance/base.html.twig' %}
+
+{% block body %}
+<section class="content-main">
+<div class="card mb-4">
+    <div class="content-header">
+        <h2 class="content-title">Liste Des Ordonnance</h2>
+        <div>
+            <a href="{{ path('app_ordonnance_new') }}"  class="btn btn-primary"><i class="material-icons md-plus"></i>Ajouter</a>
+        </div>
+    </div>
+    <div class="card-body">
+        <div class="table-responsive">
+            <table class="table table-hover">
+                <thead>
+                    <tr>
+                        <th>Reference Ordonnance</th>
+                        <th>Validite</th>
+                        <th>Liste Medicaments</th>
+                        <th>Operations</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for ordonnance in ordonnances %}
+                        <tr>
+                            <td>{{ ordonnance.referenceordonnance }}</td>
+                            <td>{{ ordonnance.validite }}</td>
+                            <td>
+                                <ul>
+                                    {% for m in ordonnance.medicaments  %}
+                                    <li> {{ m.referencemedicament}}</li>
+                                    {% endfor %}
+                                </ul>
+                            </td>
+                            <td>
+                                <a href="{{ path('app_ordonnance_show', {'referenceordonnance': ordonnance.referenceordonnance}) }}">Supprimer</a>
+                                <a href="{{ path('app_ordonnance_edit', {'referenceordonnance': ordonnance.referenceordonnance}) }}">Modifier</a>
+                            </td>
+                        </tr>
+                    {% else %}
+                        <tr>
+                            <td colspan="3">Liste Ordonnances Vide</td>
+                        </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+        
+    </div>
+</div>
+</section>
+    
+{% endblock %}
