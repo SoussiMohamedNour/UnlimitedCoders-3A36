@@ -16,7 +16,7 @@ class DefaultController extends AbstractController
         ]);
 
     }
-    #[Route('/frontoffice', name: 'home')]
+    #[Route('/Frontoffice', name: 'home')]
     public function index2(): Response
         {
             return $this->render('Frontoffice/base.html.twig', [
