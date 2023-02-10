@@ -19,7 +19,7 @@ class UserController extends AbstractController
     #[Route('/frontoffice', name: 'app_home')]
     public function home(): Response
     {
-        return $this->render('Frontoffice/home.html.twig');
+        return $this->render('Frontoffice/base.html.twig');
     }
 
     

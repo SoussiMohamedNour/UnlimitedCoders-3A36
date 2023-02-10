@@ -4,10 +4,11 @@
 {# ... #}
 
 {% block body %}
-    {% if error %}
-        <div>{{ error.messageKey|trans(error.messageData, 'security') }}</div>
-    {% endif %}
 
+<link href="{{asset('css/index.css') }}" rel="stylesheet">
+
+    <div class="login-page">
+    <div class="form">
     <form action="{{ path('app_login') }}" method="post">
         <label for="username">Email:</label>
         <input type="text" id="username" name="_username" value="{{ last_username }}"/>
@@ -19,4 +20,27 @@
 
         <button type="submit">login</button>
     </form>
+    {% if error %}
+        <div>{{ error.messageKey|trans(error.messageData, 'security') }}</div>
+    {% endif %}
+  
+  </div>
+</div>
+{# {% endblock %} #}
+
+    {# {% if error %}
+        <div>{{ error.messageKey|trans(error.messageData, 'security') }}</div>
+    {% endif %} #}
+
+    {# <form action="{{ path('app_login') }}" method="post">
+        <label for="username">Email:</label>
+        <input type="text" id="username" name="_username" value="{{ last_username }}"/>
+
+        <label for="password">Password:</label>
+        <input type="password" id="password" name="_password"/>
+
+        <input type="hidden" name="_target_path" value="{{ path('app_home') }}"/> 
+
+        <button type="submit">login</button>
+    </form> #}
 {% endblock %}

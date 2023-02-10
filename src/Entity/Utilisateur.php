@@ -5,12 +5,14 @@ namespace App\Entity;
 use App\Repository\UtilisateurRepository;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 use Symfony\Component\Security\Core\User\PasswordAuthenticatedUserInterface;
 use Symfony\Component\Security\Core\User\UserInterface;
 use ApiPlatform\Metadata\ApiResource;
 
 #[ApiResource]
 #[ORM\Entity(repositoryClass: UtilisateurRepository::class)]
+#[UniqueEntity(fields: ['email'], message: 'There is already an account with this email')]
 
 class Utilisateur implements UserInterface, PasswordAuthenticatedUserInterface
 {
@@ -41,7 +43,7 @@ class Utilisateur implements UserInterface, PasswordAuthenticatedUserInterface
     private ?int $age = null;
 
     #[ORM\Column]
-    private ?bool $sexe = null;
+    private ?string $sexe = null;
 
     #[ORM\Column(length: 255)]
     private ?string $num_tel = null;
@@ -49,8 +51,9 @@ class Utilisateur implements UserInterface, PasswordAuthenticatedUserInterface
     #[ORM\Column(length: 255)]
     private ?string $cin = null;
 
-    #[ORM\Column(type: Types::DATE_MUTABLE)]
-    private ?\DateTimeInterface $date_naiss = null;
+
+    #[ORM\Column(type: 'boolean')]
+    private $isVerified = false;
 
     public function getId(): ?int
     {
@@ -155,9 +158,9 @@ class Utilisateur implements UserInterface, PasswordAuthenticatedUserInterface
 
     public function getPrenom(): ?string
     {
-        return $this->prenom;
-    }
 
+        return $this->prenom;
+        }
     public function setPrenom(string $prenom): self
     {
         $this->prenom = $prenom;
@@ -177,12 +180,12 @@ class Utilisateur implements UserInterface, PasswordAuthenticatedUserInterface
         return $this;
     }
 
-    public function isSexe(): ?bool
+    public function isSexe(): ?string
     {
         return $this->sexe;
     }
 
-    public function setSexe(bool $sexe): self
+    public function setSexe(string $sexe): self
     {
         $this->sexe = $sexe;
 
@@ -215,14 +218,14 @@ class Utilisateur implements UserInterface, PasswordAuthenticatedUserInterface
 
     
 
-    public function getDateNaiss(): ?\DateTimeInterface
+    public function isVerified(): bool
     {
-        return $this->date_naiss;
+        return $this->isVerified;
     }
 
-    public function setDateNaiss(\DateTimeInterface $date_naiss): self
+    public function setIsVerified(bool $isVerified): self
     {
-        $this->date_naiss = $date_naiss;
+        $this->isVerified = $isVerified;
 
         return $this;
     }
