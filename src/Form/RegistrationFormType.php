@@ -26,7 +26,7 @@ class RegistrationFormType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
         $builder
-            ->add('email',EmailType::class,['attr'=>['class' => 'form-input','placeholder'=>"Votre Email"]])
+            ->add("email",EmailType::class,['attr'=>['class' => 'form-input','placeholder'=>"Votre Email"]])
             ->add('nom',TextType::class,['attr'=>['class' => 'form-input','placeholder'=>"Saisir Votre Nom"]])
             ->add('prenom',null,['attr'=>['class' => 'form-input','placeholder'=>"Saisir Votre Prenom"]])
             ->add('age',IntegerType::class,['attr'=>['class' => 'form-input','placeholder'=>"Specifier votre Age"]])
@@ -67,15 +67,7 @@ class RegistrationFormType extends AbstractType
                 ],
             ])
 
-            ->add('agreeTerms', CheckboxType::class, [
-                'mapped' => false,
-                'constraints' => [
-                    new IsTrue([
-                        'message' => 'You should agree to our terms.',
-                    ]),
-                ],
-                
-            ])
+           
             ->add('sexe', ChoiceType::class, array(
                 'choices'  => array(
                     'Male' => 'male',
@@ -85,6 +77,15 @@ class RegistrationFormType extends AbstractType
                 'multiple' => false,
                 'attr'=>['class' => 'form-input','placeholder'=>"Age"]
             ))
+            ->add('agreeTerms', CheckboxType::class, [
+                'mapped' => false,
+                'constraints' => [
+                    new IsTrue([
+                        'message' => 'You should agree to our terms.',
+                    ]),
+                ],
+                
+            ])
             ->add('Register',SubmitType::class,['attr'=>['class' => 'form','placeholder'=>"Register"]])       ;
     }
 
