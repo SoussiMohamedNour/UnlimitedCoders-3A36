@@ -2,12 +2,13 @@
 
 {% block title %}Reset your password{% endblock %}
 
-{% block body %}
+{% block body %} 
+<link href="{{asset('css/index.css') }}" rel="stylesheet">
     {% for flash_error in app.flashes('reset_password_error') %}
-        <link href="{{asset('css/index.css') }}" rel="stylesheet">
+        
         <div class="alert alert-danger" role="alert">{{ flash_error }}</div>
     {% endfor %}
-    <h1>Reset your password</h1>
+
 
 <div class="form">
 

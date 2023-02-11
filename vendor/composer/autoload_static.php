@@ -17,6 +17,7 @@ class ComposerStaticInit182778a1573b06150f376efcf2a928a2
         '8825ede83f2f289127722d4e842cf7e8' => __DIR__ . '/..' . '/symfony/polyfill-intl-grapheme/bootstrap.php',
         'b6b991a57620e2fb6b2f66f03fe9ddc2' => __DIR__ . '/..' . '/symfony/string/Resources/functions.php',
         'f598d06aa772fa33d905e87be6398fb1' => __DIR__ . '/..' . '/symfony/polyfill-intl-idn/bootstrap.php',
+        '2c102faa651ef8ea5874edb585946bce' => __DIR__ . '/..' . '/swiftmailer/swiftmailer/lib/swift_required.php',
         '6124b4c8570aa390c21fafd04a26c69f' => __DIR__ . '/..' . '/myclabs/deep-copy/src/DeepCopy/deep_copy.php',
         '6a47392539ca2329373e0d33e1dba053' => __DIR__ . '/..' . '/symfony/polyfill-intl-icu/bootstrap.php',
         '72280e2fa915e603a1f900c17186d14b' => __DIR__ . '/..' . '/api-platform/core/src/deprecation.php',
@@ -106,12 +107,14 @@ class ComposerStaticInit182778a1573b06150f376efcf2a928a2
             'Symfony\\Component\\Asset\\' => 24,
             'Symfony\\Bundle\\WebProfilerBundle\\' => 33,
             'Symfony\\Bundle\\TwigBundle\\' => 26,
+            'Symfony\\Bundle\\SwiftmailerBundle\\' => 33,
             'Symfony\\Bundle\\SecurityBundle\\' => 30,
             'Symfony\\Bundle\\MonologBundle\\' => 29,
             'Symfony\\Bundle\\MakerBundle\\' => 27,
             'Symfony\\Bundle\\FrameworkBundle\\' => 31,
             'Symfony\\Bundle\\DebugBundle\\' => 27,
             'Symfony\\Bridge\\Twig\\' => 20,
+            'Symfony\\Bridge\\Swiftmailer\\' => 27,
             'Symfony\\Bridge\\PhpUnit\\' => 23,
             'Symfony\\Bridge\\Monolog\\' => 23,
             'Symfony\\Bridge\\Doctrine\\' => 24,
@@ -454,6 +457,10 @@ class ComposerStaticInit182778a1573b06150f376efcf2a928a2
         array (
             0 => __DIR__ . '/..' . '/symfony/twig-bundle',
         ),
+        'Symfony\\Bundle\\SwiftmailerBundle\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/symfony/swiftmailer-bundle',
+        ),
         'Symfony\\Bundle\\SecurityBundle\\' => 
         array (
             0 => __DIR__ . '/..' . '/symfony/security-bundle',
@@ -477,6 +484,10 @@ class ComposerStaticInit182778a1573b06150f376efcf2a928a2
         'Symfony\\Bridge\\Twig\\' => 
         array (
             0 => __DIR__ . '/..' . '/symfony/twig-bridge',
+        ),
+        'Symfony\\Bridge\\Swiftmailer\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/symfony/swiftmailer-bridge',
         ),
         'Symfony\\Bridge\\PhpUnit\\' => 
         array (
@@ -1647,10 +1658,15 @@ class ComposerStaticInit182778a1573b06150f376efcf2a928a2
         'App\\Controller\\DefaultController' => __DIR__ . '/../..' . '/src/Controller/DefaultController.php',
         'App\\Controller\\LoginController' => __DIR__ . '/../..' . '/src/Controller/LoginController.php',
         'App\\Controller\\RegistrationController' => __DIR__ . '/../..' . '/src/Controller/RegistrationController.php',
+        'App\\Controller\\ResetPasswordController' => __DIR__ . '/../..' . '/src/Controller/ResetPasswordController.php',
         'App\\Controller\\UserController' => __DIR__ . '/../..' . '/src/Controller/UserController.php',
+        'App\\Entity\\ResetPasswordRequest' => __DIR__ . '/../..' . '/src/Entity/ResetPasswordRequest.php',
         'App\\Entity\\Utilisateur' => __DIR__ . '/../..' . '/src/Entity/Utilisateur.php',
+        'App\\Form\\ChangePasswordFormType' => __DIR__ . '/../..' . '/src/Form/ChangePasswordFormType.php',
         'App\\Form\\RegistrationFormType' => __DIR__ . '/../..' . '/src/Form/RegistrationFormType.php',
+        'App\\Form\\ResetPasswordRequestFormType' => __DIR__ . '/../..' . '/src/Form/ResetPasswordRequestFormType.php',
         'App\\Kernel' => __DIR__ . '/../..' . '/src/Kernel.php',
+        'App\\Repository\\ResetPasswordRequestRepository' => __DIR__ . '/../..' . '/src/Repository/ResetPasswordRequestRepository.php',
         'App\\Repository\\UtilisateurRepository' => __DIR__ . '/../..' . '/src/Repository/UtilisateurRepository.php',
         'App\\Security\\EmailVerifier' => __DIR__ . '/../..' . '/src/Security/EmailVerifier.php',
         'Attribute' => __DIR__ . '/..' . '/symfony/polyfill-php80/Resources/stubs/Attribute.php',
@@ -4598,6 +4614,7 @@ class ComposerStaticInit182778a1573b06150f376efcf2a928a2
         'Symfony\\Bridge\\PhpUnit\\Legacy\\SymfonyTestsListenerTrait' => __DIR__ . '/..' . '/symfony/phpunit-bridge/Legacy/SymfonyTestsListenerTrait.php',
         'Symfony\\Bridge\\PhpUnit\\SymfonyTestsListener' => __DIR__ . '/..' . '/symfony/phpunit-bridge/SymfonyTestsListener.php',
         'Symfony\\Bridge\\PhpUnit\\TextUI\\Command' => __DIR__ . '/..' . '/symfony/phpunit-bridge/TextUI/Command.php',
+        'Symfony\\Bridge\\Swiftmailer\\DataCollector\\MessageDataCollector' => __DIR__ . '/..' . '/symfony/swiftmailer-bridge/DataCollector/MessageDataCollector.php',
         'Symfony\\Bridge\\Twig\\AppVariable' => __DIR__ . '/..' . '/symfony/twig-bridge/AppVariable.php',
         'Symfony\\Bridge\\Twig\\Command\\DebugCommand' => __DIR__ . '/..' . '/symfony/twig-bridge/Command/DebugCommand.php',
         'Symfony\\Bridge\\Twig\\Command\\LintCommand' => __DIR__ . '/..' . '/symfony/twig-bridge/Command/LintCommand.php',
@@ -4895,6 +4912,17 @@ class ComposerStaticInit182778a1573b06150f376efcf2a928a2
         'Symfony\\Bundle\\SecurityBundle\\Security\\LazyFirewallContext' => __DIR__ . '/..' . '/symfony/security-bundle/Security/LazyFirewallContext.php',
         'Symfony\\Bundle\\SecurityBundle\\Security\\LegacyLogoutHandlerListener' => __DIR__ . '/..' . '/symfony/security-bundle/Security/LegacyLogoutHandlerListener.php',
         'Symfony\\Bundle\\SecurityBundle\\Security\\UserAuthenticator' => __DIR__ . '/..' . '/symfony/security-bundle/Security/UserAuthenticator.php',
+        'Symfony\\Bundle\\SwiftmailerBundle\\Command\\DebugCommand' => __DIR__ . '/..' . '/symfony/swiftmailer-bundle/Command/DebugCommand.php',
+        'Symfony\\Bundle\\SwiftmailerBundle\\Command\\NewEmailCommand' => __DIR__ . '/..' . '/symfony/swiftmailer-bundle/Command/NewEmailCommand.php',
+        'Symfony\\Bundle\\SwiftmailerBundle\\Command\\SendEmailCommand' => __DIR__ . '/..' . '/symfony/swiftmailer-bundle/Command/SendEmailCommand.php',
+        'Symfony\\Bundle\\SwiftmailerBundle\\DataCollector\\MessageDataCollector' => __DIR__ . '/..' . '/symfony/swiftmailer-bundle/DataCollector/MessageDataCollector.php',
+        'Symfony\\Bundle\\SwiftmailerBundle\\DependencyInjection\\Compiler\\RegisterPluginsPass' => __DIR__ . '/..' . '/symfony/swiftmailer-bundle/DependencyInjection/Compiler/RegisterPluginsPass.php',
+        'Symfony\\Bundle\\SwiftmailerBundle\\DependencyInjection\\Configuration' => __DIR__ . '/..' . '/symfony/swiftmailer-bundle/DependencyInjection/Configuration.php',
+        'Symfony\\Bundle\\SwiftmailerBundle\\DependencyInjection\\SwiftmailerExtension' => __DIR__ . '/..' . '/symfony/swiftmailer-bundle/DependencyInjection/SwiftmailerExtension.php',
+        'Symfony\\Bundle\\SwiftmailerBundle\\EventListener\\EmailSenderListener' => __DIR__ . '/..' . '/symfony/swiftmailer-bundle/EventListener/EmailSenderListener.php',
+        'Symfony\\Bundle\\SwiftmailerBundle\\SwiftmailerBundle' => __DIR__ . '/..' . '/symfony/swiftmailer-bundle/SwiftmailerBundle.php',
+        'Symfony\\Bundle\\SwiftmailerBundle\\Tests\\DependencyInjection\\SwiftmailerExtensionTest' => __DIR__ . '/..' . '/symfony/swiftmailer-bundle/Tests/DependencyInjection/SwiftmailerExtensionTest.php',
+        'Symfony\\Bundle\\SwiftmailerBundle\\Tests\\TestCase' => __DIR__ . '/..' . '/symfony/swiftmailer-bundle/Tests/TestCase.php',
         'Symfony\\Bundle\\TwigBundle\\CacheWarmer\\TemplateCacheWarmer' => __DIR__ . '/..' . '/symfony/twig-bundle/CacheWarmer/TemplateCacheWarmer.php',
         'Symfony\\Bundle\\TwigBundle\\Command\\LintCommand' => __DIR__ . '/..' . '/symfony/twig-bundle/Command/LintCommand.php',
         'Symfony\\Bundle\\TwigBundle\\DependencyInjection\\Compiler\\ExtensionPass' => __DIR__ . '/..' . '/symfony/twig-bundle/DependencyInjection/Compiler/ExtensionPass.php',
