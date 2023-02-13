@@ -1003,6 +1003,8 @@ return array(
     'App\\Controller\\UserController' => $baseDir . '/src/Controller/UserController.php',
     'App\\Entity\\ResetPasswordRequest' => $baseDir . '/src/Entity/ResetPasswordRequest.php',
     'App\\Entity\\Utilisateur' => $baseDir . '/src/Entity/Utilisateur.php',
+    'App\\EventListener\\LoginListener' => $baseDir . '/src/EventListener/LoginListener.php',
+    'App\\EventListener\\LogoutSubscriber' => $baseDir . '/src/EventListener/LogoutSubscriber.php',
     'App\\Form\\ChangePasswordFormType' => $baseDir . '/src/Form/ChangePasswordFormType.php',
     'App\\Form\\RegistrationFormType' => $baseDir . '/src/Form/RegistrationFormType.php',
     'App\\Form\\ResetPasswordRequestFormType' => $baseDir . '/src/Form/ResetPasswordRequestFormType.php',

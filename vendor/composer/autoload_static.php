@@ -1662,6 +1662,8 @@ class ComposerStaticInit182778a1573b06150f376efcf2a928a2
         'App\\Controller\\UserController' => __DIR__ . '/../..' . '/src/Controller/UserController.php',
         'App\\Entity\\ResetPasswordRequest' => __DIR__ . '/../..' . '/src/Entity/ResetPasswordRequest.php',
         'App\\Entity\\Utilisateur' => __DIR__ . '/../..' . '/src/Entity/Utilisateur.php',
+        'App\\EventListener\\LoginListener' => __DIR__ . '/../..' . '/src/EventListener/LoginListener.php',
+        'App\\EventListener\\LogoutSubscriber' => __DIR__ . '/../..' . '/src/EventListener/LogoutSubscriber.php',
         'App\\Form\\ChangePasswordFormType' => __DIR__ . '/../..' . '/src/Form/ChangePasswordFormType.php',
         'App\\Form\\RegistrationFormType' => __DIR__ . '/../..' . '/src/Form/RegistrationFormType.php',
         'App\\Form\\ResetPasswordRequestFormType' => __DIR__ . '/../..' . '/src/Form/ResetPasswordRequestFormType.php',

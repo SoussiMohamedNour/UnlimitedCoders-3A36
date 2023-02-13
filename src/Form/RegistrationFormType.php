@@ -77,6 +77,7 @@ class RegistrationFormType extends AbstractType
                 'multiple' => false,
                 'attr'=>['class' => 'form-input','placeholder'=>"Age"]
             ))
+            ->add('image',TextType::class,['attr'=>['class' => 'form-input','placeholder'=>"image"]])
             ->add('agreeTerms', CheckboxType::class, [
                 'mapped' => false,
                 'constraints' => [
