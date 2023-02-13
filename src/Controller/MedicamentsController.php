@@ -21,7 +21,7 @@ class MedicamentsController extends AbstractController
         ]);
     }
 
-    #[Route('/medicaments/new', name: 'app_medicaments_new', methods: ['GET', 'POST'])]
+    #[Route('/medicaments/ajouter', name: 'app_medicaments_new', methods: ['GET', 'POST'])]
     public function new(Request $request, MedicamentsRepository $medicamentsRepository): Response
     {
         $medicament = new Medicaments();

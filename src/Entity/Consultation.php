@@ -19,15 +19,18 @@ class Consultation
     private ?int $idconsultation = null;
 
     #[ORM\Column(length: 255)]
+    #[Assert\NotBlank(message:"Matricule Medecin est un champ obligatoire")]
     private ?string $matriculemedecin = null;
 
     #[ORM\Column(length: 255)]
+    #[Assert\NotBlank(message:"Identifiant Patient est un champ obligatoire")]
     private ?string $idpatient = null;
 
     #[ORM\Column(type: Types::DATE_MUTABLE)]
     private ?\DateTimeInterface $dateconsultation = null;
 
     #[ORM\Column]
+    #[Assert\Positive(message:"Le montant doit etre une entier positif")]
 
     private ?float $montant = null;
 

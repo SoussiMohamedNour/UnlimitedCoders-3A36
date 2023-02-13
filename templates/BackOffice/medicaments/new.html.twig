@@ -1,11 +1,19 @@
-{% extends 'base.html.twig' %}
+{% extends 'BackOffice/consultation/base.html.twig' %}
 
-{% block title %}New Medicaments{% endblock %}
+{% block title %}Ajouter Medicaments{% endblock %}
 
 {% block body %}
-    <h1>Create new Medicaments</h1>
-
-    {{ include('medicaments/_form.html.twig') }}
-
-    <a href="{{ path('app_medicaments_index') }}">back to list</a>
+<section class="content-main">
+    <div class="card mb-4">
+        <div class="content-header">
+            <h2 class="content-title">Ajouter Medicaments</h2>
+            <a href="{{ path('app_medicaments_index')}}" class="btn btn-outline-danger"> &times; Annuler</a>
+        </div>
+        <div class="card-body">
+            {{ include('BackOffice/medicaments/_form.html.twig') }}
+            <br>
+            <a class="btn btn-primary" href="{{ path('app_medicaments_index') }}">Liste</a>
+        </div>
+    </div>
+</section>
 {% endblock %}
