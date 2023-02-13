@@ -1,5 +1,20 @@
 @import url(https://fonts.googleapis.com/css?family=Roboto:300);
 
+
+body{
+  font-family: Lato;
+}
+
+a,a:visited{
+  color:inherit;
+  text-underline-offset: 4px;
+}
+
+.form a{
+  color: #2f8ad0;
+  width: fit-content;
+}
+
 .login-page {
   width: 360px;
   padding: 8% 0 0;
@@ -14,9 +29,10 @@
   padding: 45px;
   text-align: left;
   box-shadow: 0 0 20px 0 rgba(0, 0, 0, 0.2), 0 5px 5px 0 rgba(0, 0, 0, 0.24);
+  border-radius: 8px;
 }
 .form input {
-  font-family: "Roboto", sans-serif;
+ 
   outline: 0;
   background: #f2f2f2;
   width: 100%;
@@ -26,6 +42,7 @@
   box-sizing: border-box;
   font-size: 14px;
   margin-bottom: 12px;
+  border-radius: 8px;
 }
 .form button {
   font-family: "Roboto", sans-serif;
@@ -36,16 +53,20 @@
   border: 0;
   padding: 15px;
   color: #ffffff;
+  font-weight: 600;
+  transition: background 0.3s ease;
   font-size: 14px;
   -webkit-transition: all 0.3 ease;
   transition: all 0.3 ease;
   cursor: pointer;
   text-align: center;
+  border-radius: 8px;
 }
 .form button:hover,
 .form button:active,
 .form button:focus {
-  background: #00ff6e;
+  background: #2eb86a;
+  transition: background 0.3s ease;
 }
 .form .message {
   margin: 15px 0 0;
@@ -119,5 +140,4 @@ body {
 .form form {
   display: flex;
   flex-direction: column;
-  text-transform: uppercase;
 }
