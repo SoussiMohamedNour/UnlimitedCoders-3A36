@@ -1,10 +1,12 @@
 <?php
 
 namespace App\Controller;
+
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use App\Entity\Utilisateur;
+use App\Form\RegistrationFormType;
 use App\Form\UtilisateurType;
 use App\Repository\UtilisateurRepository;
 use Symfony\Component\HttpFoundation\Request;
@@ -38,7 +40,6 @@ class UserController extends AbstractController
         return $this->render('BackOffice/pharmacien.html.twig', [
             'controller_name' => 'DefaultController',
         ]);
-
     }
 
 
@@ -48,7 +49,6 @@ class UserController extends AbstractController
         return $this->render('Frontoffice/base.html.twig', [
             'controller_name' => 'DefaultController',
         ]);
-
     }
 
 
@@ -59,9 +59,6 @@ class UserController extends AbstractController
             'utilisateurs' => $utilisateurRepository->findAll(),
         ]);
     }
-
-
-
 
 
     #[Route('/logout', name: 'app_logout', methods: ['GET'])]
@@ -79,34 +76,31 @@ class UserController extends AbstractController
         ]);
     }
 
-    // #[Route('/{id}/edit', name: 'app_utilisateur_edit', methods: ['GET', 'POST'])]
-    // public function edit(Request $request, Utilisateur $utilisateur, UtilisateurRepository $utilisateurRepository): Response
-    // {
-    //     $form = $this->createForm(UtilisateurType::class, $utilisateur);
-    //     $form->handleRequest($request);
+    #[Route('user/{id}/edit', name: 'app_utilisateur_edit', methods: ['GET', 'POST'])]
+    public function edit(Request $request, Utilisateur $utilisateur, UtilisateurRepository $utilisateurRepository): Response
+    {
+        $form = $this->createForm(RegistrationFormType::class, $utilisateur);
+        $form->handleRequest($request);
 
-    //     if ($form->isSubmitted() && $form->isValid()) {
-    //         $utilisateurRepository->save($utilisateur, true);
+        if ($form->isSubmitted() && $form->isValid()) {
+            $utilisateurRepository->save($utilisateur, true);
 
-    //         return $this->redirectToRoute('app_utilisateur_index', [], Response::HTTP_SEE_OTHER);
-    //     }
+            return $this->redirectToRoute('app_utilisateur_index', [], Response::HTTP_SEE_OTHER);
+        }
 
-    //     return $this->renderForm('utilisateur/edit.html.twig', [
-    //         'utilisateur' => $utilisateur,
-    //         'form' => $form,
-    //     ]);
-    // }
+        return $this->renderForm('utilisateur/edit.html.twig', [
+            'utilisateur' => $utilisateur,
+            'form' => $form,
+        ]);
+    }
 
-    #[Route('/{id}', name: 'app_utilisateur_delete', methods: ['POST'])]
+    #[Route('user/{id}/delete', name: 'app_utilisateur_delete', methods: ['POST'])]
     public function delete(Request $request, Utilisateur $utilisateur, UtilisateurRepository $utilisateurRepository): Response
     {
-        if ($this->isCsrfTokenValid('delete'.$utilisateur->getId(), $request->request->get('_token'))) {
+        if ($this->isCsrfTokenValid('delete' . $utilisateur->getId(), $request->request->get('_token'))) {
             $utilisateurRepository->remove($utilisateur, true);
         }
 
         return $this->redirectToRoute('app_utilisateur_index', [], Response::HTTP_SEE_OTHER);
     }
 }
-
-    
-

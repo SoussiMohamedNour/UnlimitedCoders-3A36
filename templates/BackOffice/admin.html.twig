@@ -46,53 +46,16 @@
     <nav>
   <ul class="menu-aside">
     <li class="menu-item active"> 
-      <a class="menu-link" href="index.html"> <i class="icon material-icons md-home"></i> 
+      <a class="menu-link" href="{{ path('app_home') }}"> <i class="icon material-icons md-home"></i> 
         <span class="text">Acceuil</span> 
       </a> 
-    <li class="menu-item has-submenu"> 
-      <a class="menu-link" href="page-form-product-1.html"> <i class="icon material-icons md-add_box"></i>  
-        <span class="text">Produits</span> 
-      </a> 
-      <div class="submenu">
-        <a href="ajouter_produits.html">Ajouter Produits</a>
-        <a href="modifier_produits.html">Modifier produits</a>
-        <a href="supprimer_produits.html">Supprimer Produits</a>
-        <a href="afficher_produits.html">Afficher Produits</a>
-        <a href="rechercher_tri_produits.html">Recherche & Tri</a>
-        <a href="statistique_produits.html">Statistiques</a>
-        <a href="mailing_boutique.html">Mailing</a>
-        <a href="pdf_Excel_boutique.html">PDF & Excel</a>
-      </div>
-    </li>
     <li class="menu-item has-submenu"> 
       <a class="menu-link" href="#"> <i class="icon material-icons md-person"></i>  
         <span class="text">Utilsateurs</span> 
       </a> 
       <div class="submenu">
         <a href="{{ path('app_register') }}">Ajouter Utilisateurs</a>
-        {# <a href="{{path('app_utilisateur_edit')}}">Modifier Utilisateurs</a> #}
-        {# <a href="{{ path('app_utilisateur_delete')}}">Supprimer Utilisateurs</a> #}
-        <a href="{{ path('app_utilisateur_index') }}">Afficher Utilisateurs</a>
-        <a href="rechercher_tri_utilisateurs.html">Recherche & Tri</a>
-        <a href="classification_utilisateurs.html">Classification Utilisateurs</a>
-        <a href="calcul_nombre_utilisateurs.html">Calcul Nombre Utilisateurs</a>
-        <a href="mailing_utilisateurs.html">Mailing</a>
-        <a href="pdf_utilisateurs.html">PDF</a>
-		</div>
-		</li>
-    <li class="menu-item has-submenu"> 
-      <a class="menu-link" href="#"> <i class="icon material-icons md-person"></i>  
-        <span class="text">Ouvriers</span> 
-      </a> 
-      <div class="submenu">
-        <a href="ajouter_ouvriers.html">Ajouter ouvriers</a>
-        <a href="modifier_ouvriers.html">Modifier ouvriers</a>
-        <a href="supprimer_ouvriers.html">Supprimer ouvriers</a>
-        <a href="afficher_ouvriers.html">Afficher ouvriers</a>
-        <a href="rechercher_tri_ouvriers.html">Recherche & Tri</a>
-        <a href="mailing_ouvriers.html">Mailing</a>
-        <a href="pdf_ouvriers.html">PDF</a>
-        <a href="excel_ouvriers.html">Excel</a>
+        <a href="{{ path('app_utilisateur_index') }}">Consulter Utilisateur</a>
 		</div>
 		</li>
   </ul>
@@ -154,7 +117,7 @@
 
 <section class="content-main">
 	<div class="content-header">
-		<h2 class="content-title"> Dashboard </h2>
+		<h2 class="content-title"> Administrateur Dashboard </h2>
 		<div>
 			<a href="{{path('app_logout')}}" class="btn btn-primary">Deconnecter</a>
 		</div>

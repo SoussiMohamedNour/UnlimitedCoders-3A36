@@ -1,14 +1,22 @@
 {% extends 'Frontoffice/base.html.twig' %}
+{# {% extends 'login/index.html.twig' %} #}
 
 {% block title %}Utilisateur index{% endblock %}
 
 {% block body %}
+
+
+    <link href="{{asset('/images/LogoApp.png') }}" rel="icon">
+    {# <link href="{{asset('css/index.css') }}" rel="stylesheet"> #}
+
+    {# <div class="login-page">
+    <div class="form"> #}
     <h1>Utilisateur index</h1>
 
     <table class="table">
         <thead>
             <tr>
-                {# <th>Id</th> #}
+                <th>id</th>
                 <th>Email</th>
                 <th>Roles</th>
                 <th>Password</th>
