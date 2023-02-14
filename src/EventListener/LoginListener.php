@@ -37,16 +37,18 @@ class LoginListener implements EventSubscriberInterface
         elseif (in_array("ROLE_MEDECIN", $user->getRoles())) {
             $response= new RedirectResponse($this->urlGenerator->generate('app_medecin'));
         }
+
+        elseif (in_array("ROLE_PHARMACIEN", $user->getRoles())) {
+            $response= new RedirectResponse($this->urlGenerator->generate('app_pharmacien'),
+        RedirectResponse::HTTP_SEE_OTHER);
+        }
  
         elseif (in_array("ROLE_USER", $user->getRoles())) {
             $response= new RedirectResponse($this->urlGenerator->generate('app_home'),
         RedirectResponse::HTTP_SEE_OTHER);
         }
- 
+
         
-        
-        
- 
         // return new RedirectResponse($this->urlGenerator->generate('home'));
         $event->setResponse($response);
     }

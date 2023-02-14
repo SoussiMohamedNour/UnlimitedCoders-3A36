@@ -49,48 +49,6 @@
       <a class="menu-link" href="index.html"> <i class="icon material-icons md-home"></i> 
         <span class="text">Acceuil</span> 
       </a> 
-    </li>
-    <li class="menu-item has-submenu"> 
-      <a class="menu-link" href="ajouter_factures.html"> <i class="icon material-icons md-shopping_bag"></i>  
-        <span class="text">Factures</span> 
-      </a> 
-      <div class="submenu">
-        <a href="ajouter_factures.html">Ajouter Facture</a>
-        <a href="modifier_factures.html">Modifier Facture</a>
-        <a href="supprimer_factures.html">Supprimer Factures</a>
-        <a href="afficher_factures.html">Afficher Factures</a>
-        <a href="calculatrice.html">Calculatrice</a>
-        <a href="mailing_factures.html">Mailing</a>
-        <a href="qrcode.html">QR code</a>
-        <a href="pdf_Excel_factures.html">PDF & Excel</a>
-      </div>
-    </li>
-    <li class="menu-item has-submenu"> 
-      <a class="menu-link" href="page-orders-1.html"> <i class="icon material-icons md-shopping_cart"></i> 
-        <span class="text">Commandes</span> 
-      </a>
-      <div class="submenu">
-        <a href="page-orders-1.html">Commandes liste 1</a>
-        <a href="page-orders-2.html">Commandes list 2</a>
-        <a href="page-orders-detail.html">Détail des commandes</a>
-      </div> 
-    </li>
-    <li class="menu-item has-submenu"> 
-      <a class="menu-link" href="page-sellers-cards.html"> <i class="icon material-icons md-store"></i> 
-        <span class="text">Boutiques</span> 
-      </a> 
-      <div class="submenu">
-        <a href="ajouter_boutiques.html">Ajouter Boutique</a>
-        <a href="modifier_boutiques.html">Modifier Boutique</a>
-        <a href="supprimer_boutiques.html">Supprimer Boutiques</a>
-        <a href="afficher_boutiques.html">Afficher Boutiques</a>
-        <a href="rechercher_tri_boutiques.html">Recherche & Tri</a>
-        <a href="statistique_boutiques.html">Statistiques</a>
-        <a href="mailing_boutique.html">Mailing</a>
-        <a href="pdf_Excel_boutique.html">PDF & Excel</a>
-		</div>
-    </li>
-	
     <li class="menu-item has-submenu"> 
       <a class="menu-link" href="page-form-product-1.html"> <i class="icon material-icons md-add_box"></i>  
         <span class="text">Produits</span> 
@@ -104,29 +62,6 @@
         <a href="statistique_produits.html">Statistiques</a>
         <a href="mailing_boutique.html">Mailing</a>
         <a href="pdf_Excel_boutique.html">PDF & Excel</a>
-      </div>
-    </li>
-    <li class="menu-item has-submenu"> 
-      <a class="menu-link" href="page-form-product-1.html"> <i class="icon material-icons md-add_box"></i>  
-        <span class="text">Station Recharge</span> 
-      </a> 
-      <div class="submenu">
-        <a href="ajouter_station.html">Ajouter station</a>
-        <a href="modifier_station.html">Modifier station</a>
-        <a href="supprimer_station.html">Supprimer station</a>
-        <a href="afficher_station.html">Afficher station</a>
-        <a href="rechercher_tri_station.html">Recherche & Tri</a>
-        <a href="statistique_station.html">Statistiques</a>
-        <a href="Calcul_gain.html">Calcul Gain</a>
-      </div>
-    </li>
-    <li class="menu-item has-submenu">
-      <a class="menu-link" href="page-transactions-A.html"> <i class="icon material-icons md-monetization_on"></i> 
-        <span class="text">Transactions</span> 
-      </a> 
-      <div class="submenu">
-        <a href="page-transactions-A.html">Transaction 1</a>
-        <a href="page-transactions-B.html">Transaction 2</a>
       </div>
     </li>
     <li class="menu-item has-submenu"> 
@@ -160,20 +95,6 @@
         <a href="excel_ouvriers.html">Excel</a>
 		</div>
 		</li>
-    <li class="menu-item"> 
-      <a class="menu-link" href="page-reviews.html"> <i class="icon material-icons md-comment"></i> 
-        <span class="text">Reviews</span> 
-      </a> 
-    </li>
-    <li class="menu-item"> 
-      <a class="menu-link" href="page-brands.html"> <i class="icon material-icons md-stars"></i> 
-        <span class="text">Marques</span> </a> 
-    </li>
-    <li class="menu-item"> 
-      <a class="menu-link" disabled href="#"> <i class="icon material-icons md-pie_chart"></i> 
-        <span class="text">Statistiques
-      </a> 
-    </li>
   </ul>
   <hr>
   <ul class="menu-aside">
@@ -185,16 +106,6 @@
         <a href="page-settings-1.html">Setting sample 1</a>
         <a href="page-settings-2.html">Setting sample 2</a>
       </div>
-	  <a class="menu-link" href="{{path('app_register')}}"> <i class="icon material-icons md-settings"></i> 
-        <span class="text">Deconnecter</span> 
-      </a>
-	  <div class="submenu">
-        <a href="{{path('app_logout')}}">Disconnect</a>
-    </li>
-    <li class="menu-item">
-      <a class="menu-link" href="page-0-blank.html"> <i class="icon material-icons md-local_offer"></i> 
-    <span class="text"> Starter page </span>
-      </a> 
     </li>
   </ul>
   <br>
@@ -245,7 +156,7 @@
 	<div class="content-header">
 		<h2 class="content-title"> Dashboard </h2>
 		<div>
-			<a href="#" class="btn btn-primary">Creer raport</a>
+			<a href="{{path('app_logout')}}" class="btn btn-primary">Deconnecter</a>
 		</div>
 	</div>
 	<div class="row">
