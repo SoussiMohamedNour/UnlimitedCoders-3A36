@@ -13,7 +13,7 @@ class Medicament
     #[ORM\Column]
     private ?int $id = null;
 
-    #[ORM\Column(length: 255)]
+    #[ORM\Column(length: 2000)]
     private ?string $nom = null;
 
     #[ORM\Column]
@@ -24,9 +24,6 @@ class Medicament
 
     #[ORM\Column(length: 255)]
     private ?string $description = null;
-
-    #[ORM\ManyToOne(inversedBy: 'medicaments')]
-    private ?Ordonnance $ordonnance = null;
 
     public function getId(): ?int
     {
@@ -77,18 +74,6 @@ class Medicament
     public function setDescription(string $description): self
     {
         $this->description = $description;
-
-        return $this;
-    }
-
-    public function getOrdonnance(): ?Ordonnance
-    {
-        return $this->ordonnance;
-    }
-
-    public function setOrdonnance(?Ordonnance $ordonnance): self
-    {
-        $this->ordonnance = $ordonnance;
 
         return $this;
     }
