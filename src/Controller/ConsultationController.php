@@ -10,18 +10,18 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
-#[Route('/consultation')]
+#[Route('/backoffice')]
 class ConsultationController extends AbstractController
 {
-    #[Route('/', name: 'app_consultation_index', methods: ['GET'])]
+    #[Route('/consultation', name: 'app_consultation_index', methods: ['GET'])]
     public function index(ConsultationRepository $consultationRepository): Response
     {
-        return $this->render('consultation/index.html.twig', [
+        return $this->render('BackOffice/consultation/index.html.twig', [
             'consultations' => $consultationRepository->findAll(),
         ]);
     }
 
-    #[Route('/new', name: 'app_consultation_new', methods: ['GET', 'POST'])]
+    #[Route('/consultation/ajouter', name: 'app_consultation_new', methods: ['GET', 'POST'])]
     public function new(Request $request, ConsultationRepository $consultationRepository): Response
     {
         $consultation = new Consultation();
@@ -34,21 +34,21 @@ class ConsultationController extends AbstractController
             return $this->redirectToRoute('app_consultation_index', [], Response::HTTP_SEE_OTHER);
         }
 
-        return $this->renderForm('consultation/new.html.twig', [
+        return $this->renderForm('BackOffice/consultation/new.html.twig', [
             'consultation' => $consultation,
             'form' => $form,
         ]);
     }
 
-    #[Route('/{reference}', name: 'app_consultation_show', methods: ['GET'])]
+    #[Route('/consultation/afficher/{reference}', name: 'app_consultation_show', methods: ['GET'])]
     public function show(Consultation $consultation): Response
     {
-        return $this->render('consultation/show.html.twig', [
+        return $this->render('BackOffice/consultation/show.html.twig', [
             'consultation' => $consultation,
         ]);
     }
 
-    #[Route('/{reference}/edit', name: 'app_consultation_edit', methods: ['GET', 'POST'])]
+    #[Route('/consultation/modifier/{reference}', name: 'app_consultation_edit', methods: ['GET', 'POST'])]
     public function edit(Request $request, Consultation $consultation, ConsultationRepository $consultationRepository): Response
     {
         $form = $this->createForm(ConsultationType::class, $consultation);
@@ -60,13 +60,13 @@ class ConsultationController extends AbstractController
             return $this->redirectToRoute('app_consultation_index', [], Response::HTTP_SEE_OTHER);
         }
 
-        return $this->renderForm('consultation/edit.html.twig', [
+        return $this->renderForm('BackOffice/consultation/edit.html.twig', [
             'consultation' => $consultation,
             'form' => $form,
         ]);
     }
 
-    #[Route('/{reference}', name: 'app_consultation_delete', methods: ['POST'])]
+    #[Route('/consultation/supprimer/{reference}', name: 'app_consultation_delete', methods: ['POST'])]
     public function delete(Request $request, Consultation $consultation, ConsultationRepository $consultationRepository): Response
     {
         if ($this->isCsrfTokenValid('delete'.$consultation->getReference(), $request->request->get('_token'))) {
