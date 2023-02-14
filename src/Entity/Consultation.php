@@ -3,6 +3,8 @@
 namespace App\Entity;
 
 use App\Repository\ConsultationRepository;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
 
@@ -11,10 +13,7 @@ class Consultation
 {
     #[ORM\Id]
     #[ORM\GeneratedValue]
-    #[ORM\Column]
-    private ?int $id = null;
-
-    #[ORM\Column(length: 255)]
+    #[ORM\Column(name:'id',length: 255)]
     private ?string $reference = null;
 
     #[ORM\Column(length: 255)]
@@ -28,6 +27,14 @@ class Consultation
 
     #[ORM\Column]
     private ?float $montant = null;
+
+    #[ORM\OneToMany(mappedBy: 'idconsultation', targetEntity: Ordonnance::class)]
+    private Collection $ordonnances;
+
+    public function __construct()
+    {
+        $this->ordonnances = new ArrayCollection();
+    }
 
     public function getId(): ?int
     {
@@ -90,6 +97,36 @@ class Consultation
     public function setMontant(float $montant): self
     {
         $this->montant = $montant;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, Ordonnance>
+     */
+    public function getOrdonnances(): Collection
+    {
+        return $this->ordonnances;
+    }
+
+    public function addOrdonnance(Ordonnance $ordonnance): self
+    {
+        if (!$this->ordonnances->contains($ordonnance)) {
+            $this->ordonnances->add($ordonnance);
+            $ordonnance->setIdconsultation($this);
+        }
+
+        return $this;
+    }
+
+    public function removeOrdonnance(Ordonnance $ordonnance): self
+    {
+        if ($this->ordonnances->removeElement($ordonnance)) {
+            // set the owning side to null (unless already changed)
+            if ($ordonnance->getIdconsultation() === $this) {
+                $ordonnance->setIdconsultation(null);
+            }
+        }
 
         return $this;
     }
