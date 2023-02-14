@@ -69,10 +69,10 @@
         <span class="text">Utilsateurs</span> 
       </a> 
       <div class="submenu">
-        <a href="ajouter_utilisateurs.html">Ajouter Utilisateurs</a>
-        <a href="modifier_utilisateurs.html">Modifier Utilisateurs</a>
-        <a href="supprimer_utilisateurs.html">Supprimer Utilisateurs</a>
-        <a href="afficher_utilisateurs.html">Afficher Utilisateurs</a>
+        <a href="{{ path('app_register') }}">Ajouter Utilisateurs</a>
+        {# <a href="{{path('app_utilisateur_edit')}}">Modifier Utilisateurs</a> #}
+        {# <a href="{{ path('app_utilisateur_delete')}}">Supprimer Utilisateurs</a> #}
+        <a href="{{ path('app_utilisateur_index') }}">Afficher Utilisateurs</a>
         <a href="rechercher_tri_utilisateurs.html">Recherche & Tri</a>
         <a href="classification_utilisateurs.html">Classification Utilisateurs</a>
         <a href="calcul_nombre_utilisateurs.html">Calcul Nombre Utilisateurs</a>
