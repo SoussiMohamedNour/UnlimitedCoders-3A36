@@ -1,11 +1,20 @@
-{% extends 'base.html.twig' %}
+{% extends 'BackOffice/consultation/base.html.twig' %}
 
-{% block title %}Medicament index{% endblock %}
+{% block title %}Liste Medicament{% endblock %}
 
 {% block body %}
-    <h1>Medicament index</h1>
-
-    <table class="table">
+<section class="content-main">
+<div class="card mb-4">
+    <div class="content-header">
+       <h2 class="content-title">Liste Des Médicaments</h2>
+        <div>
+            <a href="{{ path('app_medicament_new') }}"  class="btn btn-primary"><i class="material-icons md-plus"></i>Ajouter</a>
+            {# <a href="{{ path('app_ordonnance_mail') }}"  class="btn btn-primary"><i class="material-icons md-plus"></i>Email</a> #}
+        </div>
+    </div>
+    <div class="card-body">
+    </div>
+     <table class="table table-hover">
         <thead>
             <tr>
                 <th>Id</th>
@@ -25,17 +34,20 @@
                 <td>{{ medicament.prix }}</td>
                 <td>{{ medicament.description }}</td>
                 <td>
-                    <a href="{{ path('app_medicament_show', {'id': medicament.id}) }}">show</a>
-                    <a href="{{ path('app_medicament_edit', {'id': medicament.id}) }}">edit</a>
+                    <a href="{{ path('app_medicament_show', {'id': medicament.id}) }}">Supprimer</a>
+                    <a href="{{ path('app_medicament_edit', {'id': medicament.id}) }}">Modifier</a>
                 </td>
             </tr>
         {% else %}
             <tr>
-                <td colspan="6">no records found</td>
+                <td colspan="6">Liste Médicaments vide</td>
             </tr>
         {% endfor %}
         </tbody>
     </table>
 
-    <a href="{{ path('app_medicament_new') }}">Create new</a>
+</div>
+    {# <a href="{{ path('app_medicament_new') }}">Ajouter</a> #}
+</section>
+
 {% endblock %}
