@@ -21,15 +21,16 @@ class Ordonnance
 
     #[ORM\ManyToOne(inversedBy: 'ordonnances')]
     #[ORM\JoinColumn(nullable: false)]
-    private ?Consultation $idconsultation = null;
+    private ?Consultation $consultation = null;
 
-    #[ORM\OneToMany(mappedBy: 'ordonnance', targetEntity: Medicament::class)]
+    #[ORM\ManyToMany(targetEntity: Medicament::class, inversedBy: 'ordonnances')]
     private Collection $medicaments;
 
     public function __construct()
     {
         $this->medicaments = new ArrayCollection();
     }
+
 
     public function getId(): ?int
     {
@@ -60,14 +61,14 @@ class Ordonnance
         return $this;
     }
 
-    public function getIdconsultation(): ?Consultation
+    public function getConsultation(): ?Consultation
     {
-        return $this->idconsultation;
+        return $this->consultation;
     }
 
-    public function setIdconsultation(?Consultation $idconsultation): self
+    public function setConsultation(?Consultation $consultation): self
     {
-        $this->idconsultation = $idconsultation;
+        $this->consultation = $consultation;
 
         return $this;
     }
@@ -84,7 +85,6 @@ class Ordonnance
     {
         if (!$this->medicaments->contains($medicament)) {
             $this->medicaments->add($medicament);
-            $medicament->setOrdonnance($this);
         }
 
         return $this;
@@ -92,13 +92,9 @@ class Ordonnance
 
     public function removeMedicament(Medicament $medicament): self
     {
-        if ($this->medicaments->removeElement($medicament)) {
-            // set the owning side to null (unless already changed)
-            if ($medicament->getOrdonnance() === $this) {
-                $medicament->setOrdonnance(null);
-            }
-        }
+        $this->medicaments->removeElement($medicament);
 
         return $this;
     }
+
 }

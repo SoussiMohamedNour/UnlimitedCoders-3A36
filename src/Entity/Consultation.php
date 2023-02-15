@@ -28,13 +28,15 @@ class Consultation
     #[ORM\Column]
     private ?float $montant = null;
 
-    #[ORM\OneToMany(mappedBy: 'idconsultation', targetEntity: Ordonnance::class)]
+    #[ORM\OneToMany(mappedBy: 'consultation', targetEntity: Ordonnance::class)]
     private Collection $ordonnances;
 
     public function __construct()
     {
         $this->ordonnances = new ArrayCollection();
     }
+
+
 
 
     public function getReference(): ?int
@@ -96,6 +98,10 @@ class Consultation
 
         return $this;
     }
+    public function __toString():String
+    {
+        return $this->getReference();
+    }
 
     /**
      * @return Collection<int, Ordonnance>
@@ -109,7 +115,7 @@ class Consultation
     {
         if (!$this->ordonnances->contains($ordonnance)) {
             $this->ordonnances->add($ordonnance);
-            $ordonnance->setIdconsultation($this);
+            $ordonnance->setConsultation($this);
         }
 
         return $this;
@@ -119,15 +125,12 @@ class Consultation
     {
         if ($this->ordonnances->removeElement($ordonnance)) {
             // set the owning side to null (unless already changed)
-            if ($ordonnance->getIdconsultation() === $this) {
-                $ordonnance->setIdconsultation(null);
+            if ($ordonnance->getConsultation() === $this) {
+                $ordonnance->setConsultation(null);
             }
         }
 
         return $this;
     }
-    public function __toString():String
-    {
-        return $this->getReference();
-    }
+
 }

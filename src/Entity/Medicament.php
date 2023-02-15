@@ -3,6 +3,8 @@
 namespace App\Entity;
 
 use App\Repository\MedicamentRepository;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 
 #[ORM\Entity(repositoryClass: MedicamentRepository::class)]
@@ -25,8 +27,15 @@ class Medicament
     #[ORM\Column(length: 255)]
     private ?string $description = null;
 
-    #[ORM\ManyToOne(inversedBy: 'medicaments')]
-    private ?Ordonnance $ordonnance = null;
+    #[ORM\ManyToMany(targetEntity: Ordonnance::class, mappedBy: 'medicaments')]
+    private Collection $ordonnances;
+
+    public function __construct()
+    {
+        $this->consultations = new ArrayCollection();
+        $this->ordonnances = new ArrayCollection();
+    }
+
 
     public function getId(): ?int
     {
@@ -80,16 +89,36 @@ class Medicament
 
         return $this;
     }
-
-    public function getOrdonnance(): ?Ordonnance
+    public function __toString(): string
     {
-        return $this->ordonnance;
+        return $this->nom;
     }
 
-    public function setOrdonnance(?Ordonnance $ordonnance): self
+    /**
+     * @return Collection<int, Ordonnance>
+     */
+    public function getOrdonnances(): Collection
     {
-        $this->ordonnance = $ordonnance;
+        return $this->ordonnances;
+    }
+
+    public function addOrdonnance(Ordonnance $ordonnance): self
+    {
+        if (!$this->ordonnances->contains($ordonnance)) {
+            $this->ordonnances->add($ordonnance);
+            $ordonnance->addMedicament($this);
+        }
 
         return $this;
     }
+
+    public function removeOrdonnance(Ordonnance $ordonnance): self
+    {
+        if ($this->ordonnances->removeElement($ordonnance)) {
+            $ordonnance->removeMedicament($this);
+        }
+
+        return $this;
+    }
+
 }
