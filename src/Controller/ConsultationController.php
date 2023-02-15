@@ -44,7 +44,7 @@ class ConsultationController extends AbstractController
         ]);
     }
 
-    #[Route('/consultation/{reference}', name: 'app_consultation_show', methods: ['GET'])]
+    #[Route('/consultation/show/{reference}', name: 'app_consultation_show', methods: ['GET'])]
     public function show(Consultation $consultation): Response
     {
         return $this->render('BackOffice/consultation/show.html.twig', [
@@ -84,15 +84,15 @@ class ConsultationController extends AbstractController
     public function genereatePDF(ConsultationRepository $repo):void
 
     {
-        // $consultation = $repo->findAll();
-        // $temps = date("h:i:sa");
-        // $pdf_options = new Options();
-        // $pdf_options->setDefaultFont('defaultFont','Arial');
-        // $dompdf = new Dompdf($pdf_options);
-        // $html = $this->renderForm('/BackOffice/consultation/new.html.twig',['consultation'=>$consultation,'date'=>$temps]);
-        // $dompdf->load_html($html);
-        // $dompdf->setPaper('A4','portrait');
-        // $dompdf->render();
-        // $dompdf->stream("Consultation.pdf",['attachement'=>false]);
+        $consultation = $repo->findAll();
+        $temps = date("h:i:sa");
+        $pdf_options = new Options();
+        $pdf_options->setDefaultFont('defaultFont','Arial');
+        $dompdf = new Dompdf($pdf_options);
+        $html = $this->renderForm('/BackOffice/consultation/pdf.html.twig',['consultation'=>$consultation,'date'=>$temps]);
+        $dompdf->load_html($html);
+        $dompdf->setPaper('A4','portrait');
+        $dompdf->render();
+        $dompdf->stream("Consultation.pdf",['attachement'=>false]);
     }
 }
