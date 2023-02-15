@@ -89,11 +89,6 @@ class Medicament
 
         return $this;
     }
-    public function __toString(): string
-    {
-        return $this->nom;
-    }
-
     /**
      * @return Collection<int, Ordonnance>
      */
@@ -119,6 +114,10 @@ class Medicament
         }
 
         return $this;
+    }
+    public function __toString():string
+    {
+        return $this->nom;
     }
 
 }
