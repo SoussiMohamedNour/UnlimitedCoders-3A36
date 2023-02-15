@@ -5,10 +5,14 @@ namespace App\Controller;
 use App\Entity\Consultation;
 use App\Form\ConsultationType;
 use App\Repository\ConsultationRepository;
+use phpDocumentor\Reflection\Types\Void_;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+
+use Dompdf\Dompdf;
+use Dompdf\Options;
 
 #[Route('/backoffice')]
 class ConsultationController extends AbstractController
@@ -74,5 +78,21 @@ class ConsultationController extends AbstractController
         }
 
         return $this->redirectToRoute('app_consultation_index', [], Response::HTTP_SEE_OTHER);
+    }
+
+    #[Route('/consultation/pdf',name:'app_consultation_pdf')]
+    public function genereatePDF(ConsultationRepository $repo):void
+
+    {
+        // $consultation = $repo->findAll();
+        // $temps = date("h:i:sa");
+        // $pdf_options = new Options();
+        // $pdf_options->setDefaultFont('defaultFont','Arial');
+        // $dompdf = new Dompdf($pdf_options);
+        // $html = $this->renderForm('/BackOffice/consultation/new.html.twig',['consultation'=>$consultation,'date'=>$temps]);
+        // $dompdf->load_html($html);
+        // $dompdf->setPaper('A4','portrait');
+        // $dompdf->render();
+        // $dompdf->stream("Consultation.pdf",['attachement'=>false]);
     }
 }

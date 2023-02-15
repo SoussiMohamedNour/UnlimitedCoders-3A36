@@ -1,0 +1,47 @@
+{% block body %}
+<style>
+
+table,th,td{
+    border:1px solid black;
+}
+h1 {text-align: center;}
+</style>
+<body>
+
+    <h1> Liste Consultation</h1>
+
+<img alt="App logo" src="{{ asset('images/LogoApp.png') }}" />
+<table style="width:100%">
+<thead>
+    <tr>
+        <th>Id Consultation</th>
+        <th>Matricule Medecin</th>
+        <th>Id Patient</th>
+        <th>Date Consultation</th>
+        <th>Montant</th>
+        <th>Liste Ordonnances</th>
+    </tr>
+</thead>
+<tbody>
+    {% for c in consultation %}
+        <tr>
+            <td>{{c.reference}}</td>
+            <td>{{c.matriculemedecin}}</td>
+            <td>{{c.idpatient}}</td>
+            <td>{{c.dateconsultation|date}}</td>
+            <td>{{c.montant}}</td>
+            <td>
+            <ul>
+                {% for s in c.ordonnances %}
+                    <li>{{s.reference}}</li>
+                {% endfor %}
+            </ul>
+            </td>
+        </tr>
+    {% endfor %}
+
+</tbody>
+</table>
+
+    <h2> Généré le {{ date }}</h2>
+{% endblock %}
