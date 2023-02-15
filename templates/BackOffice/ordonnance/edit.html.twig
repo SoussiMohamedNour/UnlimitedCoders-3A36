@@ -1,13 +1,21 @@
-{% extends 'base.html.twig' %}
+{% extends 'BackOffice/ordonnance/base.html.twig' %}
 
 {% block title %}Edit Ordonnance{% endblock %}
 
 {% block body %}
-    <h1>Edit Ordonnance</h1>
 
-    {{ include('ordonnance/_form.html.twig', {'button_label': 'Update'}) }}
-
-    <a href="{{ path('app_ordonnance_index') }}">back to list</a>
-
-    {{ include('ordonnance/_delete_form.html.twig') }}
+<section class="content-main">
+    <div class="card mb-4">
+        <div class="content-header">
+            <h2 class="content-title">Modifier Ordonnance</h2>
+            <a href="{{ path('app_ordonnance_index')}}" class="btn btn-outline-danger"> &times; Annuler</a>
+        </div>
+    </div>
+    <div>
+        {{ include('BackOffice/ordonnance/_form.html.twig', {'button_label': 'Modifier'}) }}
+        {# <a href="{{ path('app_ordonnance_index') }}">back to list</a> #}
+        <br>
+        {{ include('BackOffice/ordonnance/_delete_form.html.twig') }}
+    </div>
+</section>
 {% endblock %}
