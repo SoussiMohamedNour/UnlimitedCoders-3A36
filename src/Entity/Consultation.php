@@ -126,4 +126,8 @@ class Consultation
 
         return $this;
     }
+    public function __toString():String
+    {
+        return $this->getReference();
+    }
 }

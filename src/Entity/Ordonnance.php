@@ -13,8 +13,8 @@ class Ordonnance
     #[ORM\Id]
     #[ORM\GeneratedValue]
 
-    #[ORM\Column(name:'id',length: 255)]
-    private ?string $reference = null;
+    #[ORM\Column(type:'integer',name:'id',length: 255)]
+    private ?int $reference = null;
 
     #[ORM\Column]
     private ?int $validite = null;
@@ -36,12 +36,12 @@ class Ordonnance
         return $this->id;
     }
 
-    public function getReference(): ?string
+    public function getReference(): ?int
     {
         return $this->reference;
     }
 
-    public function setReference(string $reference): self
+    public function setReference(int $reference): self
     {
         $this->reference = $reference;
 
