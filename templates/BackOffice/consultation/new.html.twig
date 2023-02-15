@@ -1,11 +1,20 @@
-{% extends 'base.html.twig' %}
+{% extends 'BackOffice/consultation/base.html.twig' %}
 
 {% block title %}New Consultation{% endblock %}
 
 {% block body %}
-    <h1>Create new Consultation</h1>
+<section class="content-main">
 
-    {{ include('consultation/_form.html.twig') }}
-
-    <a href="{{ path('app_consultation_index') }}">back to list</a>
+<div class="card mb-4">
+    <div class="content-header">
+        <h2 class="content-title">Ajouter Consultation</h2>
+        <a href="{{ path('app_consultation_index')}}" class="btn btn-outline-danger"> &times; Annuler</a>
+    </div>
+    <div class="card-body">
+        {{ include('BackOffice/consultation/_form.html.twig') }}
+        <br>
+        <a class="btn btn-primary" href="{{ path('app_consultation_index') }}">Liste</a>
+    </div>
+</div>
+</section>
 {% endblock %}
