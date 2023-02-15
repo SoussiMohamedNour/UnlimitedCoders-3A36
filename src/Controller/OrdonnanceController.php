@@ -10,7 +10,7 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
-#[Route('/backoffice/')]
+#[Route('/backoffice')]
 class OrdonnanceController extends AbstractController
 {
     #[Route('/ordonnance', name: 'app_ordonnance_index', methods: ['GET'])]
