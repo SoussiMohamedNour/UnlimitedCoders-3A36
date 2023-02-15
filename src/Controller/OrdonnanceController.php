@@ -40,7 +40,7 @@ class OrdonnanceController extends AbstractController
         ]);
     }
 
-    #[Route('/ordonnance/{reference}', name: 'app_ordonnance_show', methods: ['GET'])]
+    #[Route('/ordonnance/show/{reference}', name: 'app_ordonnance_show', methods: ['GET'])]
     public function show(Ordonnance $ordonnance): Response
     {
         return $this->render('BackOffice/ordonnance/show.html.twig', [

@@ -40,7 +40,7 @@ class MedicamentController extends AbstractController
         ]);
     }
 
-    #[Route('/medicament/{id}', name: 'app_medicament_show', methods: ['GET'])]
+    #[Route('/medicament/show/{id}', name: 'app_medicament_show', methods: ['GET'])]
     public function show(Medicament $medicament): Response
     {
         return $this->render('BackOffice/medicament/show.html.twig', [
