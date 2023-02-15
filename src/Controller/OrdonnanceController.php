@@ -10,18 +10,18 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
-#[Route('/ordonnance')]
+#[Route('/backoffice/')]
 class OrdonnanceController extends AbstractController
 {
-    #[Route('/', name: 'app_ordonnance_index', methods: ['GET'])]
+    #[Route('/ordonnance', name: 'app_ordonnance_index', methods: ['GET'])]
     public function index(OrdonnanceRepository $ordonnanceRepository): Response
     {
-        return $this->render('ordonnance/index.html.twig', [
+        return $this->render('BackOffice/ordonnance/index.html.twig', [
             'ordonnances' => $ordonnanceRepository->findAll(),
         ]);
     }
 
-    #[Route('/new', name: 'app_ordonnance_new', methods: ['GET', 'POST'])]
+    #[Route('/ordonnance/ajouter', name: 'app_ordonnance_new', methods: ['GET', 'POST'])]
     public function new(Request $request, OrdonnanceRepository $ordonnanceRepository): Response
     {
         $ordonnance = new Ordonnance();
@@ -34,21 +34,21 @@ class OrdonnanceController extends AbstractController
             return $this->redirectToRoute('app_ordonnance_index', [], Response::HTTP_SEE_OTHER);
         }
 
-        return $this->renderForm('ordonnance/new.html.twig', [
+        return $this->renderForm('BackOffice/ordonnance/new.html.twig', [
             'ordonnance' => $ordonnance,
             'form' => $form,
         ]);
     }
 
-    #[Route('/{reference}', name: 'app_ordonnance_show', methods: ['GET'])]
+    #[Route('/ordonnance/{reference}', name: 'app_ordonnance_show', methods: ['GET'])]
     public function show(Ordonnance $ordonnance): Response
     {
-        return $this->render('ordonnance/show.html.twig', [
+        return $this->render('BackOffice/ordonnance/show.html.twig', [
             'ordonnance' => $ordonnance,
         ]);
     }
 
-    #[Route('/{reference}/edit', name: 'app_ordonnance_edit', methods: ['GET', 'POST'])]
+    #[Route('/ordonnance/modifier/{reference}', name: 'app_ordonnance_edit', methods: ['GET', 'POST'])]
     public function edit(Request $request, Ordonnance $ordonnance, OrdonnanceRepository $ordonnanceRepository): Response
     {
         $form = $this->createForm(OrdonnanceType::class, $ordonnance);
@@ -60,13 +60,13 @@ class OrdonnanceController extends AbstractController
             return $this->redirectToRoute('app_ordonnance_index', [], Response::HTTP_SEE_OTHER);
         }
 
-        return $this->renderForm('ordonnance/edit.html.twig', [
+        return $this->renderForm('BackOffice/ordonnance/edit.html.twig', [
             'ordonnance' => $ordonnance,
             'form' => $form,
         ]);
     }
 
-    #[Route('/{reference}', name: 'app_ordonnance_delete', methods: ['POST'])]
+    #[Route('/ordonnance/supprimer/{reference}', name: 'app_ordonnance_delete', methods: ['POST'])]
     public function delete(Request $request, Ordonnance $ordonnance, OrdonnanceRepository $ordonnanceRepository): Response
     {
         if ($this->isCsrfTokenValid('delete'.$ordonnance->getReference(), $request->request->get('_token'))) {
