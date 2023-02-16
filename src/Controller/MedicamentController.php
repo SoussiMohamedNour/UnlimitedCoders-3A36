@@ -10,6 +10,9 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
+use Dompdf\Dompdf;
+use Dompdf\Options;
+
 #[Route('/backoffice')]
 class MedicamentController extends AbstractController
 {
@@ -74,5 +77,19 @@ class MedicamentController extends AbstractController
         }
 
         return $this->redirectToRoute('app_medicament_index', [], Response::HTTP_SEE_OTHER);
+    }
+    #[Route('/medicament/pdf',name:'app_medicament_pdf')]
+    public function generatePDF(MedicamentRepository $repo):void 
+    {
+        $medicament = $repo->findAll();
+        $temps = date("h:i:sa");
+        $pdf_options = new Options();
+        $pdf_options->setDefaultFont('defaultFont','Arial');
+        $dompdf = new Dompdf($pdf_options);
+        $html = $this->renderForm('/BackOffice/medicament/pdf.html.twig',['medicament'=>$medicament,'date'=>$temps]);
+        $dompdf->loadHtml($html);
+        $dompdf->setPaper('A4','portrait');
+        $dompdf->render();
+        $dompdf->stream("Medicament.pdf",['attachement'=>false]);
     }
 }

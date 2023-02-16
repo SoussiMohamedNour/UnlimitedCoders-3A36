@@ -1,0 +1,39 @@
+{% block body %}
+<style>
+
+table,th,td{
+    border:1px solid black;
+}
+h1 {text-align: center;}
+</style>
+<body>
+
+    <h1> Liste Médicament</h1>
+
+<img alt="App logo" href="{{ asset('images/LogoApp.png') }}" />
+<table style="width:100%">
+<thead>
+    <tr>
+        <th>Id Médicament</th>
+        <th>Nom</th>
+        <th>Dosage</th>
+        <th>Prix</th>
+        <th>Description</th>
+    </tr>
+</thead>
+<tbody>
+    {% for m in medicament %}
+        <tr>
+            <td>{{m.id}}</td>
+            <td>{{m.nom}}</td>
+            <td>{{m.dosage}}</td>
+            <td>{{m.prix}}</td>
+            <td>{{m.description}}</td>
+        </tr>
+    {% endfor %}
+
+</tbody>
+</table>
+
+    <h2> Généré le {{ date }}</h2>
+{% endblock %}
