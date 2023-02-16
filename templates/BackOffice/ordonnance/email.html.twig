@@ -1,0 +1,23 @@
+{% extends 'BackOffice/consultation/base.html.twig' %}
+
+{% block title %}Email Ordonnance{% endblock %}
+
+{% block body %}
+
+    {{ form_start(form) }}
+<section class="content-main">
+    <div class="card mb-4">
+        <div class="content-header">
+            <h2 class="content-title">Email</h2>
+            <a href="{{ path('app_ordonnance_index')}}" class="btn btn-outline-danger"> &times; Annuler</a>
+        </div>
+        <div class="card-body">
+            {{ form_widget(form) }}
+
+        </div>
+    </div>
+
+    {{ form_end(form) }}
+</section>
+{% endblock %}
+

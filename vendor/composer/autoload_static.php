@@ -82,6 +82,7 @@ class ComposerStaticInit182778a1573b06150f376efcf2a928a2
             'Symfony\\Component\\Messenger\\Bridge\\Doctrine\\' => 44,
             'Symfony\\Component\\Messenger\\Bridge\\Amqp\\' => 40,
             'Symfony\\Component\\Messenger\\' => 28,
+            'Symfony\\Component\\Mailer\\Bridge\\Google\\' => 39,
             'Symfony\\Component\\Mailer\\' => 25,
             'Symfony\\Component\\Intl\\' => 23,
             'Symfony\\Component\\HttpKernel\\' => 29,
@@ -354,6 +355,10 @@ class ComposerStaticInit182778a1573b06150f376efcf2a928a2
         'Symfony\\Component\\Messenger\\' => 
         array (
             0 => __DIR__ . '/..' . '/symfony/messenger',
+        ),
+        'Symfony\\Component\\Mailer\\Bridge\\Google\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/symfony/google-mailer',
         ),
         'Symfony\\Component\\Mailer\\' => 
         array (
@@ -632,6 +637,7 @@ class ComposerStaticInit182778a1573b06150f376efcf2a928a2
         'App\\Entity\\Medicament' => __DIR__ . '/../..' . '/src/Entity/Medicament.php',
         'App\\Entity\\Ordonnance' => __DIR__ . '/../..' . '/src/Entity/Ordonnance.php',
         'App\\Form\\ConsultationType' => __DIR__ . '/../..' . '/src/Form/ConsultationType.php',
+        'App\\Form\\MailerType' => __DIR__ . '/../..' . '/src/Form/MailerType.php',
         'App\\Form\\MedicamentType' => __DIR__ . '/../..' . '/src/Form/MedicamentType.php',
         'App\\Form\\OrdonnanceType' => __DIR__ . '/../..' . '/src/Form/OrdonnanceType.php',
         'App\\Kernel' => __DIR__ . '/../..' . '/src/Kernel.php',
@@ -5053,6 +5059,8 @@ class ComposerStaticInit182778a1573b06150f376efcf2a928a2
         'Symfony\\Component\\Intl\\Util\\IcuVersion' => __DIR__ . '/..' . '/symfony/intl/Util/IcuVersion.php',
         'Symfony\\Component\\Intl\\Util\\IntlTestHelper' => __DIR__ . '/..' . '/symfony/intl/Util/IntlTestHelper.php',
         'Symfony\\Component\\Intl\\Util\\Version' => __DIR__ . '/..' . '/symfony/intl/Util/Version.php',
+        'Symfony\\Component\\Mailer\\Bridge\\Google\\Transport\\GmailSmtpTransport' => __DIR__ . '/..' . '/symfony/google-mailer/Transport/GmailSmtpTransport.php',
+        'Symfony\\Component\\Mailer\\Bridge\\Google\\Transport\\GmailTransportFactory' => __DIR__ . '/..' . '/symfony/google-mailer/Transport/GmailTransportFactory.php',
         'Symfony\\Component\\Mailer\\DataCollector\\MessageDataCollector' => __DIR__ . '/..' . '/symfony/mailer/DataCollector/MessageDataCollector.php',
         'Symfony\\Component\\Mailer\\DelayedEnvelope' => __DIR__ . '/..' . '/symfony/mailer/DelayedEnvelope.php',
         'Symfony\\Component\\Mailer\\Envelope' => __DIR__ . '/..' . '/symfony/mailer/Envelope.php',

@@ -3,6 +3,7 @@
 namespace App\Controller;
 
 use App\Entity\Ordonnance;
+use App\Form\MailerType;
 use App\Form\OrdonnanceType;
 use App\Repository\OrdonnanceRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -12,6 +13,9 @@ use Symfony\Component\Routing\Annotation\Route;
 
 use Dompdf\Dompdf;
 use Dompdf\Options;
+
+use Symfony\Component\Mailer\MailerInterface;
+use Symfony\Component\Mime\Email;
 
 #[Route('/backoffice')]
 class OrdonnanceController extends AbstractController
@@ -92,5 +96,25 @@ class OrdonnanceController extends AbstractController
         $dompdf->setPaper('A4','portrait');
         $dompdf->render();
         $dompdf->stream("Ordonnance.pdf",['attachement'=>false]);
+    }
+    #[Route('/ordonnance/mail',name:'app_ordonnance_mail')]
+    public function sendMail(OrdonnanceRepository $repo,MailerInterface $mailer,Request $request)
+    {
+        $form = $this->createForm(MailerType::class);
+        $form->handleRequest($request);
+        $email = (new Email());
+        if($form->isSubmitted() && $form->isValid())
+        {
+            $from = $form->get('From')->getData();
+            $to = $form->get('to')->getData();
+            $subject = $form->get('subject')->getData();
+            $text = $form->get('text')->getData();
+            $email->from($from)
+            ->to($to)
+            ->subject($subject)
+            ->text($text);
+        }
+        $mailer->send($email);
+        return $this->renderForm('/BackOffice/ordonnance/email.html.twig',['form'=>$form]);
     }
 }
