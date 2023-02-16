@@ -10,6 +10,9 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
+use Dompdf\Dompdf;
+use Dompdf\Options;
+
 #[Route('/backoffice')]
 class OrdonnanceController extends AbstractController
 {
@@ -74,5 +77,20 @@ class OrdonnanceController extends AbstractController
         }
 
         return $this->redirectToRoute('app_ordonnance_index', [], Response::HTTP_SEE_OTHER);
+    }
+
+    #[Route('/ordonnance/pdf',name:'app_ordonnance_pdf')]
+    public function generatePDF(OrdonnanceRepository $repo):void 
+    {
+        $ordonnance = $repo->findAll();
+        $temps = date("h:i:sa");
+        $pdf_options = new Options();
+        $pdf_options->setDefaultFont('defaultFont','Arial');
+        $dompdf = new Dompdf($pdf_options);
+        $html = $this->renderForm('/BackOffice/ordonnance/pdf.html.twig',['ordonnance'=>$ordonnance,'date'=>$temps]);
+        $dompdf->loadHtml($html);
+        $dompdf->setPaper('A4','portrait');
+        $dompdf->render();
+        $dompdf->stream("Ordonnance.pdf",['attachement'=>false]);
     }
 }
