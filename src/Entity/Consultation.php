@@ -8,27 +8,36 @@ use Doctrine\Common\Collections\Collection;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
 
+use Symfony\Component\Serializer\Annotation\Groups;
+
 #[ORM\Entity(repositoryClass: ConsultationRepository::class)]
 class Consultation
 {
     #[ORM\Id]
     #[ORM\GeneratedValue]
     #[ORM\Column(type:'integer',name:'id',length: 255)]
+    #[Groups("consultations")]
     private ?int $reference = null;
 
     #[ORM\Column(length: 255)]
+    #[Groups("consultations")]
     private ?string $matriculemedecin = null;
 
     #[ORM\Column(length: 255)]
+    #[Groups("consultations")]
     private ?string $idpatient = null;
 
     #[ORM\Column(type: Types::DATE_MUTABLE)]
+    #[Groups("consultations")]
     private ?\DateTimeInterface $dateconsultation = null;
 
     #[ORM\Column]
+    #[Groups("consultations")]
     private ?float $montant = null;
 
     #[ORM\OneToMany(mappedBy: 'consultation', targetEntity: Ordonnance::class)]
+
+    #[Groups("consultations")]
     private Collection $ordonnances;
 
     public function __construct()

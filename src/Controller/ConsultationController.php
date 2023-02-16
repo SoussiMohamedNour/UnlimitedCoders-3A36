@@ -13,6 +13,9 @@ use Symfony\Component\Routing\Annotation\Route;
 
 use Dompdf\Dompdf;
 use Dompdf\Options;
+use Symfony\Component\Serializer\Normalizer\NormalizerInterface;
+use Symfony\Component\Serializer\Serializer;
+use Symfony\Component\Serializer\SerializerInterface;
 
 #[Route('/backoffice')]
 class ConsultationController extends AbstractController
@@ -95,4 +98,44 @@ class ConsultationController extends AbstractController
         $dompdf->render();
         $dompdf->stream("Consultation.pdf",['attachement'=>false]);
     }
+    // Workshop JSON
+    #[Route('/consultation/index_json',name:'app_consultation_index_json')]
+    public function indexJson(ConsultationRepository $repo,SerializerInterface $serializer)
+    {
+        $consultations = $repo->findAll();
+        $json = $serializer->serialize($consultations,'json',['groups'=>'consultations']);
+        return new Response($json);
+    }
+    #[Route('/consultation/recupererjson/{reference}',name:'app_consultation_recuperer_json')]
+    public function recupererJson($reference,NormalizerInterface $normalizerInterface,ConsultationRepository $repo)
+    {
+        $consultation = $repo->find($reference);
+        $consultationNormalizer = $normalizerInterface->normalize($consultation,'json',['groups'=>'consultations']);
+        return new Response(json_encode($consultationNormalizer));
+    }
+    #[Route('/consultation/ajouter_json',name:'app_consultation_ajouter_json')]
+    public function ajouterJson(Request $req,NormalizerInterface $normalizerInterface)
+    {
+        $em = $this->getDoctrine()->getManager();
+        $consultation = new Consultation();
+        $consultation->setMatriculemedecin($req->get('matricule'));
+        $consultation->setIdpatient($req->get('id'));
+        $consultation->setMontant($req->get('montant'));
+        $consultation->setDateconsultation($req->get('date'));
+        $em->persist($consultation);
+        $em-flush();
+        $jsonContent  = $normalizerInterface->normalize($consultation,'json',['groups'=>'consultations']);
+        return new Response(json_encode($jsonContent));
+    }
+    #[Route('/consultation/supprimerjson/{reference}',name:'app_consultaiton_suuprimer_json')]
+    public function supprimerJson(Request $req,$reference,NormalizerInterface $normalizerInterface)
+    {
+        $em = $this->getDoctrine()->getManager();
+        $consultation = $em->getRepository(Consultation::class)->find($reference);
+        $em->remove($consultation);
+        $em->flush();
+        $jsonContent = $normalizerInterface->normalize($consultation,'json',['groups','consultations']);
+        return new Response("Consultation Suppprimée".json_encode($jsonContent));
+    }
+    
 }
