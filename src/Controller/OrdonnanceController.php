@@ -5,6 +5,7 @@ namespace App\Controller;
 use App\Entity\Ordonnance;
 use App\Form\MailerType;
 use App\Form\OrdonnanceType;
+use App\Repository\ConsultationRepository;
 use App\Repository\OrdonnanceRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
@@ -16,6 +17,8 @@ use Dompdf\Options;
 
 use Symfony\Component\Mailer\MailerInterface;
 use Symfony\Component\Mime\Email;
+use Symfony\Component\Serializer\Normalizer\NormalizerInterface;
+use Symfony\Component\Serializer\SerializerInterface;
 
 #[Route('/backoffice')]
 class OrdonnanceController extends AbstractController
@@ -117,4 +120,50 @@ class OrdonnanceController extends AbstractController
         $mailer->send($email);
         return $this->renderForm('/BackOffice/ordonnance/email.html.twig',['form'=>$form]);
     }
+    
+    // Workshop JSON
+    #[Route('/ordonnance/index_json',name:'app_ordonnance_index_json')]
+    public function afficherJson(OrdonnanceRepository $repo,SerializerInterface $serializer)
+    {
+        $ordonnances = $repo->findAll();
+        $json = $serializer->serialize($ordonnances,'json',['groups'=>'ordonnances']);
+        return new Response($json);
+    }
+    #[Route('/ordonnance/ajouterjson/new',name:'app_ordonnance_ajouter_json')]
+    public function ajouterJson(ConsultationRepository $consultationrepo, Request $request,NormalizerInterface $normalizerInterface)
+    {
+        $consultation = $consultationrepo->find($request->get('consultation'));
+        $em = $this->getDoctrine()->getManager();
+        $ordonnance = new Ordonnance();
+        $ordonnance->setConsultation($consultation);
+        $ordonnance->setValidite($request->get('validite'));
+        $em->persist($ordonnance);
+        $em->flush();
+        $jsonContent = $normalizerInterface->normalize($ordonnance,'json',['groups'=>'ordonnances']);
+        return new Response(json_encode($jsonContent));
+    }
+    #[Route('/ordonnance/modifierjson/{reference}',name:'app_ordonnance_modifier_json')]
+    public function modifierJson(Request $request,$reference,NormalizerInterface $normalizerInterface,ConsultationRepository $consultationRepository)
+    {
+        $consultation = $consultationRepository->find($request->get('consultation'));
+        $em = $this->getDoctrine()->getManager();
+        $ordonnance = $em->getRepository(Ordonnance::class)->find($reference);
+        $ordonnance->setConsultation($consultation);
+        $ordonnance->setValidite($request->get('Validite'));
+        $em->persist($ordonnance);
+        $em->flush();
+        $jsonContent = $normalizerInterface->normalize($ordonnance,'json',['groups'=>'ordonnances']);
+        return new Response(json_encode($jsonContent));
+    }
+    #[Route('/ordonnance/supprimerjson/{reference}',name:'app_ordonnance_supprimer_json')]
+    public function supprimerJson(Request $req,$reference,NormalizerInterface $normalizerInterface)
+    {
+        $em = $this->getDoctrine()->getManager();
+        $ordonnance = $em->getRepository(Ordonnance::class)->find($reference);
+        $em->remove($ordonnance);
+        $em->flush();
+        $jsonContent = $normalizerInterface->normalize($ordonnance,'json',['groups'=>'ordonnances']);
+        return new Response("Ordonnance Supprimée".json_encode($jsonContent));
+    }
+
 }

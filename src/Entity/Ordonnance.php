@@ -7,6 +7,8 @@ use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 
+use Symfony\Component\Serializer\Annotation\Groups;
+
 #[ORM\Entity(repositoryClass: OrdonnanceRepository::class)]
 class Ordonnance
 {
@@ -14,16 +16,20 @@ class Ordonnance
     #[ORM\GeneratedValue]
 
     #[ORM\Column(type:'integer',name:'id',length: 255)]
+    #[Groups('ordonnances')]
     private ?int $reference = null;
 
     #[ORM\Column]
+    #[Groups('ordonnances')]
     private ?int $validite = null;
 
     #[ORM\ManyToOne(inversedBy: 'ordonnances')]
     #[ORM\JoinColumn(nullable: false)]
+    #[Groups('ordonnances')]
     private ?Consultation $consultation = null;
 
     #[ORM\ManyToMany(targetEntity: Medicament::class, inversedBy: 'ordonnances')]
+    #[Groups('ordonnances')]
     private Collection $medicaments;
 
     public function __construct()
