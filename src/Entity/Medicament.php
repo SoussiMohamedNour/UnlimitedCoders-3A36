@@ -7,27 +7,35 @@ use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 
+use Symfony\Component\Serializer\Annotation\Groups;
+
 #[ORM\Entity(repositoryClass: MedicamentRepository::class)]
 class Medicament
 {
     #[ORM\Id]
     #[ORM\GeneratedValue]
     #[ORM\Column(name:'id',type:'integer')]
+    #[Groups('medicaments')]
     private ?int $id = null;
 
     #[ORM\Column(length: 255)]
+    #[Groups('medicaments')]
     private ?string $nom = null;
 
     #[ORM\Column]
+    #[Groups('medicaments')]
     private ?int $dosage = null;
 
     #[ORM\Column]
+    #[Groups('medicaments')]
     private ?float $prix = null;
 
     #[ORM\Column(length: 255)]
+    #[Groups('medicaments')]
     private ?string $description = null;
 
     #[ORM\ManyToMany(targetEntity: Ordonnance::class, mappedBy: 'medicaments')]
+    #[Groups('medicaments')]
     private Collection $ordonnances;
 
     public function __construct()

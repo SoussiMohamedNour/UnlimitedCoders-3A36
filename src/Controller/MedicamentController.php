@@ -12,6 +12,8 @@ use Symfony\Component\Routing\Annotation\Route;
 
 use Dompdf\Dompdf;
 use Dompdf\Options;
+use Symfony\Component\Serializer\Normalizer\NormalizerInterface;
+use Symfony\Component\Serializer\SerializerInterface;
 
 #[Route('/backoffice')]
 class MedicamentController extends AbstractController
@@ -91,5 +93,61 @@ class MedicamentController extends AbstractController
         $dompdf->setPaper('A4','portrait');
         $dompdf->render();
         $dompdf->stream("Medicament.pdf",['attachement'=>false]);
+    }
+
+    // Workshop JSON
+    #[Route('/medicament/index_json',name:'app_medicament_index_json')]
+    public function indexJson(MedicamentRepository $repo,SerializerInterface $serializerInterface)
+    {
+        $medicaments = $repo->findAll();
+        $json = $serializerInterface->serialize($medicaments,'json',['groups'=>'medicaments']);
+        return new Response($json);
+    }
+    #[Route('/medicament/recuperer/{id}',name:'app_medicament_recuperer_json')]
+    public function recupererJson($id,NormalizerInterface $normalizerInterface,MedicamentRepository $repo)
+    {
+        $medicament = $repo->find($id);
+        $medicamentnormalizer = $normalizerInterface->normalize($medicament,'json',['groups'=>'medicaments']);
+        return new Response(json_encode($medicamentnormalizer));
+    }
+    #[Route('/medicament/ajouter_json',name:'app_medicament_ajouter_json')]
+    public function ajouterJson(Request $request,NormalizerInterface $normalizerInterface)
+    {
+        $em = $this->getDoctrine()->getManager();
+        $medicament = new Medicament();
+        $medicament->setNom($request->get('nom'));
+        $medicament->setDosage($request->get('dosage'));
+        $medicament->setPrix($request->get('prix'));
+        $medicament->setDescription($request->get('description'));
+
+        $em->persist($medicament);
+        $em->flush();
+        
+        $jsonContent = $normalizerInterface->normalize($medicament,'json',['groups'=>'medicaments']);
+        return new Response(json_encode($jsonContent));
+    }
+    #[Route('/medicament/modifier/{id}',name:'app_medicament_modifier_json')]
+    public function modifierJson(Request $request,$id,NormalizerInterface $normalizerInterface)
+    {
+        $em = $this->getDoctrine()->getManager();
+        $medicament = $em->getRepository(Medicament::class)->find($id);
+        $medicament->setNom($request->get('nom'));
+        $medicament->setDosage($request->get('dosage'));
+        $medicament->setPrix($request->get('prix'));
+        $medicament->setDescription($request->get('description'));
+
+        $em->flush();
+        $jsonContent = $normalizerInterface->normalize($medicament,'json',['groups'=>'medicaments']);
+        return new Response("Médicament Modifié avec succès".json_encode($jsonContent));
+    }
+    #[Route('/medicament/supprimer/{id}',name:'app_medicament_supprimer_json')]
+    public function supprimerJson(Request $request,$id,NormalizerInterface $normalizerInterface)
+    {
+        $em = $this->getDoctrine()->getManager();
+        $medicament = $em->getRepository(Medicament::class)->find($id);
+        $em->remove($medicament);
+        $em->flush();
+        $jsonContent = $normalizerInterface->normalize($medicament,'json',['groups'=>'medicaments']);
+        return new Response("Médicament supprimé avec cussès".json_encode($jsonContent));
     }
 }
