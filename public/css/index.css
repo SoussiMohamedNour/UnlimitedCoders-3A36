@@ -16,7 +16,7 @@ a,a:visited{
 }
 
 .login-page {
-  width: 360px;
+  width: fit-content;
   padding: 8% 0 0;
   margin: auto;
 }
@@ -24,12 +24,12 @@ a,a:visited{
   position: relative;
   z-index: 1;
   background: #ffffff;
-  max-width: 360px;
   margin: 0 auto 100px;
   padding: 45px;
   text-align: left;
   box-shadow: 0 0 20px 0 rgba(0, 0, 0, 0.2), 0 5px 5px 0 rgba(0, 0, 0, 0.24);
   border-radius: 8px;
+  width: fit-content;
 }
 .form input {
  
@@ -49,7 +49,7 @@ a,a:visited{
   text-transform: uppercase;
   outline: 0;
   background: #2f8ad0;
-  width: 100%;
+  width: 360px;
   border: 0;
   padding: 15px;
   color: #ffffff;
@@ -122,7 +122,7 @@ body {
     rgb(14, 55, 145) 0%,
     rgb(82, 130, 184) 50%
   );
-  font-family: "Roboto", sans-serif;
+
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
@@ -140,4 +140,12 @@ body {
 .form form {
   display: flex;
   flex-direction: column;
+}
+
+.buttons-container{
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+  justify-content: center;
+  align-items: center;
 }

@@ -1,16 +1,18 @@
-{% extends 'login/index.html.twig' %}
+{% extends 'base.html.twig' %}
 
 {% block title %}Utilisateur{% endblock %}
 
 {% block body %}
 
+{# {% include 'BackOffice/sidebar.html.twig'%} #}
+
 <link href="{{asset('/images/LogoApp.png') }}" rel="icon">
 <link href="{{asset('css/index.css') }}" rel="stylesheet">
 
 
+
     <div class="login-page">
     <div class="form">
-    <h5> Les Utilisateur</h5>
 
     <table class="table">
         <tbody>
@@ -61,10 +63,17 @@
         </tbody>
     </table>
 
-    <a  href="{{ path('app_utilisateur_index') }}">back to list</a>
-     {# <button type="submit">Se Connecter</button> #}
 
-    <a href="{{ path('app_utilisateur_edit', {'id': utilisateur.id}) }}">edit</a>
+    <div class="buttons-container">
+    <a  href="{{ path('app_utilisateur_index') }}">
+      <button>Back To List</button>
+    </a>
+    
 
+    <a href="{{ path('app_utilisateur_edit', {'id': utilisateur.id}) }}">
+      <button >Edit</button>
+    </a>
+    
     {{ include('utilisateur/_delete_form.html.twig') }}
+    </div>
 {% endblock %}

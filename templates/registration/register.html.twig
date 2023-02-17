@@ -1,8 +1,10 @@
-{% extends 'base.html.twig' %}
+{# {% extends 'base.html.twig' %} #}
 
-{% block title %}Register{% endblock %}
+
 
 {% block body %}
+    {# {% include 'BackOffice/sidebar.html.twig'%} #}
+
     <link href="{{asset('css/index.css') }}" rel="stylesheet">
     <link href="{{asset('css/registration.css') }}" rel="stylesheet">
     {% for flash_error in app.flashes('verify_email_error') %}
