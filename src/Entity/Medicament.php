@@ -8,6 +8,7 @@ use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 
 use Symfony\Component\Serializer\Annotation\Groups;
+use Symfony\Component\Validator\Constraints as Assert;
 
 #[ORM\Entity(repositoryClass: MedicamentRepository::class)]
 class Medicament
@@ -16,18 +17,22 @@ class Medicament
     #[ORM\GeneratedValue]
     #[ORM\Column(name:'id',type:'integer')]
     #[Groups('medicaments')]
+    #[Assert\NotBlank(message:"Identifiant est un champs obligatoire")]
     private ?int $id = null;
 
     #[ORM\Column(length: 255)]
     #[Groups('medicaments')]
+    #[Assert\NotBlank(message:"Nom est un champs obligatoire")]
     private ?string $nom = null;
 
     #[ORM\Column]
     #[Groups('medicaments')]
+    #[Assert\Positive(message:"Dosage doit etre un champs positif")]
     private ?int $dosage = null;
 
     #[ORM\Column]
     #[Groups('medicaments')]
+    #[Assert\Positive(message:"Prix doit etre un champs positif")]
     private ?float $prix = null;
 
     #[ORM\Column(length: 255)]

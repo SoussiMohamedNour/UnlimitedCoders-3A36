@@ -9,6 +9,7 @@ use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
 
 use Symfony\Component\Serializer\Annotation\Groups;
+use Symfony\Component\Validator\Constraints as Assert;
 
 #[ORM\Entity(repositoryClass: ConsultationRepository::class)]
 class Consultation
@@ -21,18 +22,22 @@ class Consultation
 
     #[ORM\Column(length: 255)]
     #[Groups("consultations")]
+    #[Assert\NotBlank(message:"Matricule Medecin est un champs obligatoire")]
     private ?string $matriculemedecin = null;
 
     #[ORM\Column(length: 255)]
     #[Groups("consultations")]
+    #[Assert\NotBlank(message:"Identifiant Patient est un champs obligatoire")]
     private ?string $idpatient = null;
 
     #[ORM\Column(type: Types::DATE_MUTABLE)]
     #[Groups("consultations")]
+    #[Assert\NotBlank(message:"Date Consultation est un champs obligatoire")]
     private ?\DateTimeInterface $dateconsultation = null;
 
     #[ORM\Column]
     #[Groups("consultations")]
+    #[Assert\Positive(message:"Montant doit etre un entier positif")]
     private ?float $montant = null;
 
     #[ORM\OneToMany(mappedBy: 'consultation', targetEntity: Ordonnance::class)]

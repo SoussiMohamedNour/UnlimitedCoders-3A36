@@ -8,6 +8,7 @@ use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 
 use Symfony\Component\Serializer\Annotation\Groups;
+use Symfony\Component\Validator\Constraints as Assert;
 
 #[ORM\Entity(repositoryClass: OrdonnanceRepository::class)]
 class Ordonnance
@@ -17,10 +18,12 @@ class Ordonnance
 
     #[ORM\Column(type:'integer',name:'id',length: 255)]
     #[Groups('ordonnances')]
+    #[Assert\NotBlank(message:"Reference est un champs obligatoire")]
     private ?int $reference = null;
 
     #[ORM\Column]
     #[Groups('ordonnances')]
+    #[Assert\Positive(message:"Validite doit etre un entier positif")]
     private ?int $validite = null;
 
     #[ORM\ManyToOne(inversedBy: 'ordonnances')]
