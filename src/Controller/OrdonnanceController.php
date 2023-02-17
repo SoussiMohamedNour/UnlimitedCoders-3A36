@@ -12,6 +12,10 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
+use Symfony\Component\Mime\Part\DataPart;
+use Symfony\Component\Mime\Part\File;
+use Symfony\Component\HttpFoundation\File\UploadedFile;
+
 use Dompdf\Dompdf;
 use Dompdf\Options;
 
@@ -112,6 +116,7 @@ class OrdonnanceController extends AbstractController
             $to = $form->get('to')->getData();
             $subject = $form->get('subject')->getData();
             $text = $form->get('text')->getData();
+            $file = $form->get('file')->getData();
             $email->from($from)
             ->to($to)
             ->subject($subject)
