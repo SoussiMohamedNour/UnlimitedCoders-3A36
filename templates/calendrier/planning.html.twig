@@ -1,0 +1,37 @@
+{% extends 'BackOffice/base.html.twig' %}
+
+{% block body %}
+    <h1>Planning</h1>
+
+    <table class="table">
+        <thead>
+        <tr>
+            <th>Heure</th>
+            <th>{{ 'Lundi'|date('D') }}</th>
+            <th>{{ 'Mardi'|date('D') }}</th>
+            <th>{{ 'Mercredi'|date('D') }}</th>
+            <th>{{ 'Jeudi'|date('D') }}</th>
+            <th>{{ 'Vendredi'|date('D') }}</th>
+            <th>{{ 'Samedi'|date('D') }}</th>
+            <th>{{ 'Dimanche'|date('D') }}</th>
+        </tr>
+        </thead>
+        <tbody>
+        {% for heure in range(8, 20) %}
+            <tr>
+                <td>{{ heure }}h</td>
+                {% for jour in range(1, 7) %}
+                    <td>
+                        {% for disponibility in disponibilities %}
+                            {% if disponibility.date == "now"|date_modify('next ' ~ jours[jour])|date('Y-m-d') and disponibility.heureDebut|date('H') == heure %}
+                                Disponible
+                            {% endif %}
+                        {% endfor %}
+                    </td>
+                {% endfor %}
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+{% endblock %}

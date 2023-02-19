@@ -1,0 +1,9 @@
+{% extends 'Backoffice/base.html.twig' %}
+
+{% block title %}New Calendrier{% endblock %}
+
+{% block body %}
+    {{ include('calendrier/_form.html.twig') }}
+
+    <a href="{{ path('app_calendrier_index') }}">back to list</a>
+{% endblock %}
