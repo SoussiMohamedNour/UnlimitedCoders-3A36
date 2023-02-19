@@ -8,7 +8,8 @@ use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 use Symfony\Component\Security\Core\User\PasswordAuthenticatedUserInterface;
 use Symfony\Component\Security\Core\User\UserInterface;
 use ApiPlatform\Metadata\ApiResource;
-
+use Symfony\Component\Mime\Message;
+use Symfony\Component\Validator\Constraints as Assert;
 
 #[ApiResource]
 #[ORM\Entity(repositoryClass: UtilisateurRepository::class)]
@@ -22,6 +23,7 @@ class Utilisateur implements UserInterface, PasswordAuthenticatedUserInterface
     private ?int $id = null;
 
     #[ORM\Column(length: 180, unique: true)]
+    #[Assert\Email(message:"Votre Nom Est Requis")]
     private ?string $email = null;
 
     #[ORM\Column]
@@ -34,43 +36,33 @@ class Utilisateur implements UserInterface, PasswordAuthenticatedUserInterface
     private ?string $password = null;
 
     #[ORM\Column(length: 255)]
+    #[Assert\NotBlank(message:"Votre Nom Est Requis")]
     private ?string $nom = null;
 
     #[ORM\Column(length: 255)]
+    #[Assert\NotBlank(message:"Votre Nom Est Requis")]
     private ?string $prenom = null;
 
     #[ORM\Column]
+    #[Assert\Positive(message:"Bien Specifier Votre Age")]
     private ?int $age = null;
 
     #[ORM\Column]
     private ?string $sexe = null;
 
-    #[ORM\Column(length: 255)]
+    #[ORM\Column(length: 8)]
+    #[Assert\Length(message:"Bien Specifier Votre Numero GSM")]
     private ?string $num_tel = null;
 
-    #[ORM\Column(length: 255)]
+    #[ORM\Column(length: 8)]
+    #[Assert\NotBlank(message:"Bien Specifier Votre CIN")]
     private ?string $cin = null;
 
 
     #[ORM\Column(type: 'boolean')]
     private $isVerified = false;
 
-    // #[ORM\Column(length: 255)]
-    // private ?string $image = null;
 
-    // private EntityManagerInterface $entityManager;
-
-    // public function __construct(EntityManagerInterface $entityManager)
-    // {
-    //     $this->entityManager = $entityManager;
-    // }
-
-    // private function findOneUserBy(array $options): ?Utilisateur
-    // {
-    //     return $this->entityManager
-    //         ->getRepository(User::class)
-    //         ->findOneBy($this.getEmail());
-    // }
 
     public function getId(): ?int
     {

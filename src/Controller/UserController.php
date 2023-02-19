@@ -15,15 +15,7 @@ use Symfony\Component\HttpFoundation\Request;
 
 class UserController extends AbstractController
 {
-    // #[Route('/user', name: 'app_user')]
-    // public function index(): Response
-    // {
-    //     return $this->render('utilisateur/index.html.twig', [
-    //         'controller_name' => 'UserController',
-    //     ]);
-    // }
-
-   
+    
 
     #[IsGranted('ROLE_MEDECIN')]
     #[Route('/backofficemed', name: 'app_medecin')]

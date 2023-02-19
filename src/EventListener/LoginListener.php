@@ -32,7 +32,7 @@ class LoginListener implements EventSubscriberInterface
         // print('delga');
 
         if (in_array("ROLE_ADMIN", $user->getRoles())) {
-            $response= new RedirectResponse($this->urlGenerator->generate('app_admin'));
+            $response= new RedirectResponse($this->urlGenerator->generate('app_utilisateur_index'));
         }
         elseif (in_array("ROLE_MEDECIN", $user->getRoles())) {
             $response= new RedirectResponse($this->urlGenerator->generate('app_medecin'));
