@@ -1,0 +1,300 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="UTF-8">
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+        <title>{% block title %}Healthified Dashboard{% endblock %}</title>
+
+        <link href="{{ asset('images/LogoApp.png') }}" rel="shortcut icon" >
+        <link rel="stylesheet" href="{{ asset('bundles/mercuryseriesflashy/css/flashy.css') }}">
+        <link href="//fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+        <link href='//fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,600,700' rel='stylesheet'>
+        <link href="{{ asset('css/bootstrapf9e3.css?v=1.1') }}" rel="stylesheet" />
+
+        <!-- custom style -->
+        <link href="{{ asset('css/uif9e3.css?v=1.1') }}" rel="stylesheet"/>
+        <link href="{{ asset('css/responsivef9e3.css?v=1.1') }}" rel="stylesheet" />
+
+        <link rel="stylesheet" href="{{ asset('fonts/material-icon/css/round.css') }}"/>
+        
+        <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 128 128%22><text y=%221.2em%22 font-size=%2296%22>⚫️</text></svg>">
+        {# Run `composer require symfony/webpack-encore-bundle` to start using Symfony UX #}
+
+        {% block stylesheets %}
+            {{ encore_entry_link_tags('app') }}
+        {% endblock %}
+
+        {% block javascripts %}
+            {{ encore_entry_script_tags('app') }}
+        {% endblock %}
+    </head>
+    <body>
+
+        {% block body %}
+        <b class="screen-overlay"></b>
+
+        <aside class="navbar-aside" id="offcanvas_aside">
+        <div class="aside-top">
+        <a href="index.html" class="brand-wrap">
+            <img src="{{ asset('images/LogoApp.png') }}" height="46" class="logo" alt="Healthified dashboard">
+        </a>
+        <div>
+            <button class="btn btn-icon btn-aside-minimize"> <i class="text-muted material-icons md-menu_open"></i> </button>
+        </div>
+    </div> 
+    <nav>
+  <ul class="menu-aside">
+    <li class="menu-item active"> 
+      <a class="menu-link" href="index.html"> <i class="icon material-icons md-home"></i> 
+        <span class="text">Acceuil</span> 
+      </a> 
+    </li>
+      <li class="menu-item ">
+          <a class="menu-link" href="{{ path('app_article_index') }}"> <i class="icon material-icons md-article"></i>
+              <span class="text">Article</span>
+          </a>
+      </li>
+    <li class="menu-item has-submenu">
+      <a class="menu-link" href="ajouter_factures.html"> <i class="icon material-icons md-shopping_bag"></i>  
+        <span class="text">Factures</span> 
+      </a> 
+      <div class="submenu">
+        <a href="ajouter_factures.html">Ajouter Facture</a>
+        <a href="modifier_factures.html">Modifier Facture</a>
+        <a href="supprimer_factures.html">Supprimer Factures</a>
+        <a href="afficher_factures.html">Afficher Factures</a>
+        <a href="calculatrice.html">Calculatrice</a>
+        <a href="mailing_factures.html">Mailing</a>
+        <a href="qrcode.html">QR code</a>
+        <a href="pdf_Excel_factures.html">PDF & Excel</a>
+      </div>
+    </li>
+
+
+    <li class="menu-item has-submenu"> 
+      <a class="menu-link" href="page-form-product-1.html"> <i class="icon material-icons md-add_box"></i>  
+        <span class="text">Station Recharge</span> 
+      </a> 
+      <div class="submenu">
+        <a href="ajouter_station.html">Ajouter station</a>
+        <a href="modifier_station.html">Modifier station</a>
+        <a href="supprimer_station.html">Supprimer station</a>
+        <a href="afficher_station.html">Afficher station</a>
+        <a href="rechercher_tri_station.html">Recherche & Tri</a>
+        <a href="statistique_station.html">Statistiques</a>
+        <a href="Calcul_gain.html">Calcul Gain</a>
+      </div>
+    </li>
+    <li class="menu-item has-submenu">
+      <a class="menu-link" href="page-transactions-A.html"> <i class="icon material-icons md-monetization_on"></i> 
+        <span class="text">Transactions</span> 
+      </a> 
+      <div class="submenu">
+        <a href="page-transactions-A.html">Transaction 1</a>
+        <a href="page-transactions-B.html">Transaction 2</a>
+      </div>
+    </li>
+    <li class="menu-item has-submenu"> 
+      <a class="menu-link" href="#"> <i class="icon material-icons md-person"></i>  
+        <span class="text">Utilsateurs</span> 
+      </a> 
+      <div class="submenu">
+        <a href="ajouter_utilisateurs.html">Ajouter Utilisateurs</a>
+        <a href="modifier_utilisateurs.html">Modifier Utilisateurs</a>
+        <a href="supprimer_utilisateurs.html">Supprimer Utilisateurs</a>
+        <a href="afficher_utilisateurs.html">Afficher Utilisateurs</a>
+        <a href="rechercher_tri_utilisateurs.html">Recherche & Tri</a>
+        <a href="classification_utilisateurs.html">Classification Utilisateurs</a>
+        <a href="calcul_nombre_utilisateurs.html">Calcul Nombre Utilisateurs</a>
+        <a href="mailing_utilisateurs.html">Mailing</a>
+        <a href="pdf_utilisateurs.html">PDF</a>
+		</div>
+		</li>
+    <li class="menu-item has-submenu"> 
+      <a class="menu-link" href="#"> <i class="icon material-icons md-person"></i>  
+        <span class="text">Ouvriers</span> 
+      </a> 
+      <div class="submenu">
+        <a href="ajouter_ouvriers.html">Ajouter ouvriers</a>
+        <a href="modifier_ouvriers.html">Modifier ouvriers</a>
+        <a href="supprimer_ouvriers.html">Supprimer ouvriers</a>
+        <a href="afficher_ouvriers.html">Afficher ouvriers</a>
+        <a href="rechercher_tri_ouvriers.html">Recherche & Tri</a>
+        <a href="mailing_ouvriers.html">Mailing</a>
+        <a href="pdf_ouvriers.html">PDF</a>
+        <a href="excel_ouvriers.html">Excel</a>
+		</div>
+		</li>
+    <li class="menu-item"> 
+      <a class="menu-link" href="page-reviews.html"> <i class="icon material-icons md-comment"></i> 
+        <span class="text">Reviews</span> 
+      </a> 
+    </li>
+    <li class="menu-item"> 
+      <a class="menu-link" href="page-brands.html"> <i class="icon material-icons md-stars"></i> 
+        <span class="text">Marques</span> </a> 
+    </li>
+    <li class="menu-item"> 
+      <a class="menu-link" disabled href="#"> <i class="icon material-icons md-pie_chart"></i> 
+        <span class="text">Statistiques</span>
+      </a> 
+    </li>
+  </ul>
+  <hr>
+  <ul class="menu-aside">
+    <li class="menu-item has-submenu"> 
+      <a class="menu-link" href="#"> <i class="icon material-icons md-settings"></i> 
+        <span class="text">Paramètres</span> 
+      </a>
+      <div class="submenu">
+        <a href="page-settings-1.html">Setting sample 1</a>
+        <a href="page-settings-2.html">Setting sample 2</a>
+      </div>
+    </li>
+    <li class="menu-item">
+      <a class="menu-link" href="page-0-blank.html"> <i class="icon material-icons md-local_offer"></i> 
+    <span class="text"> Starter page </span>
+      </a> 
+    </li>
+  </ul>
+  <br>
+  <br>
+</nav>
+</aside>
+<main class="main-wrap">
+	<header class="main-header navbar">
+		<div class="col-search">
+			<form class="searchform">
+				<div class="input-group">
+				  <input list="search_terms" type="text" class="form-control" placeholder="Recherche" id="search">
+				 {# <button class="btn btn-light bg" type="button"> <i class="material-icons md-search"></i> </button>#}
+				</div>
+
+			</form>
+		</div>
+		<div class="col-nav">
+     <button class="btn btn-icon btn-mobile me-auto" data-trigger="#offcanvas_aside"> <i class="md-28 material-icons md-menu"></i> </button>
+     <ul class="nav">
+      <li class="nav-item">
+          <a class="nav-link btn-icon" onclick="darkmode(this)" title="Dark mode" href="#"> <i class="material-icons md-nights_stay"></i> </a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link btn-icon" href="#"> <i class="material-icons md-notifications_active"></i> </a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="#"> English </a>
+      </li>
+      <li class="dropdown nav-item">
+        <a class="dropdown-toggle" data-bs-toggle="dropdown" href="#"> <img class="img-xs rounded-circle" src="images/people/avatar1.jpg" alt="User"></a>
+        <div class="dropdown-menu dropdown-menu-end">
+          <a class="dropdown-item" href="#">Mon profile</a>
+          <a class="dropdown-item" href="#">Paramètres</a>
+          <a class="dropdown-item text-danger" href="#">Sortie</a>
+        </div>
+      </li>
+    </ul> 
+  </div>
+	</header>
+
+<section class="content-main">
+	<div class="content-header">
+		<h2 class="content-title"> Gestion des articles </h2>
+		<div>
+			<a href="{{ path('app_article_new') }}" class="btn btn-primary">Ajouter un article</a>
+		</div>
+	</div>
+{% block  stats%}
+{% endblock %}
+
+	
+
+{% block table %}
+
+
+	<div class="card mb-4">
+          <div class="card-body">
+          	<h5 class="card-title">{% block titleArticle %} {% endblock %}</h5>
+          	<div class="table-responsive">
+                {% block articles %}
+          	<table class="table table-hover">
+
+
+
+          	</table>
+                {% endblock%}
+          	</div> <!-- table-responsive end// -->
+          </div> <!-- card-body end// -->
+    </div> <!-- card end// -->
+
+
+
+{% endblock  %}
+
+
+
+
+
+</section> <!-- content-main end// -->
+</main>
+
+
+
+<script type="text/javascript">
+	if(localStorage.getItem("darkmode")){
+		var body_el = document.body;
+		body_el.className += 'dark';
+	}
+</script>
+
+<script src="{{ asset('js/jquery-3.5.0.min.js') }}"></script>
+<script src="{{ asset('js/bootstrap.bundle.min.js')}}"></script>
+
+<!-- ChartJS files-->
+<script src="https://cdn.jsdelivr.net/npm/chart.js@2.8.0"></script>
+
+<!-- Custom JS -->
+<script src="js/scriptc619.js?v=1.0" type="text/javascript"></script>
+
+<!-- ChartJS customize-->
+<script>
+	var ctx = document.getElementById('myChart').getContext('2d');
+	var chart = new Chart(ctx, {
+	    // The type of chart we want to create
+	    type: 'line',
+
+	    // The data for our dataset
+	    data: {
+	        labels: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'],
+	        datasets: [
+	        {
+	            label: 'Sales',
+	            backgroundColor: 'rgb(44, 120, 220)',
+	            borderColor: 'rgb(44, 120, 220)',
+	            data: [18, 17, 4, 3, 2, 20, 25, 31, 25, 22, 20, 9]
+	        },
+	        {
+	            label: 'Visitors',
+	            backgroundColor: 'rgb(180, 200, 230)',
+	            borderColor: 'rgb(180, 200, 230)',
+	            data: [40, 20, 17, 9, 23, 35, 39, 30, 34, 25, 27, 17]
+	        } 
+
+	        ]
+	    },
+
+	    // Configuration options go here
+	    options: {}
+	});
+</script>
+
+        {% endblock %}
+        <!-- Flashy depends on jQuery -->
+        <script src="//code.jquery.com/jquery.js"></script>
+        <!-- Load Flashy default JavaScript -->
+        <script src="{{ asset('bundles/mercuryseriesflashy/js/flashy.js') }}"></script>
+        <!-- Include Flashy default partial -->
+        {{ include('@MercurySeriesFlashy/flashy.html.twig') }}
+    </body>
+</html>
+    

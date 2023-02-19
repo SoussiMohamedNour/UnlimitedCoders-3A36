@@ -1,0 +1,11 @@
+{% extends 'baseback.html.twig' %}
+
+{% block table %}
+    {% block titreArticle %}<h5>Modifier Article</h5>{% endblock %}
+
+{% block articles %}
+    {{ include('article/_form.html.twig', {'button_label': 'Modifier'}) }}
+
+    <a href="{{ path('app_article_index') }}"><img src="{{ asset('images/undo.png') }}" width="40" height="40"></a>
+{% endblock %}
+{% endblock %}

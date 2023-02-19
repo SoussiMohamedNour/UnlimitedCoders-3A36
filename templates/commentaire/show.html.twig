@@ -1,0 +1,31 @@
+{% extends 'baseback.html.twig' %}
+{% block table %}
+    {% block titreArticle %}<h5>Commentaire</h5>{% endblock %}
+
+{% block articles %}
+
+
+    <table class="table">
+        <tbody>
+            <tr>
+                <th>Id</th>
+                <td>{{ commentaire.id }}</td>
+            </tr>
+            <tr>
+                <th>Contenu</th>
+                <td>{{ commentaire.commentaireContenu }}</td>
+            </tr>
+            <tr>
+                <th>Commentaire_auth</th>
+                <td>{{ commentaire.commentaireAuth }}</td>
+            </tr>
+            <tr>
+                <th>Commentée en</th>
+                <td>{{ commentaire.commentaireDate ? commentaire.commentaireDate|date('Y-m-d') : '' }}</td>
+            </tr>
+        </tbody>
+    </table>
+
+    {{ include('commentaire/_delete_form.html.twig') }}
+{% endblock %}
+{% endblock %}

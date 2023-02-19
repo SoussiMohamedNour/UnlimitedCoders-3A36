@@ -1,0 +1,8 @@
+{% extends 'baseback.html.twig' %}
+{% block articles %}
+    <h1>Ajouter un nouveau article</h1>
+
+    {{ include('article/_form.html.twig') }}
+
+    <a href="{{ path('app_article_index') }}"><img src="{{ asset('images/undo.png') }}" width="40" height="40"></a>
+{% endblock %}
