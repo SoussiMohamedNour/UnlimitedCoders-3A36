@@ -9,6 +9,7 @@ use App\Entity\Utilisateur;
 use App\Form\RegistrationFormType;
 use App\Form\UtilisateurType;
 use App\Repository\UtilisateurRepository;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Symfony\Component\HttpFoundation\Request;
 
 
@@ -24,13 +25,15 @@ class UserController extends AbstractController
 
    
 
-
+    #[IsGranted('ROLE_MEDECIN')]
     #[Route('/backofficemed', name: 'app_medecin')]
     public function home(): Response
     {
         return $this->render('BackOffice/medecin.html.twig');
+    
     }
 
+    #[IsGranted('ROLE_ADMIN')]
     #[Route('/backofficeadmin', name: 'app_admin')]
     public function admin(): Response
     {
@@ -54,7 +57,7 @@ class UserController extends AbstractController
         ]);
     }
 
-
+    #[IsGranted('ROLE_ADMIN')]
     #[Route('/user', name: 'app_utilisateur_index', methods: ['GET'])]
     public function index3(UtilisateurRepository $utilisateurRepository): Response
     {
@@ -70,7 +73,7 @@ class UserController extends AbstractController
         // controller can be blank: it will never be called!
         return $this->redirectToRoute('login/index.html.twig');
     }
-
+    #[IsGranted('ROLE_ADMIN')]
     #[Route('user/{id}', name: 'app_utilisateur_show', methods: ['GET'])]
     public function show(Utilisateur $utilisateur): Response
     {
@@ -78,7 +81,7 @@ class UserController extends AbstractController
             'utilisateur' => $utilisateur,
         ]);
     }
-
+    #[IsGranted('ROLE_ADMIN')]
     #[Route('user/{id}/edit', name: 'app_utilisateur_edit', methods: ['GET', 'POST'])]
     public function edit(Request $request, Utilisateur $utilisateur, UtilisateurRepository $utilisateurRepository): Response
     {
@@ -96,7 +99,7 @@ class UserController extends AbstractController
             'form' => $form,
         ]);
     }
-
+    #[IsGranted('ROLE_ADMIN')]
     #[Route('user/{id}/delete', name: 'app_utilisateur_delete', methods: ['POST'])]
     public function delete(Request $request, Utilisateur $utilisateur, UtilisateurRepository $utilisateurRepository): Response
     {
