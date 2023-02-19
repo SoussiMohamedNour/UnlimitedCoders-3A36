@@ -25,4 +25,6 @@
 ## Intégration Template
 ### template Backoffice
 - ouvrable avec route `/backoffice`
+### template Front
+- ouvrable avec route `/home/page`
 
