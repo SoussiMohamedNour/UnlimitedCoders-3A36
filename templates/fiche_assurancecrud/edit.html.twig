@@ -1,0 +1,13 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Edit FicheAssurance{% endblock %}
+
+{% block section %}
+    <h1 style = "position:relative; left:500px; ">Edit FicheAssurance</h1>
+
+    {{ include('fiche_assurancecrud/_form.html.twig', {'button_label': 'Update'}) }}
+
+    <a href="{{ path('app_fiche_assurancecrud_index') }}">back to list</a>
+
+    {{ include('fiche_assurancecrud/_delete_form.html.twig') }}
+{% endblock %}

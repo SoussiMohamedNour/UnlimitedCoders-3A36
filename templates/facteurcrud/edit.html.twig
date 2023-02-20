@@ -1,0 +1,13 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Edit Facteur{% endblock %}
+
+{% block section %}
+    <h1 style = "position:relative; left:500px; ">Edit Facteur</h1>
+
+    {{ include('facteurcrud/_form.html.twig', {'button_label': 'Update'}) }}
+
+    <a href="{{ path('app_facteurcrud_index') }}">back to list</a>
+
+    {{ include('facteurcrud/_delete_form.html.twig') }}
+{% endblock %}

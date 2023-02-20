@@ -1,0 +1,11 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}New Facteur{% endblock %}
+
+{% block section %}
+    
+
+    {{ include('facteurcrud/_form.html.twig') }}
+
+    <a href="{{ path('app_facteurcrud_index') }}">back to list</a>
+{% endblock %}

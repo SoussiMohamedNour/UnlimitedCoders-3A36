@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html>
     <head>
@@ -52,7 +51,7 @@
    
    
 	<li class="menu-item has-submenu"> 
-      <a class="menu-link" href="ajouter_factures.html"> <i class="icon material-icons md-shopping_bag"></i>  
+      <a class="menu-link" href="facteur/index.html.twig"> <i class="icon material-icons md-shopping_bag"></i>  
         <span class="text">Factures</span> 
       </a> 
       <div class="submenu">
@@ -87,13 +86,42 @@
 <main class="main-wrap">
 	<header class="main-header navbar">
 		<div class="col-search">
-			<form class="searchform">
+        {{ form_start(form,{'attr':{'class':'searchform',}} ) }}
+			
 				<div class="input-group">
-				  <input list="search_terms" type="text" class="form-control" placeholder="Search Ordenencer">
-				  <button class="btn btn-light bg" type="button"> <i class="material-icons md-search"></i> </button>
+                {{ form_widget(form.code,{'attr':{'class':'form-control'}},'rgtfeb') }}
+                
+				  <!--<input  type="text" class="form-control" placeholder="Search Ordenencer">-->
+				  <button class="btn btn-light bg" type="sumbit"> <i class="material-icons md-search"></i> </button>
 				</div>
-				
-			</form>
+				{{ form_end(form) }}
+			{% if articles %}
+    <table id="articles" style = "position:relative; left:700px; top:100px;">
+      
+        <tr>
+          <th>Nom</th>
+          <th>Prix</th>
+          <th>Catégorie</th>
+         
+        </tr>
+     
+      
+        {% for Ordonnance in articles %}
+          <tr>
+          <td>TEST</td>
+          <td>TEST</td>
+          <td>TEST</td>
+
+            <td>{{ Ordonnance.validite}}</td>
+            <td>{{ Ordonnance.medicaments }}</td>
+             <td>{{ Ordonnance.code}}</td>
+          </tr>
+        {% endfor %}
+      
+    </table>
+  {% else %}
+    <p>Aucun articles</p>
+  {% endif %} 
 		</div>
         
 		<div class="col-nav">
@@ -168,11 +196,13 @@
 	    options: {}
 	});
 </script>
-{% block section %}
 
-{{ encore_entry_script_tags('app') }}
+     
+
+
+
+
 {% endblock %}
-        {% endblock %}
-    </body>
+
+ </body>
 </html>
-    
