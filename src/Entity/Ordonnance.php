@@ -18,7 +18,7 @@ class Ordonnance
 
     #[ORM\Column(type:'integer',name:'id',length: 255)]
     #[Groups('ordonnances')]
-    #[Assert\NotBlank(message:"Reference est un champs obligatoire")]
+    // #[Assert\NotBlank(message:"Reference est un champs obligatoire")]
     private ?int $reference = null;
 
     #[ORM\Column]
