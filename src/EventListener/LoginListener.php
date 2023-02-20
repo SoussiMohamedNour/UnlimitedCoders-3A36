@@ -1,6 +1,8 @@
 <?php
 namespace App\EventListener;
 
+use App\Entity\Utilisateur;
+use phpDocumentor\Reflection\Types\Boolean;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
@@ -10,6 +12,7 @@ class LoginListener implements EventSubscriberInterface
 {
     public function __construct(
         private UrlGeneratorInterface $urlGenerator
+       
     ) {
     }
 
@@ -20,18 +23,17 @@ class LoginListener implements EventSubscriberInterface
 
     public function onLoginSuccess(LoginSuccessEvent $event): void
     {
-        // get the security token of the session that is about to be logged out
+         
         $token = $event->getAuthenticatedToken();
-
         $user = $token->getUser();
-        // $response= new RedirectResponse($this->urlGenerator->generate($user->getRoles()[0]));
+        $token = $event->getAuthenticatedToken();
+       
+        
+        if ($user instanceof Utilisateur && $user->isIsbanned()){
+            $response = new RedirectResponse($this->urlGenerator->generate('app_banned'));
+        }
 
-
-        // //  var_dump($user->getRoles()); 
-        // var_dump(print('degla'));
-        // print('delga');
-
-        if (in_array("ROLE_ADMIN", $user->getRoles())) {
+        elseif (in_array("ROLE_ADMIN", $user->getRoles())) {
             $response= new RedirectResponse($this->urlGenerator->generate('app_utilisateur_index'));
         }
         elseif (in_array("ROLE_MEDECIN", $user->getRoles())) {
@@ -49,7 +51,7 @@ class LoginListener implements EventSubscriberInterface
         }
 
         
-        // return new RedirectResponse($this->urlGenerator->generate('home'));
+
         $event->setResponse($response);
     }
     

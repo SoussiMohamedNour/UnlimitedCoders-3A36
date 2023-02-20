@@ -1,65 +1,12 @@
 {% extends 'BackOffice/admin.html.twig' %}
-{# {% extends 'login/index.html.twig' %} #}
 
 {% block title %}Utilisateur index{% endblock %}
 
 {% block body %}
 
-{# {% include 'BackOffice/sidebar.html.twig'%} #}
-
-
     <link href="{{asset('/images/LogoApp.png') }}" rel="icon">
-    {# <link href="{{asset('css/index.css') }}" rel="stylesheet"> #}
-
-    {# <div class="login-page">
-    <div class="form"> #}
+    
     <h1>Utilisateur index</h1>
-
-    {# <table class="table">
-        <thead>
-            <tr>
-                <th>id</th>
-                <th>Email</th>
-                <th>Roles</th>
-                <th>Password</th>
-                <th>Nom</th>
-                <th>Prenom</th>
-                <th>Age</th>
-                <th>Sexe</th>
-                <th>Num_tel</th>
-                <th>Cin</th>
-                <th>IsVerified</th>
-                <th>Image</th>
-                <th>actions</th>
-            </tr>
-        </thead>
-        <tbody>
-        {% for utilisateur in utilisateurs %}
-            <tr>
-                <td>{{ utilisateur.id }}</td>
-                <td>{{ utilisateur.email }}</td>x
-                <td>{{ utilisateur.roles ? utilisateur.roles|json_encode : '' }}</td>
-                <td>{{ utilisateur.password }}</td>
-                <td>{{ utilisateur.nom }}</td>  x
-                <td>{{ utilisateur.prenom }}</td> x
-                <td>{{ utilisateur.age }}</td>
-                <td>{{ utilisateur.sexe }}</td>
-                <td>{{ utilisateur.numTel }}</td> x
-                <td>{{ utilisateur.cin }}</td> x
-                <td>{{ utilisateur.isVerified ? 'Yes' : 'No' }}</td>
-                <td>{{ utilisateur.image }}</td>
-                <td>
-                    <a href="{{ path('app_utilisateur_show', {'id': utilisateur.id}) }}">show</a>
-                    <a href="{{ path('app_utilisateur_edit', {'id': utilisateur.id}) }}">edit</a>
-                </td>
-            </tr>
-        {% else %}
-            <tr>
-                <td colspan="13">no records found</td>
-            </tr>
-        {% endfor %}
-        </tbody>
-    </table> #}
 
   <div class="users-containers">
     {% for utilisateur in utilisateurs %}

@@ -40,6 +40,14 @@ class UserController extends AbstractController
         ]);
     }
 
+    #[Route('/banned', name: 'app_banned')]
+    public function banned(): Response
+    {
+        return $this->render('404/404.html.twig', [
+            'controller_name' => 'DefaultController',
+        ]);
+    }
+
 
     #[Route('/frontoffice', name: 'app_home')]
     public function index2(): Response

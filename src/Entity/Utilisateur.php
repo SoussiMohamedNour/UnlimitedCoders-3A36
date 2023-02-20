@@ -51,7 +51,7 @@ class Utilisateur implements UserInterface, PasswordAuthenticatedUserInterface
     private ?string $sexe = null;
 
     #[ORM\Column(length: 8)]
-    #[Assert\Length(message:"Bien Specifier Votre Numero GSM")]
+    // #[Assert\Length(message:"Bien Specifier Votre Numero GSM")]
     private ?string $num_tel = null;
 
     #[ORM\Column(length: 8)]
@@ -260,6 +260,9 @@ class Utilisateur implements UserInterface, PasswordAuthenticatedUserInterface
     #[ORM\Column(length: 255, nullable: true)]
     private ?string $image = null;
 
+    #[ORM\Column(nullable: true)]
+    private ?bool $isbanned = null;
+
     public function getImageFilename()
     {
         return $this->imageFilename;
@@ -280,6 +283,18 @@ class Utilisateur implements UserInterface, PasswordAuthenticatedUserInterface
     public function setImage(?string $image): self
     {
         $this->image = $image;
+
+        return $this;
+    }
+
+    public function isIsbanned(): ?bool
+    {
+        return $this->isbanned;
+    }
+
+    public function setIsbanned(?bool $isbanned): self
+    {
+        $this->isbanned = $isbanned;
 
         return $this;
     }
