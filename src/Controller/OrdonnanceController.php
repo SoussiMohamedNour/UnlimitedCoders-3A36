@@ -8,6 +8,7 @@ use App\Form\OrdonnanceType;
 use App\Repository\ConsultationRepository;
 use App\Repository\OrdonnanceRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\Finder\Iterator\DateRangeFilterIterator;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
@@ -18,6 +19,7 @@ use Symfony\Component\HttpFoundation\File\UploadedFile;
 
 use Dompdf\Dompdf;
 use Dompdf\Options;
+use Symfony\Bridge\Twig\Mime\TemplatedEmail;
 
 use Symfony\Component\Mailer\MailerInterface;
 use Symfony\Component\Mime\Email;
@@ -36,7 +38,7 @@ class OrdonnanceController extends AbstractController
     }
 
     #[Route('/ordonnance/ajouter', name: 'app_ordonnance_new', methods: ['GET', 'POST'])]
-    public function new(Request $request, OrdonnanceRepository $ordonnanceRepository): Response
+    public function new(Request $request, OrdonnanceRepository $ordonnanceRepository,MailerInterface $mailer,ConsultationRepository $consultationRepository): Response
     {
         $ordonnance = new Ordonnance();
         $form = $this->createForm(OrdonnanceType::class, $ordonnance);
@@ -44,8 +46,10 @@ class OrdonnanceController extends AbstractController
 
         if ($form->isSubmitted() && $form->isValid()) {
             $ordonnanceRepository->save($ordonnance, true);
+            $this->notifierValidite($consultationRepository,$ordonnanceRepository,$mailer,$ordonnance);
 
             return $this->redirectToRoute('app_ordonnance_index', [], Response::HTTP_SEE_OTHER);
+
         }
 
         return $this->renderForm('BackOffice/ordonnance/new.html.twig', [
@@ -124,6 +128,36 @@ class OrdonnanceController extends AbstractController
         }
         $mailer->send($email);
         return $this->renderForm('/BackOffice/ordonnance/email.html.twig',['form'=>$form]);
+    }
+
+    // Commande Sync Msg  php bin/console messenger:consume async -vv
+    #[Route('/ordonnance/notifier',name:'app_ordonnance_notifier')]
+    public function notifierValidite(ConsultationRepository $consultationRepository, OrdonnanceRepository $repo,MailerInterface $mailer,Ordonnance $ordonnance)
+    {
+        $reference = $ordonnance->getReference();
+        $validite = $ordonnance->getValidite();
+        $id_consultation = $ordonnance->getConsultation()->getReference();
+        $date_consultation = $consultationRepository->find($id_consultation)->getDateconsultation();
+        $matricule_medecin = $consultationRepository->find($id_consultation)->getMatriculemedecin();
+        $temps = date("h:i:sa");
+        $date_today = date('Y-m-d');
+        $date = new \DateTime($date_today);
+        $date->add(new \DateInterval('P' . $validite . 'D'));
+        $nouvelle_date = $date->format('Y-m-d');
+        $ordonnance_trouvee = $repo->find($reference);
+        
+        $email = (new TemplatedEmail());
+        $email->from('healthified.consultation.module@gmail.com')
+        ->to('mohamednour.soussi@esprit.tn')
+        ->subject('Rappel Consultation'. ' ' . $nouvelle_date)
+        ->text('Service Mailing')
+        ->htmlTemplate('/BackOffice/ordonnance/notifier.html.twig')
+        ->context(['ordonnance'=>$ordonnance,'date'=>$date_today,'temps'=>$temps,'idConsultation'=>$id_consultation,'dateConsultation'=>$date_consultation->format('Y-m-d'),'matricule'=>$matricule_medecin,'nouvelleDate'=>$nouvelle_date
+    ]);
+        $mailer->send($email);
+
+        
+
     }
     
     // Workshop JSON
