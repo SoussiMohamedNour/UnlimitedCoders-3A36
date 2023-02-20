@@ -19,6 +19,7 @@ class ConsultationType extends AbstractType
             ->add('idpatient',TextType::class,['label'=>'Identifiant Patient','attr'=>['class'=>'form-control','placeholder'=>'Identifiant Patient']])
             ->add('dateconsultation',DateType::class,['label'=>'Date Consultation','attr'=>['class'=>'form-control']])
             ->add('montant',IntegerType::class,['attr'=>['class'=>'form-control','placeholder'=>'Montant en DT']])
+
         ;
     }
 

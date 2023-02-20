@@ -39,6 +39,91 @@ class ConsultationRepository extends ServiceEntityRepository
         }
     }
 
+    // Tri Date Consultation
+    public function getConsultationByDateAsc():array{
+        return $this->createQueryBuilder('c')
+        ->orderBy('c.dateconsultation','ASC')
+        ->getQuery()
+        ->getResult();
+    }
+    public function getConsultationByDateDsc():array{
+        return $this->createQueryBuilder('c')
+        ->orderBy('c.dateconsultation','DESC')
+        ->getQuery()
+        ->getResult();
+    }
+
+    // Tri Matricule
+    public function getConsultationbyMatriculeAsc():array{
+        return $this->createQueryBuilder('c')
+        ->orderBy('c.matriculemedecin','ASC')
+        ->getQuery()
+        ->getResult();
+    }
+    public function getConsultationbyMatriculeDesc():array{
+        return $this->createQueryBuilder('c')
+        ->orderBy('c.matriculemedecin','DESC')
+        ->getQuery()
+        ->getResult();
+    }
+
+    // Tri Montant
+    public function getConsultationByMontantAsc():array{
+        return $this->createQueryBuilder('c')
+        ->orderBy('c.montant','ASC')
+        ->getQuery()
+        ->getResult();
+    }
+    public function getConsultationByMontantDesc():array{
+        return $this->createQueryBuilder('c')
+        ->orderBy('c.montant','DESC')
+        ->getQuery()
+        ->getResult();
+    }
+    public function returnAll():array
+    {
+        return $this->findAll();
+    }
+
+    public function trier(string $critere,string $ordre):array
+    {
+        if($critere == "montant")
+        {
+            if($ordre == "asc" )
+            {
+                return $this->getConsultationByMontantAsc();
+            }
+            else if($ordre == "desc")
+            {
+                return $this->getConsultationByMontantDesc();
+            }
+        }
+        else if($critere == "matricule")
+        {
+            if($ordre == "asc" )
+            {
+                return $this->getConsultationbyMatriculeAsc();
+            }
+            else if($ordre == "desc")
+            {
+                return $this->getConsultationbyMatriculeDesc();
+            }
+        }
+        else if($critere == "date")
+        {
+            if($ordre == "asc" )
+            {
+                return $this->getConsultationByDateAsc();
+            }
+            else if($ordre == "desc")
+            {
+                return $this->getConsultationByDateDsc();
+            }
+        }
+        return $this->findAll();
+
+    }
+
 //    /**
 //     * @return Consultation[] Returns an array of Consultation objects
 //     */

@@ -4,6 +4,7 @@ namespace App\Controller;
 
 use App\Entity\Consultation;
 use App\Form\ConsultationType;
+use App\Form\SortConsultationType;
 use App\Repository\ConsultationRepository;
 use phpDocumentor\Reflection\Types\Void_;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -20,12 +21,52 @@ use Symfony\Component\Serializer\SerializerInterface;
 #[Route('/backoffice')]
 class ConsultationController extends AbstractController
 {
-    #[Route('/consultation', name: 'app_consultation_index', methods: ['GET'])]
-    public function index(ConsultationRepository $consultationRepository): Response
+    #[Route('/consultation', name: 'app_consultation_index', methods: ['GET','POST'])]
+    public function index(ConsultationRepository $consultationRepository,Request $request): Response
     {
-        return $this->render('BackOffice/consultation/index.html.twig', [
+        $form = $this->createForm(SortConsultationType::class);
+        $form->handleRequest($request);
+        if($form->isSubmitted() && $form->isValid())
+        {
+            $critere = $form->get('sort')->getData();
+            $ordre = $form->get('ordre')->getData();
+            $consultations = $consultationRepository->trier($critere,$ordre);
+        return $this->renderForm('/BackOffice/consultation/index.html.twig',['consultations'=> $consultations,'form'=>$form]);
+            
+
+        }
+        return $this->renderForm('BackOffice/consultation/index.html.twig', [
             'consultations' => $consultationRepository->findAll(),
+            'form'=>$form
         ]);
+
+    }
+
+    #[Route('/consultation/trier',name:'app_consultation_trier')]
+    public function trier(Request $request,ConsultationRepository $consultationRepository):Response
+    {
+        $form = $this->createForm(SortConsultationType::class);
+        $form->handleRequest($request);
+        $consultations = $consultationRepository->findAll();
+
+        if($form->isSubmitted() && $form->isValid())
+        {
+            $data = $form->getData();
+            $results = $consultationRepository->getConsultationByMontant();
+
+        return $this->renderForm('/BackOffice/consultation/index.html.twig',[
+            'consultations'=> $results,
+            'form'=>$form
+        ]);
+
+        }
+
+        return $this->renderForm('/BackOffice/consultation/new.html.twig',[
+            'consultations'=> $consultations,
+            'form'=>$form
+        ]);
+
+
     }
 
     #[Route('/consultation/ajouter', name: 'app_consultation_new', methods: ['GET', 'POST'])]
