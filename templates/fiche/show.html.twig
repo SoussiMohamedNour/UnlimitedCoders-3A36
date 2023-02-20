@@ -1,0 +1,38 @@
+{% extends 'backoffice/base.html.twig' %}
+
+{% block title %}Fiche{% endblock %}
+
+{% block body %}
+    <h1>Fiche</h1>
+
+    <table class="table">
+        <tbody>
+            <tr>
+                <th>Id</th>
+                <td>{{ fiche.id }}</td>
+            </tr>
+            <tr>
+                <th>Identifiant</th>
+                <td>{{ fiche.idFiche }}</td>
+            </tr>
+            <tr>
+                <th>Date</th>
+                <td>{{ fiche.dateFiche ? fiche.dateFiche|date('Y-m-d') : '' }}</td>
+            </tr>
+            <tr>
+                <th>Montant de consultation</th>
+                <td>{{ fiche.montantConsultation }}</td>
+            </tr>
+            <tr>
+                <th>Montant des medicaments</th>
+                <td>{{ fiche.montantMedicaments }}</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <a href="{{ path('app_fiche_index') }}">Retourner</a>
+
+    <a href="{{ path('app_fiche_edit', {'id': fiche.id}) }}">Modifier</a>
+
+    {{ include('fiche/_delete_form.html.twig') }}
+{% endblock %}

@@ -1,0 +1,41 @@
+{% extends 'backoffice/base.html.twig' %}
+
+{% block title %}Fiche index{% endblock %}
+
+{% block body %}
+    <h1>Liste des fiches</h1>
+
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>Identifiant</th>
+                <th>Date</th>
+                <th>Montant de consultation</th>
+                <th>Montant des medicaments</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for fiche in fiches %}
+            <tr>
+                <td>{{ fiche.id }}</td>
+                <td>{{ fiche.idFiche }}</td>
+                <td>{{ fiche.dateFiche ? fiche.dateFiche|date('Y-m-d') : '' }}</td>
+                <td>{{ fiche.montantConsultation }}</td>
+                <td>{{ fiche.montantMedicaments }}</td>
+                <td>
+                    <a href="{{ path('app_fiche_show', {'id': fiche.id}) }}">Details</a>
+                    <a href="{{ path('app_fiche_edit', {'id': fiche.id}) }}">Modifier</a>
+                </td>
+            </tr>
+        {% else %}
+            <tr>
+                <td colspan="6">no records found</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+    <a href="{{ path('app_fiche_new') }}">Ajouter</a>
+{% endblock %}

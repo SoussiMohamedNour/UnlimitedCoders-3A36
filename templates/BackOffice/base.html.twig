@@ -1,519 +1,242 @@
 <!DOCTYPE html>
 <html>
-    <head>
-        <meta charset="UTF-8">
-        <meta charset="utf-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-        <title>{% block title %}Healthified Dashboard{% endblock %}</title>
+  <head>
+    <meta charset="UTF-8">
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <title>{% block title %}Healthified Dashboard{% endblock %}</title>
+    <style>
+      .btn-group {
+        margin: 10px 0; /* Ajouter de la marge autour des boutons */
+      }
 
-        <link href="{{ asset('images/LogoApp.png') }}" rel="shortcut icon" >
+      .afficher-btn {
+        background-color: #DAD8E3; /* Couleur de fond verte */
+        color: black; /* Couleur du texte blanc */
+        border: none; /* Supprimer la bordure */
+        padding: 5px 20px; /* Ajouter un espace autour du texte */
+        text-align: center; /* Centrer le texte */
+        text-decoration: none; /* Supprimer le soulignement */
+        display: inline-block; /* Afficher en ligne */
+        font-size: 16px; /* Taille de police de caractère */
+        margin-right: 10px; /* Ajouter une marge à droite */
+        cursor: pointer; /* Afficher un curseur pointer au survol */
+      }
 
-        <link href="{{ asset('css/bootstrapf9e3.css?v=1.1') }}" rel="stylesheet" />
+      .modifier-btn {
+        background-color: #DAD8E3; /* Couleur de fond bleue */
+        color: black; /* Couleur du texte blanc */
+        border: none; /* Supprimer la bordure */
+        padding: 5px 20px; /* Ajouter un espace autour du texte */
+        text-align: center; /* Centrer le texte */
+        text-decoration: none; /* Supprimer le soulignement */
+        display: inline-block; /* Afficher en ligne */
+        font-size: 16px; /* Taille de police de caractère */
+        margin-right: 10px; /* Ajouter une marge à droite */
+        cursor: pointer; /* Afficher un curseur pointer au survol */
+      }
+      .supprimer-btn {
+        background-color: #FE7D33; /* Couleur de fond rouge */
+        color: black; /* Couleur du texte blanc */
+        border: none; /* Supprimer la bordure */
+        padding: 5px 20px; /* Ajouter un espace autour du texte */
+        text-align: center; /* Centrer le texte */
+        text-decoration: none; /* Supprimer le soulignement */
+        display: inline-block; /* Afficher en ligne */
+        font-size: 16px; /* Taille de police de caractère */
+        margin-right: 10px; /* Ajouter une marge à droite */
+        cursor: pointer; /* Afficher un curseur pointer au survol */
+      }
+      .ajouter-btn {
+        background-color: #8EC63F; /* Couleur de fond verte */
+        color: black; /* Couleur du texte blanc */
+        border: none; /* Supprimer la bordure */
+        padding: 5px 20px; /* Ajouter un espace autour du texte */
+        text-align: center; /* Centrer le texte */
+        text-decoration: none; /* Supprimer le soulignement */
+        display: inline-block; /* Afficher en ligne */
+        font-size: 16px; /* Taille de police de caractère */
+        margin-right: 10px; /* Ajouter une marge à droite */
+        cursor: pointer; /* Afficher un curseur pointer au survol */
+      }
+      .enregistrer-btn {
+        background-color: #8EC63F; /* Couleur de fond verte */
+        color: black; /* Couleur du texte blanc */
+        border: none; /* Supprimer la bordure */
+        padding: 5px 20px; /* Ajouter un espace autour du texte */
+        text-align: center; /* Centrer le texte */
+        text-decoration: none; /* Supprimer le soulignement */
+        display: inline-block; /* Afficher en ligne */
+        font-size: 16px; /* Taille de police de caractère */
+        margin-right: 10px; /* Ajouter une marge à droite */
+        cursor: pointer; /* Afficher un curseur pointer au survol */
+      }
+      table,
+      td, {
+          border: 1px solid #333;
+      }
 
+      thead,
+      tfoot {
+          background-color: #333;
+          color: #fff;
+      }
+      form {
+        display: flex;
+        flex-direction: column;
+        max-width: 400px;
+        margin: 0;
+      }
+
+      form label {
+        font-weight: bold;
+        margin-top: 1rem;
+        width: 100%;
+      }
+
+      form input, form select {
+        padding: 0.5rem;
+        border: 1px solid #ccc;
+        border-radius: 4px;
+        margin-top: 0.5rem;
+        font-size: 1rem;
+        width: 100%;
+        box-sizing: border-box;
+      }
+
+      form button {
+        background-color: #007bff;
+        color: #fff;
+        padding: 0.5rem 1rem;
+        border-radius: 4px;
+        border: none;
+        margin-top: 1rem;
+        cursor: pointer;
+        font-size: 1rem;
+      }
+
+      /* Alignement à gauche */
+      form {
+        justify-content: flex-start;
+        align-items: flex-start;
+      }
+    </style>
+    <link href="{{ asset('images/LogoApp.png') }}" rel="shortcut icon" >
+    <link href="{{ asset('css/bootstrapf9e3.css?v=1.1') }}" rel="stylesheet" />
         <!-- custom style -->
-        <link href="{{ asset('css/uif9e3.css?v=1.1') }}" rel="stylesheet"/>
-        <link href="{{ asset('css/responsivef9e3.css?v=1.1') }}" rel="stylesheet" />
-
-        <link rel="stylesheet" href="{{ asset('fonts/material-icon/css/round.css') }}"/>
-        
-        <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 128 128%22><text y=%221.2em%22 font-size=%2296%22>⚫️</text></svg>">
+    <link href="{{ asset('css/uif9e3.css?v=1.1') }}" rel="stylesheet"/>
+    <link href="{{ asset('css/responsivef9e3.css?v=1.1') }}" rel="stylesheet" />
+    <link rel="icon" href="{{ asset('images/LogoApp2.png') }}">
+    <link rel="stylesheet" href="{{ asset('fonts/material-icon/css/round.css') }}"/>
         {# Run `composer require symfony/webpack-encore-bundle` to start using Symfony UX #}
+  </head>
 
-        {% block stylesheets %}
-            {{ encore_entry_link_tags('app') }}
-        {% endblock %}
-
-        {% block javascripts %}
-            {{ encore_entry_script_tags('app') }}
-        {% endblock %}
-    </head>
-    <body>
-        {% block body %}
-        <b class="screen-overlay"></b>
-
-        <aside class="navbar-aside" id="offcanvas_aside">
-        <div class="aside-top">
+  <body>
+    <b class="screen-overlay"></b>
+    <aside class="navbar-aside" id="offcanvas_aside">
+      <div class="aside-top">
         <a href="index.html" class="brand-wrap">
-            <img src="{{ asset('images/LogoApp.png') }}" height="46" class="logo" alt="Healthified dashboard">
+          <img src="{{ asset('images/LogoApp.png') }}" height="46" class="logo" alt="Healthified dashboard">
         </a>
-        <div>
-            <button class="btn btn-icon btn-aside-minimize"> <i class="text-muted material-icons md-menu_open"></i> </button>
-        </div>
-    </div> 
-    <nav>
-  <ul class="menu-aside">
-    <li class="menu-item active"> 
-      <a class="menu-link" href="index.html"> <i class="icon material-icons md-home"></i> 
-        <span class="text">Acceuil</span> 
-      </a> 
-    </li>
-    <li class="menu-item has-submenu"> 
-      <a class="menu-link" href="ajouter_factures.html"> <i class="icon material-icons md-shopping_bag"></i>  
-        <span class="text">Factures</span> 
-      </a> 
-      <div class="submenu">
-        <a href="ajouter_factures.html">Ajouter Facture</a>
-        <a href="modifier_factures.html">Modifier Facture</a>
-        <a href="supprimer_factures.html">Supprimer Factures</a>
-        <a href="afficher_factures.html">Afficher Factures</a>
-        <a href="calculatrice.html">Calculatrice</a>
-        <a href="mailing_factures.html">Mailing</a>
-        <a href="qrcode.html">QR code</a>
-        <a href="pdf_Excel_factures.html">PDF & Excel</a>
-      </div>
-    </li>
-    <li class="menu-item has-submenu"> 
-      <a class="menu-link" href="page-orders-1.html"> <i class="icon material-icons md-shopping_cart"></i> 
-        <span class="text">Commandes</span> 
-      </a>
-      <div class="submenu">
-        <a href="page-orders-1.html">Commandes liste 1</a>
-        <a href="page-orders-2.html">Commandes list 2</a>
-        <a href="page-orders-detail.html">Détail des commandes</a>
       </div> 
-    </li>
-    <li class="menu-item has-submenu"> 
-      <a class="menu-link" href="page-sellers-cards.html"> <i class="icon material-icons md-store"></i> 
-        <span class="text">Boutiques</span> 
-      </a> 
-      <div class="submenu">
-        <a href="ajouter_boutiques.html">Ajouter Boutique</a>
-        <a href="modifier_boutiques.html">Modifier Boutique</a>
-        <a href="supprimer_boutiques.html">Supprimer Boutiques</a>
-        <a href="afficher_boutiques.html">Afficher Boutiques</a>
-        <a href="rechercher_tri_boutiques.html">Recherche & Tri</a>
-        <a href="statistique_boutiques.html">Statistiques</a>
-        <a href="mailing_boutique.html">Mailing</a>
-        <a href="pdf_Excel_boutique.html">PDF & Excel</a>
-		</div>
-    </li>
-	
-    <li class="menu-item has-submenu"> 
-      <a class="menu-link" href="page-form-product-1.html"> <i class="icon material-icons md-add_box"></i>  
-        <span class="text">Produits</span> 
-      </a> 
-      <div class="submenu">
-        <a href="ajouter_produits.html">Ajouter Produits</a>
-        <a href="modifier_produits.html">Modifier produits</a>
-        <a href="supprimer_produits.html">Supprimer Produits</a>
-        <a href="afficher_produits.html">Afficher Produits</a>
-        <a href="rechercher_tri_produits.html">Recherche & Tri</a>
-        <a href="statistique_produits.html">Statistiques</a>
-        <a href="mailing_boutique.html">Mailing</a>
-        <a href="pdf_Excel_boutique.html">PDF & Excel</a>
-      </div>
-    </li>
-    <li class="menu-item has-submenu"> 
-      <a class="menu-link" href="page-form-product-1.html"> <i class="icon material-icons md-add_box"></i>  
-        <span class="text">Station Recharge</span> 
-      </a> 
-      <div class="submenu">
-        <a href="ajouter_station.html">Ajouter station</a>
-        <a href="modifier_station.html">Modifier station</a>
-        <a href="supprimer_station.html">Supprimer station</a>
-        <a href="afficher_station.html">Afficher station</a>
-        <a href="rechercher_tri_station.html">Recherche & Tri</a>
-        <a href="statistique_station.html">Statistiques</a>
-        <a href="Calcul_gain.html">Calcul Gain</a>
-      </div>
-    </li>
-    <li class="menu-item has-submenu">
-      <a class="menu-link" href="page-transactions-A.html"> <i class="icon material-icons md-monetization_on"></i> 
-        <span class="text">Transactions</span> 
-      </a> 
-      <div class="submenu">
-        <a href="page-transactions-A.html">Transaction 1</a>
-        <a href="page-transactions-B.html">Transaction 2</a>
-      </div>
-    </li>
-    <li class="menu-item has-submenu"> 
-      <a class="menu-link" href="#"> <i class="icon material-icons md-person"></i>  
-        <span class="text">Utilsateurs</span> 
-      </a> 
-      <div class="submenu">
-        <a href="ajouter_utilisateurs.html">Ajouter Utilisateurs</a>
-        <a href="modifier_utilisateurs.html">Modifier Utilisateurs</a>
-        <a href="supprimer_utilisateurs.html">Supprimer Utilisateurs</a>
-        <a href="afficher_utilisateurs.html">Afficher Utilisateurs</a>
-        <a href="rechercher_tri_utilisateurs.html">Recherche & Tri</a>
-        <a href="classification_utilisateurs.html">Classification Utilisateurs</a>
-        <a href="calcul_nombre_utilisateurs.html">Calcul Nombre Utilisateurs</a>
-        <a href="mailing_utilisateurs.html">Mailing</a>
-        <a href="pdf_utilisateurs.html">PDF</a>
-		</div>
-		</li>
-    <li class="menu-item has-submenu"> 
-      <a class="menu-link" href="#"> <i class="icon material-icons md-person"></i>  
-        <span class="text">Ouvriers</span> 
-      </a> 
-      <div class="submenu">
-        <a href="ajouter_ouvriers.html">Ajouter ouvriers</a>
-        <a href="modifier_ouvriers.html">Modifier ouvriers</a>
-        <a href="supprimer_ouvriers.html">Supprimer ouvriers</a>
-        <a href="afficher_ouvriers.html">Afficher ouvriers</a>
-        <a href="rechercher_tri_ouvriers.html">Recherche & Tri</a>
-        <a href="mailing_ouvriers.html">Mailing</a>
-        <a href="pdf_ouvriers.html">PDF</a>
-        <a href="excel_ouvriers.html">Excel</a>
-		</div>
-		</li>
-    <li class="menu-item"> 
-      <a class="menu-link" href="page-reviews.html"> <i class="icon material-icons md-comment"></i> 
-        <span class="text">Reviews</span> 
-      </a> 
-    </li>
-    <li class="menu-item"> 
-      <a class="menu-link" href="page-brands.html"> <i class="icon material-icons md-stars"></i> 
-        <span class="text">Marques</span> </a> 
-    </li>
-    <li class="menu-item"> 
-      <a class="menu-link" disabled href="#"> <i class="icon material-icons md-pie_chart"></i> 
-        <span class="text">Statistiques/span> 
-      </a> 
-    </li>
-  </ul>
-  <hr>
-  <ul class="menu-aside">
-    <li class="menu-item has-submenu"> 
-      <a class="menu-link" href="#"> <i class="icon material-icons md-settings"></i> 
-        <span class="text">Paramètres</span> 
-      </a>
-      <div class="submenu">
-        <a href="page-settings-1.html">Setting sample 1</a>
-        <a href="page-settings-2.html">Setting sample 2</a>
-      </div>
-    </li>
-    <li class="menu-item">
-      <a class="menu-link" href="page-0-blank.html"> <i class="icon material-icons md-local_offer"></i> 
-    <span class="text"> Starter page </span>
-      </a> 
-    </li>
-  </ul>
-  <br>
-  <br>
-</nav>
-</aside>
-<main class="main-wrap">
-	<header class="main-header navbar">
-		<div class="col-search">
-			<form class="searchform">
-				<div class="input-group">
-				  <input list="search_terms" type="text" class="form-control" placeholder="Search term">
-				  <button class="btn btn-light bg" type="button"> <i class="material-icons md-search"></i> </button>
-				</div>
-				<datalist id="search_terms">
-				  <option value="Produits">
-				  <option value="Nouvelle commande">
-				  <option value="Apple iphone">
-				  <option value="Ahmed Hassan">
-				</datalist>
-			</form>
-		</div>
-		<div class="col-nav">
-     <button class="btn btn-icon btn-mobile me-auto" data-trigger="#offcanvas_aside"> <i class="md-28 material-icons md-menu"></i> </button>
-     <ul class="nav">
-      <li class="nav-item">
-          <a class="nav-link btn-icon" onclick="darkmode(this)" title="Dark mode" href="#"> <i class="material-icons md-nights_stay"></i> </a>
-      </li>
-      <li class="nav-item">
-        <a class="nav-link btn-icon" href="#"> <i class="material-icons md-notifications_active"></i> </a>
-      </li>
-      <li class="nav-item">
-        <a class="nav-link" href="#"> English </a>
-      </li>
-      <li class="dropdown nav-item">
-        <a class="dropdown-toggle" data-bs-toggle="dropdown" href="#"> <img class="img-xs rounded-circle" src="images/people/avatar1.jpg" alt="User"></a>
-        <div class="dropdown-menu dropdown-menu-end">
-          <a class="dropdown-item" href="#">Mon profile</a>
-          <a class="dropdown-item" href="#">Paramètres</a>
-          <a class="dropdown-item text-danger" href="#">Sortie</a>
+    <nav>
+      <ul class="menu-aside">
+
+        <li class="menu-item"> 
+          <a class="menu-link" href="/backoffice"> <i class="icon material-icons md-home"></i> 
+            <span class="text">Acceuil</span> 
+          </a> 
+        </li>
+
+        <li class="menu-item"> 
+          <a class="menu-link" href="/backoffice/assurance"> <i class="icon material-icons md-policy"></i> 
+            <span class="text">Assurance</span> 
+          </a> 
+          <div class="submenu">
+            <a href="/backoffice/assurance/new">Ajouter Assurance</a>
+            <a href="/backoffice/assurance/edit">Modifier Assurance</a>
+            <a href="/backoffice/assurance">Supprimer Assurance</a>
+            <a href="/backoffice/assurance">Afficher Assurance</a>
+          </div>
+        </li>
+
+        <li class="menu-item"> 
+          <a class="menu-link" href="/backoffice/patient"> <i class="icon material-icons md-person"></i> 
+            <span class="text">Patient</span> 
+          </a> 
+          <div class="submenu">
+            <a href="/backoffice/patient/new">Ajouter Patient</a>
+            <a href="/backoffice/patient/edit">Modifier Patient</a>
+            <a href="/backoffice/patient">Supprimer Patient</a>
+            <a href="/backoffice/patient">Afficher Patient</a>
+          </div>
+        </li>
+
+        <li class="menu-item"> 
+          <a class="menu-link" href="/backoffice/medicament"> <i class="icon material-icons md-medical_services"></i>
+
+            <span class="text">Medicament</span> 
+          </a> 
+          <div class="submenu">
+            <a href="/backoffice/medicament/new">Ajouter Medicament</a>
+            <a href="/backoffice/medicament/edit">Modifier Medicament</a>
+            <a href="/backoffice/medicament">Supprimer Medicament</a>
+            <a href="/backoffice/medicament">Afficher Medicament</a>
+          </div>
+        </li>
+
+        <li class="menu-item"> 
+          <a class="menu-link" href="/backoffice/fiche"> <i class="icon material-icons md-insert_drive_file"></i> 
+            <span class="text">Fiche</span> 
+          </a> 
+          <div class="submenu">
+            <a href="/backoffice/fiche/new">Ajouter Fiche</a>
+            <a href="/backoffice/fiche/edit">Modifier Fiche</a>
+            <a href="/backoffice/fiche">Supprimer Fiche</a>
+            <a href="/backoffice/fiche">Afficher Fiche</a>
+          </div>
+        </li>
+
+        <li class="menu-item"> 
+          <a class="menu-link" href="/backoffice/depot"> <i class="icon material-icons md-folder"></i>
+            <span class="text">Depot</span> 
+          </a> 
+          <div class="submenu">
+            <a href="/backoffice/depot/new">Ajouter Depot</a>
+            <a href="/backoffice/depot/{id}/edit">Modifier Depot</a>
+            <a href="/backoffice/depot/{id}">Supprimer Depot</a>
+            <a href="/backoffice/depot/{id}">Afficher Depot</a>
+          </div>
+        </li> 
+
+        <li class="menu-item"> 
+          <a class="menu-link" href="/backoffice/remboursement"> <i class="icon material-icons md-attach_money"></i> 
+            <span class="text">Remboursement</span> 
+          </a> 
+          <div class="submenu">
+            <a href="/backoffice/remboursement/new">Ajouter Remboursement</a>
+            <a href="/backoffice/remboursement/edit">Modifier Remboursement</a>
+            <a href="/backoffice/remboursement">Supprimer Remboursement</a>
+            <a href="/backoffice/remboursement">Afficher Remboursement</a>
+          </div>
+        </li>
+      </ul>
+    </nav>
+    </aside>
+
+    <main class="main-wrap"> 
+      <header class="main-header navbar">
+        <div class="dropdown-toggle" data-toggle="dropdown">
+          <span>Admin</span>
+          <i class="feather icon-chevron-down"></i>
         </div>
-      </li>
-    </ul> 
-  </div>
-	</header>
+      </header>
 
-<section class="content-main">
-	<div class="content-header">
-		<h2 class="content-title"> Dashboard </h2>
-		<div>
-			<a href="#" class="btn btn-primary">Creer raport</a>
-		</div>
-	</div>
-	<div class="row">
-		<div class="col-lg-4">
-			<div class="card card-body mb-4">
-        <article class="icontext">
-          <span class="icon icon-sm rounded-circle bg-primary-light"><i class="text-primary material-icons md-monetization_on"></i></span>
-          <div class="text">
-            <h6 class="mb-1">Total ventes</h6>  <span>19,626,058.20 TND</span>
-          </div>
-        </article> 
-	               
-	    </div> <!-- card  end// -->
-		</div> <!-- col end// -->
-		<div class="col-lg-4">
-			<div class="card card-body mb-4">
-        <article class="icontext">
-          <span class="icon icon-sm rounded-circle bg-success-light"><i class="text-success material-icons md-local_shipping"></i></span>
-          <div class="text">
-            <h6 class="mb-1">Total commandes</h6> <span>100</span>
-          </div>
-        </article> 
-	    </div> <!-- card end// -->
-		</div> <!-- col end// -->
-		<div class="col-lg-4">
-			<div class="card card-body mb-4">
-        <article class="icontext">
-          <span class="icon icon-sm rounded-circle bg-warning-light"><i class="text-warning material-icons md-shopping_basket"></i></span>
-          <div class="text">
-            <h6 class="mb-1">Total Produits</h6>  <span>1000</span>
-          </div>
-        </article>
-	    </div> <!--  end// -->
-		</div> <!-- col end// -->
-	</div> <!-- row end// -->
+  {% block body %}
+    <h1 class="h2">Dashboard</h1>
+  {% endblock %}
+  </main>
 
-
-	<div class="row">
-		<div class="col-xl-8 col-lg-12">
-			<div class="card mb-4">
-	              <article class="card-body">
-	              	<h5 class="card-title">Statistiques de ventes</h5>
-	              	<canvas height="120" id="myChart"></canvas>
-	              </article> <!-- card-body end// -->
-	        </div> <!-- card end// -->
-		</div> <!-- col end// -->
-		<div class="col-xl-4 col-lg-12">
-			<div class="card mb-4">
-	       <article class="card-body">
-
-<h5 class="card-title">Marketing</h5>
-
-
-<span class="text-muted">Facebook page</span>
-	<div class="progress mb-3">
-<div class="progress-bar progress-bar-striped" role="progressbar" style="width: 15%">15%</div>
-</div>
-
-<span class="text-muted">Instagram page</span>
-<div class="progress mb-3">
-<div class="progress-bar progress-bar-striped bg-success" role="progressbar" style="width: 65%">65% </div>
-</div>
-
-<span class="text-muted">Google search</span>
-<div class="progress mb-3">
-<div class="progress-bar progress-bar-striped bg-danger" role="progressbar" style="width: 51%"> 51% </div>
-</div>
-
-
-<span class="text-muted">Other links</span>
-<div class="progress mb-3">
-<div class="progress-bar progress-bar-striped bg-secondary" role="progressbar" style="width: 80%"> 80%</div>
-</div>
-<br>
-<a href="#" class="btn btn-light">Open analytics <i class="material-icons md-open_in_new"></i> </a>
-	         </article> <!-- card-body end// -->
-	        </div> <!-- card end// -->
-		</div> <!-- col end// -->
-	</div> <!-- row end// -->
-
-
-	<div class="card mb-4">
-          <div class="card-body">
-          	<h5 class="card-title">Dernières commandes</h5>
-          	<div class="table-responsive">
-          	<table class="table table-hover">
-          		<tr>
-          			<td>100</td>
-          			<td><b>Devon Lane</b></td>
-          			<td>devon@example.com</td>
-          			<td>100.000 DT</td>
-          			<td><span class="badge rounded-pill alert-success">Delivered</span></td>
-          			<td>07.05.2020</td>
-          			<td class="text-end">
-          				<a href="#" class="btn btn-light">Detail</a>
-          				<div class="dropdown">
-          					<a href="#" data-bs-toggle="dropdown" class="btn btn-light"> <i class="material-icons md-more_horiz"></i> </a> 
-          					<div class="dropdown-menu">
-							    <a class="dropdown-item" href="#">View detail</a>
-							    <a class="dropdown-item" href="#">Edit info</a>
-							    <a class="dropdown-item text-danger" href="#">Delete</a>
-          					</div>
-          				</div> <!-- dropdown //end -->
-          			</td>
-          		</tr>
-          		<tr>
-          			<td>99</td>
-          			<td><b>Darrell Steward</b></td>
-          			<td>stew123@mysite.com</td>
-          			<td>95.000 DT</td>
-          			<td><span class="badge rounded-pill alert-warning">Pending</span></td>
-          			<td>12.02.2020</td>
-          			<td class="text-end">
-          				<a href="#" class="btn btn-light">Detail</a>
-          				<div class="dropdown">
-          					<a href="#" data-bs-toggle="dropdown" class="btn btn-light"> <i class="material-icons md-more_horiz"></i> </a> 
-          					<div class="dropdown-menu">
-							    <a class="dropdown-item" href="#">Voir détail</a>
-							    <a class="dropdown-item" href="#">Editer info</a>
-							    <a class="dropdown-item text-danger" href="#">Supprimer</a>
-          					</div>
-          				</div>
-          				<!-- dropdown //end -->
-          			</td>
-          		</tr>
-          		<tr>
-          			<td>98</td>
-          			<td><b>Mike Jonatan</b></td>
-          			<td>mike@somename.com</td>
-          			<td>60.000 DT</td>
-          			<td><span class="badge rounded-pill alert-warning">Pending</span></td>
-          			<td>07.05.2020</td>
-          			<td class="text-end"> 
-          				<a href="#" class="btn btn-light">Detail</a>
-          				<div class="dropdown">
-          					<a href="#" data-bs-toggle="dropdown" class="btn btn-light"> <i class="material-icons md-more_horiz"></i> </a> 
-          					<div class="dropdown-menu">
-							    <a class="dropdown-item" href="#">View detail</a>
-							    <a class="dropdown-item" href="#">Edit info</a>
-							    <a class="dropdown-item text-danger" href="#">Delete</a>
-          					</div>
-          				</div> <!-- dropdown //end -->
-          			</td>
-          		</tr>
-          		<tr>
-          			<td>97</td>
-          			<td><b>Ahmed Hassan</b></td>
-          			<td>devon@example.com</td>
-          			<td>150.000 DT</td>
-          			<td><span class="badge rounded-pill alert-danger">Cancelled</span></td>
-          			<td>02.01.2020</td>
-          			<td class="text-end"> 
-          				<a href="#" class="btn btn-light">Detail</a>
-          				<div class="dropdown">
-          					<a href="#" data-bs-toggle="dropdown" class="btn btn-light"> <i class="material-icons md-more_horiz"></i> </a> 
-          					<div class="dropdown-menu">
-							    <a class="dropdown-item" href="#">View detail</a>
-							    <a class="dropdown-item" href="#">Edit info</a>
-							    <a class="dropdown-item text-danger" href="#">Delete</a>
-          					</div>
-          				</div> <!-- dropdown //end -->
-          			</td> 
-          		</tr>
-          		<tr>
-          			<td>96</td>
-          			<td><b>Abdul Mohammad</b></td>
-          			<td>abdu@example.com</td>
-          			<td>99.000 DT</td>
-          			<td><span class="badge rounded-pill alert-success">Delivered</span></td>
-          			<td>17.02.2020</td>
-          			<td class="text-end"> 
-          				<a href="#" class="btn btn-light">Detail</a>
-          				<div class="dropdown">
-          					<a href="#" data-bs-toggle="dropdown" class="btn btn-light"> <i class="material-icons md-more_horiz"></i> </a> 
-          					<div class="dropdown-menu">
-							    <a class="dropdown-item" href="#">View detail</a>
-							    <a class="dropdown-item" href="#">Edit info</a>
-							    <a class="dropdown-item text-danger" href="#">Delete</a>
-          					</div>
-          				</div> <!-- dropdown //end -->
-          			</td>
-          		</tr>
-          		<tr>
-          			<td>95</td>
-          			<td><b>Devon Lane</b></td>
-          			<td>devon@example.com</td>
-          			<td>55.000 DT</td>
-          			<td><span class="badge rounded-pill alert-success">Delivered</span></td>
-          			<td>07.05.2020</td>
-          			<td class="text-end"> 
-          				<a href="#" class="btn btn-light">Detail</a>
-          				<div class="dropdown">
-          					<a href="#" data-bs-toggle="dropdown" class="btn btn-light"> <i class="material-icons md-more_horiz"></i> </a> 
-          					<div class="dropdown-menu">
-							    <a class="dropdown-item" href="#">View detail</a>
-							    <a class="dropdown-item" href="#">Edit info</a>
-							    <a class="dropdown-item text-danger" href="#">Delete</a>
-          					</div>
-          				</div> <!-- dropdown //end -->
-          			</td>
-          		</tr>
-          		<tr>
-          			<td>94</td>
-          			<td><b>Alex Pushkin</b></td>
-          			<td>myphkin@company.com</td>
-          			<td>200.000 DT</td>
-          			<td><span class="badge rounded-pill alert-success">Delivered</span></td>
-          			<td>01.05.2019</td>
-          			<td class="text-end"> 
-          				<a href="#" class="btn btn-light">Detail</a>
-          				<div class="dropdown">
-          					<a href="#" data-bs-toggle="dropdown" class="btn btn-light"> <i class="material-icons md-more_horiz"></i> </a> 
-          					<div class="dropdown-menu">
-							    <a class="dropdown-item" href="#">View detail</a>
-							    <a class="dropdown-item" href="#">Edit info</a>
-							    <a class="dropdown-item text-danger" href="#">Delete</a>
-          					</div>
-          				</div> <!-- dropdown //end -->
-          			</td>
-          		</tr>
-          	</table>
-          	</div> <!-- table-responsive end// -->
-          </div> <!-- card-body end// -->
-    </div> <!-- card end// -->
-
-</section> <!-- content-main end// -->
-</main>
-<script type="text/javascript">
-	if(localStorage.getItem("darkmode")){
-		var body_el = document.body;
-		body_el.className += 'dark';
-	}
-</script>
-
-<script src="{{ asset('js/jquery-3.5.0.min.js') }}"></script>
-<script src="{{ asset('js/bootstrap.bundle.min.js')}}"></script>
-
-<!-- ChartJS files-->
-<script src="https://cdn.jsdelivr.net/npm/chart.js@2.8.0"></script>
-
-<!-- Custom JS -->
-<script src="js/scriptc619.js?v=1.0" type="text/javascript"></script>
-
-<!-- ChartJS customize-->
-<script>
-	var ctx = document.getElementById('myChart').getContext('2d');
-	var chart = new Chart(ctx, {
-	    // The type of chart we want to create
-	    type: 'line',
-
-	    // The data for our dataset
-	    data: {
-	        labels: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'],
-	        datasets: [
-	        {
-	            label: 'Sales',
-	            backgroundColor: 'rgb(44, 120, 220)',
-	            borderColor: 'rgb(44, 120, 220)',
-	            data: [18, 17, 4, 3, 2, 20, 25, 31, 25, 22, 20, 9]
-	        },
-	        {
-	            label: 'Visitors',
-	            backgroundColor: 'rgb(180, 200, 230)',
-	            borderColor: 'rgb(180, 200, 230)',
-	            data: [40, 20, 17, 9, 23, 35, 39, 30, 34, 25, 27, 17]
-	        } 
-
-	        ]
-	    },
-
-	    // Configuration options go here
-	    options: {}
-	});
-</script>
-
-        {% endblock %}
-    </body>
+  </body>
 </html>
     

@@ -1,0 +1,50 @@
+{% extends 'backoffice/base.html.twig' %}
+
+{% block title %}Patient{% endblock %}
+
+{% block body %}
+    <h1>Patient</h1>
+
+    <table class="table">
+        <tbody>
+            <tr>
+                <th>Id</th>
+                <td>{{ patient.id }}</td>
+            </tr>
+            <tr>
+                <th>Idenfiant</th>
+                <td>{{ patient.idPatient }}</td>
+            </tr>
+            <tr>
+                <th>CIN</th>
+                <td>{{ patient.cin }}</td>
+            </tr>
+            <tr>
+                <th>Nom</th>
+                <td>{{ patient.nom }}</td>
+            </tr>
+            <tr>
+                <th>Prenom</th>
+                <td>{{ patient.prenom }}</td>
+            </tr>
+            <tr>
+                <th>Date de naissance</th>
+                <td>{{ patient.dateNaissance ? patient.dateNaissance|date('Y-m-d') : '' }}</td>
+            </tr>
+            <tr>
+                <th>Mobile</th>
+                <td>{{ patient.mobile }}</td>
+            </tr>
+            <tr>
+                <th>Adresse</th>
+                <td>{{ patient.adressePatient }}</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <a href="{{ path('app_patient_index') }}">Retourner</a>
+
+    <a href="{{ path('app_patient_edit', {'id': patient.id}) }}">Modifier</a>
+
+    {{ include('patient/_delete_form.html.twig') }}
+{% endblock %}

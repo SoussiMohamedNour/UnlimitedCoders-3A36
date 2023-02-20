@@ -1,0 +1,51 @@
+{% extends 'backoffice/base.html.twig' %}
+
+{% block title %}Depot index{% endblock %}
+
+{% block body %}
+    <h1>Liste des depots</h1>
+
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>Identifiant</th>
+                <th>Date</th>
+                <th>Etat</th>
+                <th>Regime</th>
+                <th>Total depense</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for depot in depots %}
+            <tr>
+                <td>{{ depot.id }}</td>
+                <td>{{ depot.idDossier }}</td>
+                <td>{{ depot.dateDepot ? depot.dateDepot|date('Y-m-d') : '' }}</td>
+                <td>{{ depot.etatDossier }}</td>
+                <td>{{ depot.regime }}</td>
+                <td>{{ depot.totalDepense }}</td>
+                <td>
+                    <div class="btn-group">
+                        <form action="{{ path('app_depot_show', {'id': depot.id}) }}" method="get">
+                            <button class="afficher-btn" type="submit">Details</button>
+                        </form>
+                        <form action="{{ path('app_depot_edit', {'id': depot.id}) }}" method="get">
+                            <button class="modifier-btn" type="submit">Modifier</button>
+                        </form>
+                    </div>
+                </td>
+            </tr>
+        {% else %}
+            <tr>
+                <td colspan="7">no records found</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+    <form action="{{ path('app_depot_new') }}" method="get">
+        <button class="ajouter-btn" type="submit">Ajouter</button>
+    </form>
+{% endblock %}

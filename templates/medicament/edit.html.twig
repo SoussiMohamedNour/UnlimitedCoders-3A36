@@ -1,0 +1,13 @@
+{% extends 'backoffice/base.html.twig' %}
+
+{% block title %}Edit Medicament{% endblock %}
+
+{% block body %}
+    <h1>Modifier le medicament</h1>
+
+    {{ include('medicament/_form.html.twig', {'button_label': 'Mettre à jour'}) }}
+
+    <a href="{{ path('app_medicament_index') }}">Retourner</a>
+
+    {{ include('medicament/_delete_form.html.twig') }}
+{% endblock %}

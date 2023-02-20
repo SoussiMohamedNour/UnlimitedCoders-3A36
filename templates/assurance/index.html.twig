@@ -1,0 +1,49 @@
+{% extends 'backoffice/base.html.twig' %}
+
+{% block title %}Assurance index{% endblock %}
+
+{% block body %}
+    <h1>Liste des assurances</h1>
+
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>Identifiant</th>
+                <th>Nom</th>
+                <th>Plafond</th>
+                <th>Adresse</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for assurance in assurances %}
+            <tr>
+                <td>{{ assurance.id }}</td>
+                <td>{{ assurance.idAssurance }}</td>
+                <td>{{ assurance.nomAssurance }}</td>
+                <td>{{ assurance.plafond }}</td>
+                <td>{{ assurance.adresseAssurance }}</td>
+                <td>
+                    <div class="btn-group">
+                        <form action="{{ path('app_assurance_show', {'id': assurance.id}) }}" method="get">
+                            <button class="afficher-btn" type="submit">Details</button>
+                        </form>
+                        <form action="{{ path('app_assurance_edit', {'id': assurance.id}) }}" method="get">
+                            <button class="modifier-btn" type="submit">Modifier</button>
+                        </form>
+                    </div>
+                </td>
+            </tr>
+        {% else %}
+            <tr>
+                <td colspan="6">no records found</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+    <form action="{{ path('app_assurance_new') }}" method="get">
+        <button class="ajouter-btn" type="submit">Ajouter</button>
+    </form>
+{% endblock %}

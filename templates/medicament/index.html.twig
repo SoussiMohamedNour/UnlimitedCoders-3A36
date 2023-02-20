@@ -1,0 +1,41 @@
+{% extends 'backoffice/base.html.twig' %}
+
+{% block title %}Medicament index{% endblock %}
+
+{% block body %}
+    <h1>Liste des medicaments</h1>
+
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>Code</th>
+                <th>Libelle</th>
+                <th>Prix</th>
+                <th>Type</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for medicament in medicaments %}
+            <tr>
+                <td>{{ medicament.id }}</td>
+                <td>{{ medicament.code }}</td>
+                <td>{{ medicament.libelle }}</td>
+                <td>{{ medicament.prix }}</td>
+                <td>{{ medicament.type }}</td>
+                <td>
+                    <a href="{{ path('app_medicament_show', {'id': medicament.id}) }}">Details</a>
+                    <a href="{{ path('app_medicament_edit', {'id': medicament.id}) }}">Modifier</a>
+                </td>
+            </tr>
+        {% else %}
+            <tr>
+                <td colspan="6">no records found</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+    <a href="{{ path('app_medicament_new') }}">Ajouter</a>
+{% endblock %}

@@ -1,0 +1,11 @@
+{% extends 'backoffice/base.html.twig' %}
+
+{% block title %}New Assurance{% endblock %}
+
+{% block body %}
+    <h1>Ajouter une assurance</h1>
+
+    {{ include('assurance/_form.html.twig') }}
+
+    <a href="{{ path('app_assurance_index') }}">Retourner</a>
+{% endblock %}

@@ -11,7 +11,7 @@ class DefaultController extends AbstractController
     #[Route('/backoffice', name: 'app_default')]
     public function index(): Response
     {
-        return $this->render('BackOffice/base.html.twig', [
+        return $this->render('backoffice/base.html.twig', [
             'controller_name' => 'DefaultController',
         ]);
     }
