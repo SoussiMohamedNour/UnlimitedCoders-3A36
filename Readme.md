@@ -26,5 +26,6 @@
 ### template Backoffice
 - ouvrable avec route `/backoffice`
 ### Intégration Template
+### template Frontoffice
 - ouvrable avec route `/frontoffice`
 
