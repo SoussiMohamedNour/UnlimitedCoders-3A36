@@ -38,6 +38,90 @@ class OrdonnanceRepository extends ServiceEntityRepository
             $this->getEntityManager()->flush();
         }
     }
+    
+    // Tri Reference
+    public function getOrdonnanceByReferenceAsc():array{
+        return $this->createQueryBuilder('o')
+        ->orderBy('o.reference','ASC')
+        ->getQuery()
+        ->getResult();
+    }
+    public function getOrdonnanceByReferenceDesc():array{
+        return $this->createQueryBuilder('o')
+        ->orderBy('o.reference','DESC')
+        ->getQuery()
+        ->getResult();
+    }
+
+    // Tri Validite
+    public function getOrdonnanceByValiditeAsc():array{
+        return $this->createQueryBuilder('o')
+        ->orderBy('o.validite','ASC')
+        ->getQuery()
+        ->getResult();
+    }
+    public function getOrdonnanceByValiditeDesc():array{
+        return $this->createQueryBuilder('o')
+        ->orderBy('o.validite','DESC')
+        ->getQuery()
+        ->getResult();
+    }
+
+    // Tri Id Consultation 
+    public function getOrdonnanceByConsultationAsc():array{
+        return $this->createQueryBuilder('o')
+        ->orderBy('o.consultation','ASC')
+        ->getQuery()
+        ->getResult();
+    }
+    public function getOrdonnanceByConsultationDesc():array{
+        return $this->createQueryBuilder('o')
+        ->orderBy('o.consultation','DESC')
+        ->getQuery()
+        ->getResult();
+    }
+    
+    public function returnAll():array{
+        return $this->findAll();
+    }
+
+    public function trier(string $critere,string $ordre):array{
+        if($critere == "reference")
+        {
+            if($ordre == "asc")
+            {
+                return $this->getOrdonnanceByReferenceAsc();
+            }
+            else if ($ordre == "desc" )
+            {
+                return $this->getOrdonnanceByReferenceDesc();
+            }
+
+        }
+        else if($critere == "validite")
+        {
+            if($ordre == "asc")
+            {
+                return $this->getOrdonnanceByValiditeAsc();
+            }
+            else if ($ordre == "desc")
+            {
+                return $this->getOrdonnanceByValiditeDesc();
+            }
+        }
+        else if($critere == "idconsultation")
+        {
+            if($ordre == "asc")
+            {
+                return $this->getOrdonnanceByConsultationAsc();
+            }
+            else if($ordre == "desc")
+            {
+                return $this->getOrdonnanceByConsultationDesc();
+            }
+        }
+        return $this->findAll();
+    }
 
 //    /**
 //     * @return Ordonnance[] Returns an array of Ordonnance objects

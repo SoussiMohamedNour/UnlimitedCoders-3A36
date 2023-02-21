@@ -14,6 +14,8 @@
         </div>
     </div>
     <div class"card-body">
+{{ form_start(form) }}
+{{ form_widget(form) }}
         <div class="table-responsive">
             <table class="table table-hover">
                 <thead>
@@ -55,4 +57,5 @@
 </div>
 
 </section>
+{{ form_end(form) }}
 {% endblock %}

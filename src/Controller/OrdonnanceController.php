@@ -5,6 +5,7 @@ namespace App\Controller;
 use App\Entity\Ordonnance;
 use App\Form\MailerType;
 use App\Form\OrdonnanceType;
+use App\Form\SortOrdonnanceType;
 use App\Repository\ConsultationRepository;
 use App\Repository\OrdonnanceRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -29,11 +30,20 @@ use Symfony\Component\Serializer\SerializerInterface;
 #[Route('/backoffice')]
 class OrdonnanceController extends AbstractController
 {
-    #[Route('/ordonnance', name: 'app_ordonnance_index', methods: ['GET'])]
-    public function index(OrdonnanceRepository $ordonnanceRepository): Response
+    #[Route('/ordonnance', name: 'app_ordonnance_index', methods: ['GET','POST'])]
+    public function index(OrdonnanceRepository $ordonnanceRepository,Request $request): Response
     {
-        return $this->render('BackOffice/ordonnance/index.html.twig', [
-            'ordonnances' => $ordonnanceRepository->findAll(),
+        $form = $this->createForm(SortOrdonnanceType::class);
+        $form->handleRequest($request);
+        if($form->isSubmitted() && $form->isValid())
+        {
+            $critere = $form->get('sort')->getData();
+            $ordere = $form->get('ordre')->getData();
+            $ordonnances = $ordonnanceRepository->trier($critere,$ordere);
+            return $this->renderForm('/BackOffice/ordonnance/index.html.twig',['ordonnances'=>$ordonnances,'form'=>$form]);
+        }
+        return $this->renderForm('/BackOffice/ordonnance/index.html.twig', [
+            'ordonnances' => $ordonnanceRepository->findAll(),'form'=>$form
         ]);
     }
 
