@@ -39,6 +39,85 @@ class MedicamentRepository extends ServiceEntityRepository
         }
     }
 
+    // Tri id
+    public function getMedicamentByIdAsc():array{
+        return $this->createQueryBuilder('m')
+        ->orderBy('m.id','ASC')
+        ->getQuery()
+        ->getResult();
+    }
+    public function getMedicamentByIdDesc():array{
+        return $this->createQueryBuilder('m')
+        ->orderBy('m.id','DESC')
+        ->getQuery()
+        ->getResult();
+    }
+
+    // Tri Dosage
+    public function getMedicamentByDosageAsc():array{
+        return $this->createQueryBuilder('m')
+        ->orderBy('m.dosage','ASC')
+        ->getQuery()
+        ->getResult();
+    }
+    public function getMedicamentByDosageDesc():array{
+        return $this->createQueryBuilder('m')
+        ->orderBy('m.dosage','DESC')
+        ->getQuery()
+        ->getResult();
+    }
+
+    // Tri Prix
+    public function getMedicamentByPrixAsc():array{
+        return $this->createQueryBuilder('m')
+        ->orderBy('m.prix','ASC')
+        ->getQuery()
+        ->getResult();
+    }
+    public function getMedicamentByPrixDesc():array{
+        return $this->createQueryBuilder('m')
+        ->orderBy('m.prix','DESC')
+        ->getQuery()
+        ->getResult();
+    }
+    public function trier(string $critere,string $ordre):array{
+        if($critere == "id")
+        {
+            if($ordre == "asc")
+            {
+                return $this->getMedicamentByIdAsc();
+            }
+            else if ($ordre == "desc" )
+            {
+                return $this->getMedicamentByIdDesc();
+            }
+
+        }
+        else if($critere == "dosage")
+        {
+            if($ordre == "asc")
+            {
+                return $this->getMedicamentByDosageAsc();
+            }
+            else if ($ordre == "desc")
+            {
+                return $this->getMedicamentByDosageDesc();
+            }
+        }
+        else if($critere == "prix")
+        {
+            if($ordre == "asc")
+            {
+                return $this->getMedicamentByPrixAsc();
+            }
+            else if($ordre == "desc")
+            {
+                return $this->getMedicamentByPrixDesc();
+            }
+        }
+        return $this->findAll();
+    }
+
 //    /**
 //     * @return Medicament[] Returns an array of Medicament objects
 //     */

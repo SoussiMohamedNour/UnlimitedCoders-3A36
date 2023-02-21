@@ -4,6 +4,7 @@ namespace App\Controller;
 
 use App\Entity\Medicament;
 use App\Form\MedicamentType;
+use App\Form\SortMedicamentType;
 use App\Repository\MedicamentRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
@@ -18,11 +19,27 @@ use Symfony\Component\Serializer\SerializerInterface;
 #[Route('/backoffice')]
 class MedicamentController extends AbstractController
 {
-    #[Route('/medicament', name: 'app_medicament_index', methods: ['GET'])]
-    public function index(MedicamentRepository $medicamentRepository): Response
+    #[Route('/medicament', name: 'app_medicament_index', methods: ['GET','POST'])]
+    public function index(MedicamentRepository $medicamentRepository,Request $request): Response
     {
-        return $this->render('BackOffice/medicament/index.html.twig', [
+        $form = $this->createForm(SortMedicamentType::class);
+        $form->handleRequest($request);
+        if($form->isSubmitted() && $form->isValid())
+        {
+            $critere = $form->get('sort')->getData();
+            $ordre = $form->get('ordre')->getData();
+            $medicament = $medicamentRepository->trier($critere,$ordre);
+            return $this->renderForm('/BackOffice/medicament/index.html.twig',
+            [
+                'medicaments'=>$medicament,
+                'form'=>$form,
+                
+            ]);
+        }
+
+        return $this->renderForm('BackOffice/medicament/index.html.twig', [
             'medicaments' => $medicamentRepository->findAll(),
+            'form'=>$form,
         ]);
     }
 
