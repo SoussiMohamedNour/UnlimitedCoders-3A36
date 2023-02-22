@@ -91,6 +91,7 @@
             {% endfor %}
         </div>
         <a href="{{ path('app_utilisateur_show', {'id': utilisateur.id}) }}" class="user-show">Show</a>
+        <a href="{{ path('app_banned', {'id': utilisateur.id}) }}" class="user-ban">Ban</a>
     </article>
     {% endfor %}
   </div>
@@ -164,6 +165,21 @@
     margin-top:1rem;
     color:white;
     background-color:#2f8ad0;
+    border-radius: 12px;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    text-decoration:none;
+    transition: background-color 0.6s ease;
+  }
+    .user-ban{
+    border:none;
+    padding: 0.75rem 1.5rem;
+    width:100%;
+    margin:0;
+    margin-top:1rem;
+    color:white;
+    background-color:#DC143C;
     border-radius: 12px;
     display:flex;
     justify-content:center;
