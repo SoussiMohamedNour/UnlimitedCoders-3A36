@@ -7,6 +7,12 @@ parameters:
 
 services:  
 
+    # app.controller.ban:
+    #     class: App\Controller\BanController
+    #     tags:
+    #         - { name: controller.service_arguments }
+
+
     _defaults:
         autowire: true      # Automatically injects dependencies in your services.
         autoconfigure: true # Automatically registers your services as commands, event subscribers, etc.

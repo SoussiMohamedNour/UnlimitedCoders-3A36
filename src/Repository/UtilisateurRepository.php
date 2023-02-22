@@ -60,24 +60,24 @@ class UtilisateurRepository extends ServiceEntityRepository implements PasswordU
 
 
 
-    /**
-     * @Route("/banned", name="banUtilisateur")
-     */
+    // /**
+    //  * @Route("/banned", name="banUtilisateur")
+    //  */
 
-    public function banUser(Utilisateur $utilisateur): void
+    // public function banUser(Utilisateur $utilisateur): void
 
     
-    {
-        $entityManager = $this->getEntityManager();
+    // {
+    //     $entityManager = $this->getEntityManager();
         
-        $userRoles = $utilisateur->getRoles();
-        if (!in_array('ROLE_BANNED', $userRoles)) {
-            $userRoles[] = 'ROLE_BANNED';
-            $utilisateur->setRoles($userRoles);
-        }
-        $utilisateur->setIsbanned(true);
-        $entityManager->flush();
-    }
+    //     $userRoles = $utilisateur->getRoles();
+    //     if (!in_array('ROLE_BANNED', $userRoles)) {
+    //         $userRoles[] = 'ROLE_BANNED';
+    //         $utilisateur->setRoles($userRoles);
+    //     }
+    //     $utilisateur->setIsbanned(true);
+    //     $entityManager->flush();
+    // }
     }
 
 

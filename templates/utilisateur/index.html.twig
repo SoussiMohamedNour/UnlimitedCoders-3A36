@@ -91,7 +91,7 @@
             {% endfor %}
         </div>
         <a href="{{ path('app_utilisateur_show', {'id': utilisateur.id}) }}" class="user-show">Show</a>
-        <a href="{{ path('banUtilisateur') }}" class="user-ban">Ban</a>
+        <a href="{{ path('ban_user', {'id': utilisateur.id}) }}" class="user-ban">Ban</a>
     </article>
     {% endfor %}
   </div>

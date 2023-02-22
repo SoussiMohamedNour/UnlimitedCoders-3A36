@@ -15,6 +15,7 @@ use Doctrine\ORM\EntityManagerInterface;
 use Doctrine\ORM\EntityManager;
 
 
+
 class UserController extends AbstractController
 {
     
@@ -26,6 +27,22 @@ class UserController extends AbstractController
         return $this->render('BackOffice/medecin.html.twig');
     
     }
+
+    // #[Route('/banned', name: 'app_ban')]
+    // public function banUser(): Response
+    // {
+    //     $entityManager = $this->getEntityManager();
+    //     $utilisateur=$this->getUser();
+    //     $utilisateurRoles=$utilisateur->getRoles();
+
+    //     if (!in_array('ROLE_BANNED', $utilisateurRoles)) {
+    //         $userRoles[] = 'ROLE_BANNED';
+    //         $utilisateur->setRoles($utilisateurRoles);
+    //     }
+    //     $utilisateur->setIsbanned(true);
+    //     $entityManager->flush();
+    //     return $this->render('404/404.html.twig');
+    // }
 
     #[IsGranted('ROLE_ADMIN')]
     #[Route('/backofficeadmin', name: 'app_admin')]
