@@ -8,8 +8,11 @@ use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 use Symfony\Component\Security\Core\User\PasswordAuthenticatedUserInterface;
 use Symfony\Component\Security\Core\User\UserInterface;
 use ApiPlatform\Metadata\ApiResource;
+use Doctrine\ORM\EntityManager;
 use Symfony\Component\Mime\Message;
 use Symfony\Component\Validator\Constraints as Assert;
+use Doctrine\ORM\EntityManagerInterface;
+
 
 #[ApiResource]
 #[ORM\Entity(repositoryClass: UtilisateurRepository::class)]
@@ -298,4 +301,7 @@ class Utilisateur implements UserInterface, PasswordAuthenticatedUserInterface
 
         return $this;
     }
+
+  
+
 }

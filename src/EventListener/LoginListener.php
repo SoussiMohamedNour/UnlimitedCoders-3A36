@@ -26,10 +26,11 @@ class LoginListener implements EventSubscriberInterface
          
         $token = $event->getAuthenticatedToken();
         $user = $token->getUser();
-        $token = $event->getAuthenticatedToken();
+        
        
         
-        if ($user instanceof Utilisateur && $user->isIsbanned()){
+        if ($user instanceof Utilisateur && $user->isIsbanned() && (in_array("ROLE_BANNED",$user->getRoles()) ))
+        {
             $response = new RedirectResponse($this->urlGenerator->generate('app_banned'));
         }
 
