@@ -188,7 +188,7 @@ class UserController extends AbstractController
         $jsonContent = $normalizerInterface->normalize($utilisateur,'json',['groups'=>'utilisateurs']);
         return new Response("Utilisateur Modifier avec succees".json_encode($jsonContent));
     }
-    #[Route('/utisateur/supprimer/{id}',name:'app_user_supprimer_json')]
+    #[Route('/utilisateur/supprimer/{id}',name:'app_user_supprimer_json')]
     public function supprimerJson(Request $request,$id,NormalizerInterface $normalizerInterface)
     {
         $em = $this->getDoctrine()->getManager();
