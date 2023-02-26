@@ -42,7 +42,6 @@ class Consultation
 
     #[ORM\OneToMany(mappedBy: 'consultation', targetEntity: Ordonnance::class)]
 
-    #[Groups("consultations")]
     private Collection $ordonnances;
 
     public function __construct()

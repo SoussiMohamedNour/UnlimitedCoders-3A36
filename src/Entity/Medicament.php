@@ -40,7 +40,7 @@ class Medicament
     private ?string $description = null;
 
     #[ORM\ManyToMany(targetEntity: Ordonnance::class, mappedBy: 'medicaments')]
-    #[Groups('medicaments')]
+    // #[Groups('medicaments')]
     private Collection $ordonnances;
 
     public function __construct()

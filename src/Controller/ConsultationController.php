@@ -157,14 +157,16 @@ class ConsultationController extends AbstractController
     #[Route('/consultation/ajouter_json',name:'app_consultation_ajouter_json')]
     public function ajouterJson(Request $req,NormalizerInterface $normalizerInterface)
     {
+        $format = "Y-m-d";
         $em = $this->getDoctrine()->getManager();
         $consultation = new Consultation();
         $consultation->setMatriculemedecin($req->get('matricule'));
         $consultation->setIdpatient($req->get('id'));
         $consultation->setMontant($req->get('montant'));
-        $consultation->setDateconsultation($req->get('date'));
+        $date = \DateTimeImmutable::createFromFormat($format,$req->get('date'));
+        $consultation->setDateconsultation($date);
         $em->persist($consultation);
-        $em-flush();
+        $em->flush();
         $jsonContent  = $normalizerInterface->normalize($consultation,'json',['groups'=>'consultations']);
         return new Response(json_encode($jsonContent));
     }
