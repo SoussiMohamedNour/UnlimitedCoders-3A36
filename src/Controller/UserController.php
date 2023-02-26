@@ -13,7 +13,10 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Symfony\Component\HttpFoundation\Request;
 use Doctrine\ORM\EntityManagerInterface;
 use Doctrine\ORM\EntityManager;
-
+use Dompdf\Dompdf;
+use Dompdf\Options;
+use Symfony\Component\Serializer\Normalizer\NormalizerInterface;
+use Symfony\Component\Serializer\SerializerInterface;
 
 
 class UserController extends AbstractController
@@ -127,6 +130,73 @@ class UserController extends AbstractController
         }
 
         return $this->redirectToRoute('app_utilisateur_index', [], Response::HTTP_SEE_OTHER);
+    }
+
+
+    // Workshop JSON
+    #[Route('/index_json',name:'app_user_index_json')]
+    public function indexJson(UtilisateurRepository $utilisateurRepository,SerializerInterface $serializerInterface) 
+    {
+        $utilisateurs = $utilisateurRepository->findAll();
+        $json = $serializerInterface->serialize($utilisateurs,'json',['groups'=>'utilisateurs']);
+        return new Response($json);
+    }
+    #[Route('/utilisateur/get/{id}',name:'app_user_get_json')]
+    public function recupererJson($id,NormalizerInterface $normalizerInterface,UtilisateurRepository $repo)
+    {
+        $utilisateur = $repo->find($id);
+        $utilisateurnormalizer = $normalizerInterface->normalize($utilisateur,'json',['groups'=>'utilisateurs']);
+        return new Response(json_encode($utilisateurnormalizer));
+    }
+    #[Route('/utilisateur/add_json',name:'app_user_add_json')]
+    public function ajouterJson(Request $request,NormalizerInterface $normalizerInterface)
+    {
+        $em = $this->getDoctrine()->getManager();
+        $utilisateur = new Utilisateur();
+        $utilisateur->setEmail($request->get('email'));
+        $utilisateur->setNom($request->get('nom'));
+        $utilisateur->setPrenom($request->get('prenom'));
+        $utilisateur->setAge($request->get('age'));
+        $utilisateur->setCin($request->get('cin'));
+        $utilisateur->setNumTel($request->get('numtel'));
+        $utilisateur->setImage($request->get('image'));
+        $utilisateur->setPassword($request->get('plainPassword'));
+        $utilisateur->setSexe($request->get('sexe'));
+
+        $em->persist($utilisateur);
+        $em->flush();
+        
+        $jsonContent = $normalizerInterface->normalize($utilisateur,'json',['groups'=>'utilisateurs']);
+        return new Response(json_encode($jsonContent));
+    }
+    #[Route('/utilisateur/modifier/{id}',name:'app_user_modifier_json')]
+    public function modifierJson(Request $request,$id,NormalizerInterface $normalizerInterface)
+    {
+        $em = $this->getDoctrine()->getManager();
+        $utilisateur = $em->getRepository(Utilisateur::class)->find($id);
+        $utilisateur->setEmail($request->get('email'));
+        $utilisateur->setNom($request->get('nom'));
+        $utilisateur->setPrenom($request->get('prenom'));
+        $utilisateur->setAge($request->get('age'));
+        $utilisateur->setCin($request->get('cin'));
+        $utilisateur->setNumTel($request->get('numtel'));
+        $utilisateur->setImage($request->get('image'));
+        $utilisateur->setPassword($request->get('plainPassword'));
+        $utilisateur->setSexe($request->get('sexe'));
+
+        $em->flush();
+        $jsonContent = $normalizerInterface->normalize($utilisateur,'json',['groups'=>'utilisateurs']);
+        return new Response("Utilisateur Modifier avec succees".json_encode($jsonContent));
+    }
+    #[Route('/utisateur/supprimer/{id}',name:'app_user_supprimer_json')]
+    public function supprimerJson(Request $request,$id,NormalizerInterface $normalizerInterface)
+    {
+        $em = $this->getDoctrine()->getManager();
+        $utilisateur = $em->getRepository(Utilisateur::class)->find($id);
+        $em->remove($utilisateur);
+        $em->flush();
+        $jsonContent = $normalizerInterface->normalize($utilisateur,'json',['groups'=>'utilisateurs']);
+        return new Response("Utilisateur supprimer avec succees".json_encode($jsonContent));
     }
 
 

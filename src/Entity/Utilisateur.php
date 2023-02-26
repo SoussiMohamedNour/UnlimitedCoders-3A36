@@ -12,6 +12,7 @@ use Doctrine\ORM\EntityManager;
 use Symfony\Component\Mime\Message;
 use Symfony\Component\Validator\Constraints as Assert;
 use Doctrine\ORM\EntityManagerInterface;
+use Symfony\Component\Serializer\Annotation\Groups;
 
 
 #[ApiResource]
@@ -23,10 +24,12 @@ class Utilisateur implements UserInterface, PasswordAuthenticatedUserInterface
     #[ORM\Id]
     #[ORM\GeneratedValue]
     #[ORM\Column]
+    #[Groups('utilisateurs')]
     private ?int $id = null;
 
     #[ORM\Column(length: 180, unique: true)]
-    #[Assert\Email(message:"Votre Nom Est Requis")]
+    #[Assert\Email(message:"Votre Email Est Requis")]
+    #[Groups('utilisateurs')]
     private ?string $email = null;
 
     #[ORM\Column]
@@ -36,17 +39,21 @@ class Utilisateur implements UserInterface, PasswordAuthenticatedUserInterface
      * @var string The hashed password
      */
     #[ORM\Column]
+    #[Groups('utilisateurs')]
     private ?string $password = null;
 
     #[ORM\Column(length: 255)]
+    #[Groups('utilisateurs')]
     #[Assert\NotBlank(message:"Votre Nom Est Requis")]
     private ?string $nom = null;
 
     #[ORM\Column(length: 255)]
+    #[Groups('utilisateurs')]
     #[Assert\NotBlank(message:"Votre Nom Est Requis")]
     private ?string $prenom = null;
 
     #[ORM\Column]
+    #[Groups('utilisateurs')]
     #[Assert\Positive(message:"Bien Specifier Votre Age")]
     private ?int $age = null;
 
@@ -54,10 +61,12 @@ class Utilisateur implements UserInterface, PasswordAuthenticatedUserInterface
     private ?string $sexe = null;
 
     #[ORM\Column(length: 8)]
+    #[Groups('utilisateurs')]
     // #[Assert\Length(message:"Bien Specifier Votre Numero GSM")]
     private ?string $num_tel = null;
 
     #[ORM\Column(length: 8)]
+    #[Groups('utilisateurs')]
     #[Assert\NotBlank(message:"Bien Specifier Votre CIN")]
     private ?string $cin = null;
 
