@@ -29,3 +29,9 @@
 ### template Frontoffice
 - ouvrable avec route `/frontoffice`
 
+#### Remarque
+Le fichier `gitignore` a été modifié pour ignorer le dossier vendor.
+Dès que vous clonnez le repo utiliser cette commande pour satisfaire toutes les dépendances.
+```bash
+user@localhost: composer update
+```
