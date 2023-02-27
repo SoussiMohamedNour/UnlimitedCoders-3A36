@@ -18,11 +18,13 @@ use Symfony\Component\Serializer\Normalizer\NormalizerInterface;
 use Symfony\Component\Serializer\Serializer;
 use Symfony\Component\Serializer\SerializerInterface;
 
+use Knp\Component\Pager\PaginatorInterface;
+
 #[Route('/backoffice')]
 class ConsultationController extends AbstractController
 {
     #[Route('/consultation', name: 'app_consultation_index', methods: ['GET','POST'])]
-    public function index(ConsultationRepository $consultationRepository,Request $request): Response
+    public function index(ConsultationRepository $consultationRepository,Request $request,PaginatorInterface $paginator): Response
     {
         $form = $this->createForm(SortConsultationType::class);
         $form->handleRequest($request);
@@ -30,13 +32,16 @@ class ConsultationController extends AbstractController
         {
             $critere = $form->get('sort')->getData();
             $ordre = $form->get('ordre')->getData();
-            $consultations = $consultationRepository->trier($critere,$ordre);
+            $data = $consultationRepository->trier($critere,$ordre);
+            $consultations = $paginator->paginate($data,$request->query->getInt('page',1),2);
         return $this->renderForm('/BackOffice/consultation/index.html.twig',['consultations'=> $consultations,'form'=>$form]);
             
 
         }
+        $data = $consultationRepository->findAll();
+        $consultations = $paginator->paginate($data,$request->query->getInt('page',1),3);
         return $this->renderForm('BackOffice/consultation/index.html.twig', [
-            'consultations' => $consultationRepository->findAll(),
+            'consultations' => $consultations,
             'form'=>$form
         ]);
 

@@ -4,6 +4,7 @@ namespace App\Repository;
 
 use App\Entity\Consultation;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
+use Doctrine\DBAL\Query\QueryBuilder;
 use Doctrine\Persistence\ManagerRegistry;
 
 /**
@@ -38,6 +39,7 @@ class ConsultationRepository extends ServiceEntityRepository
             $this->getEntityManager()->flush();
         }
     }
+    
 
     // Tri Date Consultation
     public function getConsultationByDateAsc():array{
