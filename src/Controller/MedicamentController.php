@@ -16,11 +16,13 @@ use Dompdf\Options;
 use Symfony\Component\Serializer\Normalizer\NormalizerInterface;
 use Symfony\Component\Serializer\SerializerInterface;
 
+use Knp\Component\Pager\PaginatorInterface;
+
 #[Route('/backoffice')]
 class MedicamentController extends AbstractController
 {
     #[Route('/medicament', name: 'app_medicament_index', methods: ['GET','POST'])]
-    public function index(MedicamentRepository $medicamentRepository,Request $request): Response
+    public function index(MedicamentRepository $medicamentRepository,Request $request,PaginatorInterface $paginator): Response
     {
         $form = $this->createForm(SortMedicamentType::class);
         $form->handleRequest($request);
@@ -28,7 +30,8 @@ class MedicamentController extends AbstractController
         {
             $critere = $form->get('sort')->getData();
             $ordre = $form->get('ordre')->getData();
-            $medicament = $medicamentRepository->trier($critere,$ordre);
+            $data = $medicamentRepository->trier($critere,$ordre);
+            $medicament = $paginator->paginate($data,$request->query->getInt('page',1),5);
             return $this->renderForm('/BackOffice/medicament/index.html.twig',
             [
                 'medicaments'=>$medicament,
@@ -36,9 +39,10 @@ class MedicamentController extends AbstractController
                 
             ]);
         }
-
+        $data = $medicamentRepository->findAll();
+        $medicament = $paginator->paginate($data,$request->query->getInt('page',1),5);
         return $this->renderForm('BackOffice/medicament/index.html.twig', [
-            'medicaments' => $medicamentRepository->findAll(),
+            'medicaments' => $medicament,
             'form'=>$form,
         ]);
     }
