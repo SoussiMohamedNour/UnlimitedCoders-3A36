@@ -26,12 +26,14 @@ use Symfony\Component\Mailer\MailerInterface;
 use Symfony\Component\Mime\Email;
 use Symfony\Component\Serializer\Normalizer\NormalizerInterface;
 use Symfony\Component\Serializer\SerializerInterface;
+use Knp\Component\Pager\PaginatorInterface;
+
 
 #[Route('/backoffice')]
 class OrdonnanceController extends AbstractController
 {
     #[Route('/ordonnance', name: 'app_ordonnance_index', methods: ['GET','POST'])]
-    public function index(OrdonnanceRepository $ordonnanceRepository,Request $request): Response
+    public function index(OrdonnanceRepository $ordonnanceRepository,Request $request,PaginatorInterface $paginator): Response
     {
         $form = $this->createForm(SortOrdonnanceType::class);
         $form->handleRequest($request);
@@ -39,11 +41,14 @@ class OrdonnanceController extends AbstractController
         {
             $critere = $form->get('sort')->getData();
             $ordere = $form->get('ordre')->getData();
-            $ordonnances = $ordonnanceRepository->trier($critere,$ordere);
+            $data = $ordonnanceRepository->trier($critere,$ordere);
+            $ordonnances = $paginator->paginate($data,$request->query->getInt('page',1),5);
             return $this->renderForm('/BackOffice/ordonnance/index.html.twig',['ordonnances'=>$ordonnances,'form'=>$form]);
         }
+        $data = $ordonnanceRepository->findAll();
+        $ordonnances = $paginator->paginate($data,$request->query->getInt('page',1),5);
         return $this->renderForm('/BackOffice/ordonnance/index.html.twig', [
-            'ordonnances' => $ordonnanceRepository->findAll(),'form'=>$form
+            'ordonnances' => $ordonnances,'form'=>$form
         ]);
     }
 
