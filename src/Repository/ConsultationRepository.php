@@ -39,6 +39,15 @@ class ConsultationRepository extends ServiceEntityRepository
             $this->getEntityManager()->flush();
         }
     }
+
+    public function total_montant():float
+    {
+        $query = $this->createQueryBuilder('c')
+        ->select("sum(c.montant) as total_consultation")
+        ->getQuery()
+        ->getSingleResult();
+        return $query['total_consultation'];
+    }
     
 
     // Tri Date Consultation

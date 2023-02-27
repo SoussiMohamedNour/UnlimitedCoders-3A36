@@ -38,6 +38,15 @@ class OrdonnanceRepository extends ServiceEntityRepository
             $this->getEntityManager()->flush();
         }
     }
+
+    public function total_ordonnances():float
+    {
+        $query = $this->createQueryBuilder('o')
+        ->select(" count(o) as total_ordonnance")
+        ->getQuery()
+        ->getSingleResult();
+        return $query['total_ordonnance'];
+    }
     
     // Tri Reference
     public function getOrdonnanceByReferenceAsc():array{

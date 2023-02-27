@@ -145,6 +145,17 @@ class OrdonnanceController extends AbstractController
         return $this->renderForm('/BackOffice/ordonnance/email.html.twig',['form'=>$form]);
     }
 
+    #[Route('/ordonnance/statistique',name:'app_ordonnance_statistique')]
+    public function statistique(OrdonnanceRepository $ordonnanceRepository,ConsultationRepository $consultationRepository,Request $request)
+    {
+        $total_consultations = $consultationRepository->total_montant();
+        $total_ordonnances = $ordonnanceRepository->total_ordonnances();
+
+        return $this->renderForm('/BackOffice/ordonnance/statistique.html.twig',['total_consultation'=>$total_consultations,'total_ordonnance'=>$total_ordonnances]);
+
+
+    }
+
     // Commande Sync Msg  php bin/console messenger:consume async -vv
     #[Route('/ordonnance/notifier',name:'app_ordonnance_notifier')]
     public function notifierValidite(ConsultationRepository $consultationRepository, OrdonnanceRepository $repo,MailerInterface $mailer,Ordonnance $ordonnance)
