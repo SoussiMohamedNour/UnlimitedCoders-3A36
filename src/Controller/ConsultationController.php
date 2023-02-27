@@ -33,13 +33,13 @@ class ConsultationController extends AbstractController
             $critere = $form->get('sort')->getData();
             $ordre = $form->get('ordre')->getData();
             $data = $consultationRepository->trier($critere,$ordre);
-            $consultations = $paginator->paginate($data,$request->query->getInt('page',1),2);
+            $consultations = $paginator->paginate($data,$request->query->getInt('page',1),5);
         return $this->renderForm('/BackOffice/consultation/index.html.twig',['consultations'=> $consultations,'form'=>$form]);
             
 
         }
         $data = $consultationRepository->findAll();
-        $consultations = $paginator->paginate($data,$request->query->getInt('page',1),3);
+        $consultations = $paginator->paginate($data,$request->query->getInt('page',1),5);
         return $this->renderForm('BackOffice/consultation/index.html.twig', [
             'consultations' => $consultations,
             'form'=>$form
