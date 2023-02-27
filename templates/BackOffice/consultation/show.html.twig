@@ -1,0 +1,40 @@
+{% extends 'BackOffice/consultation/base.html.twig' %}
+
+{% block title %}Consultation{% endblock %}
+
+{% block body %}
+<section class="content-main">
+    <h1>Supprimer Consultation</h1>
+
+    <table class="table">
+        <tbody>
+            <tr>
+                <th>Reference</th>
+                <td>{{ consultation.reference }}</td>
+            </tr>
+            <tr>
+                <th>Matriculemedecin</th>
+                <td>{{ consultation.matriculemedecin }}</td>
+            </tr>
+            <tr>
+                <th>Idpatient</th>
+                <td>{{ consultation.idpatient }}</td>
+            </tr>
+            <tr>
+                <th>Dateconsultation</th>
+                <td>{{ consultation.dateconsultation ? consultation.dateconsultation|date('Y-m-d') : '' }}</td>
+            </tr>
+            <tr>
+                <th>Montant</th>
+                <td>{{ consultation.montant }}</td>
+            </tr>
+        </tbody>
+    </table>
+
+    {# <a href="{{ path('app_consultation_index') }}">Liste</a> #}
+{# 
+    <a href="{{ path('app_consultation_edit', {'reference': consultation.reference}) }}">edit</a> #}
+
+    {{ include('BackOffice/consultation/_delete_form.html.twig') }}
+</section>
+{% endblock %}

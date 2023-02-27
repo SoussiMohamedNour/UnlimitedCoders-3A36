@@ -1,0 +1,61 @@
+{% extends 'BackOffice/consultation/base.html.twig' %}
+
+{% block title %}Ordonnance index{% endblock %}
+
+{% block body %}
+<section class="content-main">
+<div class="card mb-4">
+    <div class="content-header">
+        <h2 class="content-title">Liste Des Ordonnance</h2>
+        <div>
+            <a href="{{ path('app_ordonnance_new') }}"  class="btn btn-primary"><i class="material-icons md-plus"></i>Ajouter</a>
+            <a href="{{ path('app_ordonnance_pdf') }}"  class="btn btn-primary"><i class="material-icons md-plus"></i>PDF</a>
+            <a href="{{ path('app_ordonnance_mail') }}"  class="btn btn-primary"><i class="material-icons md-plus"></i>Mail</a>
+        </div>
+    </div>
+    <div class"card-body">
+{{ form_start(form) }}
+{{ form_widget(form) }}
+        <div class="table-responsive">
+            <table class="table table-hover">
+                <thead>
+                    <tr>
+                        <th>Reference</th>
+                        <th>Validite</th>
+                        <th>Liste Médicaments</th>
+                        <th>Opérations</th>
+                    </tr>
+                </thead>
+                <tbody>
+            {% for ordonnance in ordonnances %}
+                <tr>
+                    <td>{{ ordonnance.reference }}</td>
+                    <td>{{ ordonnance.validite }}</td>
+                    <td>
+                    <ul>
+                        {% for m in ordonnance.medicaments  %}
+                        <li>
+                        {{ m.nom }}
+                        </li>
+                        {% endfor %}
+                    </ul>
+                    </td>
+                    <td>
+                        <a href="{{ path('app_ordonnance_show', {'reference': ordonnance.reference}) }}">Supprimer</a>
+                        <a href="{{ path('app_ordonnance_edit', {'reference': ordonnance.reference}) }}">Modifier</a>
+                    </td>
+                </tr>
+            {% else %}
+            <tr>
+                <td colspan="3">Liste Ordonnances Vide</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+            </table>
+        </div>
+    
+</div>
+
+</section>
+{{ form_end(form) }}
+{% endblock %}

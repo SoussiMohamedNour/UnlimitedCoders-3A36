@@ -12,6 +12,8 @@
         "doctrine/doctrine-bundle": "^2.8",
         "doctrine/doctrine-migrations-bundle": "^3.2",
         "doctrine/orm": "^2.14",
+        "dompdf/dompdf": "^2.0",
+        "knplabs/knp-paginator-bundle": "^5.9",
         "easycorp/easyadmin-bundle": "^4",
         "lexik/jwt-authentication-bundle": "^2.18",
         "nelmio/cors-bundle": "^2.2",

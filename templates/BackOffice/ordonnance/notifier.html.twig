@@ -1,0 +1,42 @@
+{% block body %}
+
+<style>
+
+table,th,td,tr{
+    border:1px solid black;
+}
+h1 {text-align: center;}
+</style>
+<body>
+
+    <h1>Notification Ordonnance</h1>
+    <h3>Votre médecin à affecté une ordonnance à votre dernière consultation.</h3>
+
+    <h3> Identifiant Consultation : {{ idConsultation }} </h3>
+    <h3> Matricule Médecin :  {{ matricule }} </h3>
+    <h3> Date Consultation :  {{ dateConsultation }} </h3>
+
+    <h3> Liste des médicaments danc cette ordonnance : </h3>
+<table>
+<thead>
+    <tr>
+        <th>Nom</th>
+        <th>Dosage</th>
+    </tr>
+</thead>
+<tbody>
+            {% for m in ordonnance.medicaments %}
+            <tr>
+                <td>{{m.nom}}</td>
+                <td>{{m.dosage}}</td>
+            </tr>
+            {% endfor %}
+
+</tbody>
+</table>
+
+<h2> Votre Ordonnance sera valable jusqu'a {{nouvelleDate}} .</h2>
+
+<h2> Généré le {{ date }} à {{ temps }} </h2>
+
+{% endblock %}

@@ -1,0 +1,31 @@
+{% extends 'BackOffice/consultation/base.html.twig' %}
+
+{% block title %}Ordonnance{% endblock %}
+
+{% block body %}
+<section class="content-main">
+    <div class="card mb-4">
+        <h2 class="content-title">Supprimer Ordonnance</h2>
+    </div>
+
+    <table class="table">
+        <tbody>
+            <tr>
+                <th>Reference</th>
+                <td>{{ ordonnance.reference }}</td>
+            </tr>
+            <tr>
+                <th>Validite</th>
+                <td>{{ ordonnance.validite }}</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <a href="{{ path('app_ordonnance_index') }}">Liste</a>
+
+    {# <a href="{{ path('app_ordonnance_edit', {'reference': ordonnance.reference}) }}">Modifier</a> #}
+    <br>
+
+    {{ include('BackOffice/ordonnance/_delete_form.html.twig') }}
+</section>
+{% endblock %}

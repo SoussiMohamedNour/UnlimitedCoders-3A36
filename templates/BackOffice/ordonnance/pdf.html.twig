@@ -1,0 +1,43 @@
+{% block body %}
+<style>
+
+table,th,td{
+    border:1px solid black;
+}
+h1 {text-align: center;}
+</style>
+<body>
+
+    <h1> Liste Consultation</h1>
+
+{# <img alt="App logo" href="{{ asset('images/LogoApp.png') }}" /> #}
+<table style="width:100%">
+<thead>
+    <tr>
+        <th>Id Ordonnance</th>
+        <th>Id Consultation</th>
+        <th>Validité</th>
+        <th>Liste Médicaments</th>
+    </tr>
+</thead>
+<tbody>
+    {% for o in ordonnance %}
+        <tr>
+            <td>{{o.reference}}</td>
+            <td>{{o.consultation}}</td>
+            <td>{{o.validite}}</td>
+            <td>
+            <ul>
+                {% for m in o.medicaments %}
+                    <li>{{m.nom}}</li>
+                {% endfor %}
+            </ul>
+            </td>
+        </tr>
+    {% endfor %}
+
+</tbody>
+</table>
+
+    <h2> Généré le {{ date }}</h2>
+{% endblock %}
