@@ -5,14 +5,38 @@ security:
         Symfony\Component\Security\Core\User\PasswordAuthenticatedUserInterface: 'auto'
     # https://symfony.com/doc/current/security.html#loading-the-user-the-user-provider
     providers:
-        users_in_memory: { memory: null }
+        # used to reload user from session & other features (e.g. switch_user)
+        app_user_provider:
+            entity:
+                class: App\Entity\Utilisateur
+                property: email
+        # used to reload user from session & other features (e.g. switch_user)
     firewalls:
+        login:
+            pattern: ^/api/login
+            stateless: true
+            json_login:
+                check_path: /api/login_check
+                success_handler: lexik_jwt_authentication.handler.authentication_success
+                failure_handler: lexik_jwt_authentication.handler.authentication_failure
+
+        api:
+            pattern:   ^/api
+            stateless: true
+            jwt: ~
         dev:
             pattern: ^/(_(profiler|wdt)|css|images|js)/
             security: false
         main:
+            form_login:
+                # "app_login" is the name of the route created previously
+                login_path: app_login
+                check_path: app_login
+
+            logout:
+                path: app_logout
             lazy: true
-            provider: users_in_memory
+            provider: app_user_provider
 
             # activate different ways to authenticate
             # https://symfony.com/doc/current/security.html#the-firewall
@@ -23,8 +47,15 @@ security:
     # Easy way to control access for large sections of your site
     # Note: Only the *first* access control that matches will be used
     access_control:
-        # - { path: ^/admin, roles: ROLE_ADMIN }
-        # - { path: ^/profile, roles: ROLE_USER }
+        # - { path: ^/backofficeadmin, roles: ROLE_ADMIN }
+        # - { path: ^/backofficemed, roles: ROLE_MEDECIN }
+        # - { path: ^/backofficeph, roles: ROLE_PHARMACIEN }
+        # # - { path: ^/frontoffice, roles: ROLE_USER }
+        - { path: ^/backofficeadmin, roles: [ROLE_SUPER_ADMIN, ROLE_ADMIN] }
+        - { path: ^/frontoffice, roles: [ROLE_USER,ROLE_ADMIN,IS_AUTHENTICATED_ANONYMOUSLY] }
+        - { path: ^/backofficemed, roles: [ROLE_MEDECIN,ROLE_ADMIN] }
+        - { path: ^/backofficeph, roles: [ROLE_PHARMACIEN,ROLE_ADMIN] }
+        
 
 when@test:
     security:

@@ -4,7 +4,8 @@
         <meta charset="UTF-8">
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-        <title>{% block title %}Healthified Dashboard{% endblock %}</title>
+        <title>{% block title %}Edit Utilisateur{% endblock %}
+</title>
 
         <link href="{{ asset('images/LogoApp.png') }}" rel="shortcut icon" >
 
@@ -27,6 +28,8 @@
             {{ encore_entry_script_tags('app') }}
         {% endblock %}
     </head>
+
+	
     <body>
         {% block body %}
         <b class="screen-overlay"></b>
@@ -168,7 +171,7 @@
     </li>
     <li class="menu-item"> 
       <a class="menu-link" disabled href="#"> <i class="icon material-icons md-pie_chart"></i> 
-        <span class="text">Statistiques/span> 
+        <span class="text">Statistiques
       </a> 
     </li>
   </ul>
@@ -182,6 +185,11 @@
         <a href="page-settings-1.html">Setting sample 1</a>
         <a href="page-settings-2.html">Setting sample 2</a>
       </div>
+	  <a class="menu-link" href="{{path('app_register')}}"> <i class="icon material-icons md-settings"></i> 
+        <span class="text">Deconnecter</span> 
+      </a>
+	  <div class="submenu">
+        <a href="{{path('app_logout')}}">Disconnect</a>
     </li>
     <li class="menu-item">
       <a class="menu-link" href="page-0-blank.html"> <i class="icon material-icons md-local_offer"></i> 
@@ -476,14 +484,14 @@
 <script src="{{ asset('js/bootstrap.bundle.min.js')}}"></script>
 
 <!-- ChartJS files-->
-<script src="https://cdn.jsdelivr.net/npm/chart.js@2.8.0"></script>
+
 
 <!-- Custom JS -->
 <script src="js/scriptc619.js?v=1.0" type="text/javascript"></script>
 
 <!-- ChartJS customize-->
 <script>
-	var ctx = document.getElementById('myChart').getContext('2d');
+	{# var ctx = document.getElementById('myChart').getContext('2d'); #}
 	var chart = new Chart(ctx, {
 	    // The type of chart we want to create
 	    type: 'line',
@@ -516,4 +524,3 @@
         {% endblock %}
     </body>
 </html>
-    

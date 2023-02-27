@@ -1,0 +1,29 @@
+{# {% extends 'base.html.twig' %} #}
+
+
+
+{% block body %}
+    {# {% include 'BackOffice/sidebar.html.twig'%} #}
+
+    <link href="{{asset('css/index.css') }}" rel="stylesheet">
+    <link href="{{asset('css/registration.css') }}" rel="stylesheet">
+    {% for flash_error in app.flashes('verify_email_error') %}
+        <div class="alert alert-danger" role="alert">{{ flash_error }}</div>
+    {% endfor %}
+
+    <div class="form">
+
+    {{ form_start(registrationForm,{'attr': {'novalidate': 'novalidate'}} ) }}
+        {{ form_row(registrationForm.email) }}
+        {{ form_row(registrationForm.plainPassword, {
+            label: 'Password'
+        }) }}
+
+        {# {{ form_row(registrationForm.agreeTerms) }} #}
+    {{ form_end(registrationForm) }}
+    </div>
+
+    {# {% if error %}
+        <div>{{ error.messageKey|trans(error.messageData, 'security') }}</div>
+    {% endif %} #}
+{% endblock %}
