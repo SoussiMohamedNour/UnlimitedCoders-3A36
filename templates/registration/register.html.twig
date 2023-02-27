@@ -13,7 +13,7 @@
 
     <div class="form">
 
-    {{ form_start(registrationForm) }}
+    {{ form_start(registrationForm,{'attr': {'novalidate': 'novalidate'}} ) }}
         {{ form_row(registrationForm.email) }}
         {{ form_row(registrationForm.plainPassword, {
             label: 'Password'

@@ -3,8 +3,6 @@
 namespace App\Form;
 
 use App\Entity\Utilisateur;
-// use Doctrine\DBAL\Types\IntegerType;
-// use Doctrine\DBAL\Types\TextType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
@@ -14,14 +12,11 @@ use Symfony\Component\Form\Extension\Core\Type\IntegerType;
 use Symfony\Component\Form\Extension\Core\Type\PasswordType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
-use Symfony\Component\Form\Extension\Core\Type\TextareaType;
-use Symfony\Component\Form\Extension\Core\Type\FileType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Validator\Constraints\IsTrue;
 use Symfony\Component\Validator\Constraints\Length;
 use Symfony\Component\Validator\Constraints\NotBlank;
-use Symfony\Component\Validator\Constraints\File;
 use Vich\UploaderBundle\Form\Type\VichImageType;
 
 class RegistrationFormType extends AbstractType
@@ -41,31 +36,8 @@ class RegistrationFormType extends AbstractType
                 'allow_delete' => true,
                 'download_uri' => false,
     
-            ])
-        
-            // ->add('image', FileType::class, [
-            //     'label' => 'Votre Photo',
-                
-                
-            //     'mapped' => false,
-                
-                
-            //     'required' => false,
-                
-            //     'constraints' => [
-            //         new File([
-            //             'maxSize' => '12000k',
-            //             'mimeTypes' => [
-            //                 'application/jpeg',
-            //                 'application/x-jpeg',
-            //             ],
-            //             'mimeTypesMessage' => 'Please upload a valid Photo',
-            //             ])
-            //             ]])
-                
-                // ->add('dateNaissance', DateType::class)
-                
-                ->add('plainPassword', PasswordType::class, [
+            ])  
+             ->add('plainPassword', PasswordType::class, [
                     // instead of being set onto the object directly,
                     // this is read and encoded in the controller
                     'mapped' => false,
@@ -84,7 +56,7 @@ class RegistrationFormType extends AbstractType
                     ])
                     
                     
-                    ->add('sexe', ChoiceType::class, array(
+            ->add('sexe', ChoiceType::class, array(
                         'choices'  => array(
                             'Male' => 'male',
                             'Female' => 'female',
@@ -93,30 +65,13 @@ class RegistrationFormType extends AbstractType
                         'multiple' => false,
                         'attr'=>['class' => 'form-input','placeholder'=>"Age"]
                         ))
-                        // ->add('image',TextType::class,['attr'=>['class' => 'form-input','placeholder'=>"image"]])
-                        ->add('agreeTerms', CheckboxType::class, [
+            ->add('agreeTerms', CheckboxType::class, [
                             'mapped' => false,
                             'constraints' => [
                                 new IsTrue([
                                     'message' => 'You should agree to our terms.',
                                 ]),
                             ],
-                            
-                            // ->add('sexe', ChoiceType::class, array(
-                            //     'choices'  => array(
-                            //         'Male' => 'male',
-                            //         'Female' => 'female',
-                            //     ),
-                            //     'expanded' => false,
-                            //     'multiple' => false,
-                            //     'attr'=>['class' => 'form-input','placeholder'=>"Age"]
-                            // ))
-                            // ->add('sexe',ChoiceType::class ,[
-                            //     'choices'=>[
-                            //         'Male'=>'Male',
-                            //             'Female'=>'Female']
-                            //             ,['attr'=>['class' => 'form','placeholder'=>"Age"]]
-                            // ])
             ])
             ->add('Register',SubmitType::class,['attr'=>['class' => 'form','placeholder'=>"Register"]])       ;
         }

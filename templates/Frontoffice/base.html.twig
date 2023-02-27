@@ -80,7 +80,11 @@
       </nav><!-- .navbar -->
 
       <a href="#appointment" class="appointment-btn scrollto"><span class="d-none d-md-inline">Make an</span> Appointment</a>
+      <div>
       <a href="{{ path('app_login') }}" class="appointment-btn scrollto"><span class="d-none d-md-inline">Login</a>
+      <a href="{{ path('app_logout') }}" class="appointment-btn scrollto"><span class="d-none d-md-inline">Logout</a>
+      </div>
+      {# <a href="{{ path('app_login', {'Logged in as': utilisateur.email}) }}"><span class="d-none d-md-inline">Login</a> #}
     </div>
   </header><!-- End Header -->
 
