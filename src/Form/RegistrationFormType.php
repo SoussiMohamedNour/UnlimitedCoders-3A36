@@ -22,6 +22,7 @@ use Symfony\Component\Validator\Constraints\IsTrue;
 use Symfony\Component\Validator\Constraints\Length;
 use Symfony\Component\Validator\Constraints\NotBlank;
 use Symfony\Component\Validator\Constraints\File;
+use Vich\UploaderBundle\Form\Type\VichImageType;
 
 class RegistrationFormType extends AbstractType
 {
@@ -34,25 +35,33 @@ class RegistrationFormType extends AbstractType
             ->add('age',IntegerType::class,['attr'=>['class' => 'form-input','placeholder'=>"Specifier votre Age"]])
             ->add('cin',TextType::class,['attr'=>['class' => 'form-input','placeholder'=>"Saisir votre CIN"]])
             ->add('numtel',TextType::class,['attr'=>['class' => 'form-input','placeholder'=>"Saisir Votre Numero de telephone"]])
-            ->add('image', FileType::class, [
-                'label' => 'Votre Photo',
+            ->add('imageFile', VichImageType::class, [
+                'label' => 'Image (JPG or PNG)',
+                'required' => true,
+                'allow_delete' => true,
+                'download_uri' => false,
+    
+            ])
+        
+            // ->add('image', FileType::class, [
+            //     'label' => 'Votre Photo',
                 
                 
-                'mapped' => false,
+            //     'mapped' => false,
                 
                 
-                'required' => false,
+            //     'required' => false,
                 
-                'constraints' => [
-                    new File([
-                        'maxSize' => '12000k',
-                        'mimeTypes' => [
-                            'application/jpeg',
-                            'application/x-jpeg',
-                        ],
-                        'mimeTypesMessage' => 'Please upload a valid Photo',
-                        ])
-                        ]])
+            //     'constraints' => [
+            //         new File([
+            //             'maxSize' => '12000k',
+            //             'mimeTypes' => [
+            //                 'application/jpeg',
+            //                 'application/x-jpeg',
+            //             ],
+            //             'mimeTypesMessage' => 'Please upload a valid Photo',
+            //             ])
+            //             ]])
                 
                 // ->add('dateNaissance', DateType::class)
                 

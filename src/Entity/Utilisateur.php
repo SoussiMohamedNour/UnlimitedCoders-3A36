@@ -3,6 +3,7 @@
 namespace App\Entity;
 
 use App\Repository\UtilisateurRepository;
+use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 use Symfony\Component\Security\Core\User\PasswordAuthenticatedUserInterface;
@@ -13,9 +14,12 @@ use Symfony\Component\Mime\Message;
 use Symfony\Component\Validator\Constraints as Assert;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\Serializer\Annotation\Groups;
+use Vich\UploaderBundle\Mapping\Annotation as Vich;
+use Symfony\Component\HttpFoundation\File\File;
 
 
 #[ApiResource]
+#[Vich\Uploadable]
 #[ORM\Entity(repositoryClass: UtilisateurRepository::class)]
 #[UniqueEntity(fields: ['email'], message: 'There is already an account with this email')]
 
@@ -46,36 +50,51 @@ class Utilisateur implements UserInterface, PasswordAuthenticatedUserInterface
     #[Groups('utilisateurs')]
     #[Assert\NotBlank(message:"Votre Nom Est Requis")]
     private ?string $nom = null;
-
+    
     #[ORM\Column(length: 255)]
     #[Groups('utilisateurs')]
     #[Assert\NotBlank(message:"Votre Nom Est Requis")]
     private ?string $prenom = null;
-
+    
     #[ORM\Column]
     #[Groups('utilisateurs')]
     #[Assert\Positive(message:"Bien Specifier Votre Age")]
     private ?int $age = null;
-
+    
     #[ORM\Column]
     private ?string $sexe = null;
-
+    
     #[ORM\Column(length: 8)]
     #[Groups('utilisateurs')]
     // #[Assert\Length(message:"Bien Specifier Votre Numero GSM")]
     private ?string $num_tel = null;
-
+    
     #[ORM\Column(length: 8)]
     #[Groups('utilisateurs')]
     #[Assert\NotBlank(message:"Bien Specifier Votre CIN")]
     private ?string $cin = null;
-
-
+    
+    
     #[ORM\Column(type: 'boolean')]
     private $isVerified = false;
+    
+    #[Vich\UploadableField(mapping: 'products', fileNameProperty: 'imageName', size: 'imageSize')]
+    private ?File $imageFile = null;
+
+    #[ORM\Column(nullable: true)]
+    private ?string $imageName = null;
+
+    #[ORM\Column(nullable: true)]
+    private ?int $imageSize = null;
 
 
+    #[ORM\Column(nullable: true)]
+    private ?bool $isbanned = null;
 
+    #[ORM\Column(type: Types::DATETIME_MUTABLE, nullable: true)]
+    private ?\DateTimeInterface $updated_at = null;
+    
+    
     public function getId(): ?int
     {
         return $this->id;
@@ -252,52 +271,43 @@ class Utilisateur implements UserInterface, PasswordAuthenticatedUserInterface
         return $this;
     }
 
-    // public function getImage(): ?string
-    // {
-    //     return $this->image;
-    // }
 
-    // public function setImage(string $image): self
-    // {
-    //     $this->image = $image;
-
-    //     return $this;
-    // }
-
-    /**
-     * @ORM\Column(type="string")
-     */
-    private $imageFilename;
-
-    #[ORM\Column(length: 255, nullable: true)]
-    private ?string $image = null;
-
-    #[ORM\Column(nullable: true)]
-    private ?bool $isbanned = null;
-
-    public function getImageFilename()
+    public function setImageFile(?File $imageFile = null): void
     {
-        return $this->imageFilename;
+        $this->imageFile = $imageFile;
+
+        if (null !== $imageFile) {
+            // It is required that at least one field changes if you are using doctrine
+            // otherwise the event listeners won't be called and the file is lost
+            $this->updated_at = new \DateTimeImmutable();
+        }
     }
 
-    public function setImageFilename($imageFilename)
+    public function getImageFile(): ?File
     {
-        $this->imageFilename = $imageFilename;
-
-        return $this;
+        return $this->imageFile;
     }
 
-    public function getImage(): ?string
+    public function setImageName(?string $imageName): void
     {
-        return $this->image;
+        $this->imageName = $imageName;
     }
 
-    public function setImage(?string $image): self
+    public function getImageName(): ?string
     {
-        $this->image = $image;
-
-        return $this;
+        return $this->imageName;
     }
+
+    public function setImageSize(?int $imageSize): void
+    {
+        $this->imageSize = $imageSize;
+    }
+
+    public function getImageSize(): ?int
+    {
+        return $this->imageSize;
+    }
+
 
     public function isIsbanned(): ?bool
     {
@@ -307,6 +317,18 @@ class Utilisateur implements UserInterface, PasswordAuthenticatedUserInterface
     public function setIsbanned(?bool $isbanned): self
     {
         $this->isbanned = $isbanned;
+
+        return $this;
+    }
+
+    public function getUpdatedAt(): ?\DateTimeInterface
+    {
+        return $this->updated_at;
+    }
+
+    public function setUpdatedAt(?\DateTimeInterface $updated_at): self
+    {
+        $this->updated_at = $updated_at;
 
         return $this;
     }
