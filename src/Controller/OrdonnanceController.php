@@ -150,8 +150,9 @@ class OrdonnanceController extends AbstractController
     {
         $total_consultations = $consultationRepository->total_montant();
         $total_ordonnances = $ordonnanceRepository->total_ordonnances();
+        $nombre_total_consultation = $consultationRepository->total_consultations();
 
-        return $this->renderForm('/BackOffice/ordonnance/statistique.html.twig',['total_consultation'=>$total_consultations,'total_ordonnance'=>$total_ordonnances]);
+        return $this->renderForm('/BackOffice/ordonnance/statistique.html.twig',['total_consultation'=>$total_consultations,'total_ordonnance'=>$total_ordonnances,'nombre_total_consultation'=>$nombre_total_consultation]);
 
 
     }

@@ -48,6 +48,15 @@ class ConsultationRepository extends ServiceEntityRepository
         ->getSingleResult();
         return $query['total_consultation'];
     }
+    public function total_consultations():float
+    {
+        $query = $this->createQueryBuilder('c')
+        ->select('count(c) as nombre_total_consultation')
+        ->getQuery()
+        ->getSingleResult();
+
+        return $query['nombre_total_consultation'];
+    }
     
 
     // Tri Date Consultation
