@@ -1,4 +1,5 @@
 <?php
-$container->loadFromExtension('swiftmailer', array(
-    'sender_address'  => "noreply@test.com",
-));
+
+$container->loadFromExtension('swiftmailer', [
+    'sender_address' => 'noreply@test.com',
+]);

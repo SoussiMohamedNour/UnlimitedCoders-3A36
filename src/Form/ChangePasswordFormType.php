@@ -44,6 +44,11 @@ class ChangePasswordFormType extends AbstractType
                 // this is read and encoded in the controller
                 'mapped' => false,
             ])
+            ->add('captcha', CaptchaType::class, array(
+                'width' => 200,
+                'height' => 50,
+                'length' => 6,
+            ))
         ;
     }
 

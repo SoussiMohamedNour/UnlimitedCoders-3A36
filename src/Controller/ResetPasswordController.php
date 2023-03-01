@@ -21,7 +21,8 @@ use SymfonyCasts\Bundle\ResetPassword\Controller\ResetPasswordControllerTrait;
 use SymfonyCasts\Bundle\ResetPassword\Exception\ResetPasswordExceptionInterface;
 use SymfonyCasts\Bundle\ResetPassword\ResetPasswordHelperInterface;
 
-#[Route('/reset-password')]
+
+
 class ResetPasswordController extends AbstractController
 {
     use ResetPasswordControllerTrait;
@@ -35,22 +36,31 @@ class ResetPasswordController extends AbstractController
     /**
      * Display & process form to request a password reset.
      */
-    #[Route('', name: 'app_forgot_password_request')]
-    public function request(Request $request, MailerInterface $mailer, TranslatorInterface $translator): Response
+    #[Route('/reset-password', name: 'app_resetpw')]
+    public function request(Request $request, MailerInterface $mailer,TranslatorInterface $translator)
     {
+        // $form = $this->createForm(ResetPasswordRequestFormType::class);
+        // $form->handleRequest($request);
+        // $email = (new Email());
+
+        // if ($form->isSubmitted() && $form->isValid()) {
+        //     $to = $form->get("email")->getData();
+
+        //     $email->from('healthified.consultation.module@gmail.com')
+        //     ->to($to)
+        //     ->subject('Password reset')
+        //     ->text('reset'); 
+        // }
+        // $mailer->send($email);
         $form = $this->createForm(ResetPasswordRequestFormType::class);
         $form->handleRequest($request);
-        $email = (new Email());
 
         if ($form->isSubmitted() && $form->isValid()) {
-            $to = $form->get("email")->getData();
-
-            $email->from('healthified.consultation.module@gmail.com')
-            ->to($to)
-            ->subject('Password reset')
-            ->text('reset');
-            $mailer->send($email);
-
+            return $this->processSendingPasswordResetEmail(
+                $form->get('email')->getData(),
+                $mailer,
+                $translator
+            );
         }
 
         return $this->render('reset_password/request.html.twig', [

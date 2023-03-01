@@ -11,10 +11,10 @@
 
 namespace Symfony\Bundle\SwiftmailerBundle\DataCollector;
 
-use Symfony\Component\HttpKernel\DataCollector\DataCollector;
+use Symfony\Component\DependencyInjection\ContainerInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
-use Symfony\Component\DependencyInjection\ContainerInterface;
+use Symfony\Component\HttpKernel\DataCollector\DataCollector;
 
 /**
  * MessageDataCollector.
@@ -23,17 +23,13 @@ use Symfony\Component\DependencyInjection\ContainerInterface;
  * @author Clément JOBEILI <clement.jobeili@gmail.com>
  * @author Jérémy Romey <jeremy@free-agent.fr>
  */
-class MessageDataCollector extends DataCollector
+final class MessageDataCollector extends DataCollector
 {
     private $container;
 
     /**
-     * Constructor.
-     *
      * We don't inject the message logger and mailer here
      * to avoid the creation of these objects when no emails are sent.
-     *
-     * @param ContainerInterface $container A ContainerInterface instance
      */
     public function __construct(ContainerInterface $container)
     {
@@ -43,13 +39,10 @@ class MessageDataCollector extends DataCollector
     /**
      * {@inheritdoc}
      */
-    public function collect(Request $request, Response $response, \Exception $exception = null)
+    public function collect(Request $request, Response $response, \Throwable $exception = null)
     {
-        $this->data = array(
-            'mailer' => array(),
-            'messageCount' => 0,
-            'defaultMailer' => '',
-        );
+        $this->reset();
+
         // only collect when Swiftmailer has already been initialized
         if (class_exists('Swift_Mailer', false)) {
             $mailers = $this->container->getParameter('swiftmailer.mailers');
@@ -60,11 +53,27 @@ class MessageDataCollector extends DataCollector
                 $loggerName = sprintf('swiftmailer.mailer.%s.plugin.messagelogger', $name);
                 if ($this->container->has($loggerName)) {
                     $logger = $this->container->get($loggerName);
-                    $this->data['mailer'][$name] = array(
-                        'messages' => $logger->getMessages(),
+                    $this->data['mailer'][$name] = [
+                        'messages' => [],
                         'messageCount' => $logger->countMessages(),
                         'isSpool' => $this->container->getParameter(sprintf('swiftmailer.mailer.%s.spool.enabled', $name)),
-                    );
+                    ];
+
+                    foreach ($logger->getMessages() as $message) {
+                        $message->__contentType = $message->getBodyContentType();
+                        $message->__base64EncodedBody = base64_encode($message->getBody());
+                        if ('text/plain' === $message->__contentType) {
+                            foreach ($message->getChildren() as $child) {
+                                if ('text/html' === $child->getContentType()) {
+                                    $message->__contentType = 'text/html';
+                                    $message->__base64EncodedBody = base64_encode($child->getBody());
+                                    break;
+                                }
+                            }
+                        }
+                        $this->data['mailer'][$name]['messages'][] = $message;
+                    }
+
                     $this->data['messageCount'] += $logger->countMessages();
                 }
             }
@@ -72,9 +81,21 @@ class MessageDataCollector extends DataCollector
     }
 
     /**
+     * {@inheritdoc}
+     */
+    public function reset()
+    {
+        $this->data = [
+            'mailer' => [],
+            'messageCount' => 0,
+            'defaultMailer' => '',
+        ];
+    }
+
+    /**
      * Returns the mailer names.
      *
-     * @return array The mailer names.
+     * @return array the mailer names
      */
     public function getMailers()
     {
@@ -84,13 +105,12 @@ class MessageDataCollector extends DataCollector
     /**
      * Returns the data collected of a mailer.
      *
-     * @return array The data of the mailer.
+     * @return array the data of the mailer
      */
-
     public function getMailerData($name)
     {
         if (!isset($this->data['mailer'][$name])) {
-            throw new \LogicException(sprintf("Missing %s data in %s", $name, get_class()));
+            throw new \LogicException(sprintf('Missing "%s" data in "%s".', $name, static::class));
         }
 
         return $this->data['mailer'][$name];
@@ -99,23 +119,23 @@ class MessageDataCollector extends DataCollector
     /**
      * Returns the message count of a mailer or the total.
      *
-     * @return int The number of messages.
+     * @return int the number of messages
      */
     public function getMessageCount($name = null)
     {
-        if (is_null($name)) {
+        if (null === $name) {
             return $this->data['messageCount'];
         } elseif ($data = $this->getMailerData($name)) {
             return $data['messageCount'];
         }
 
-        return null;
+        return;
     }
 
     /**
      * Returns the messages of a mailer.
      *
-     * @return array The messages.
+     * @return \Swift_Message[] the messages
      */
     public function getMessages($name = 'default')
     {
@@ -123,13 +143,13 @@ class MessageDataCollector extends DataCollector
             return $data['messages'];
         }
 
-        return array();
+        return [];
     }
 
     /**
      * Returns if the mailer has spool.
      *
-     * @return boolean
+     * @return bool
      */
     public function isSpool($name)
     {
@@ -137,17 +157,30 @@ class MessageDataCollector extends DataCollector
             return $data['isSpool'];
         }
 
-        return null;
+        return;
     }
 
     /**
      * Returns if the mailer is the default mailer.
      *
-     * @return boolean
+     * @return bool
      */
     public function isDefaultMailer($name)
     {
         return $this->data['defaultMailer'] == $name;
+    }
+
+    public function extractAttachments(\Swift_Message $message)
+    {
+        $attachments = [];
+
+        foreach ($message->getChildren() as $child) {
+            if ($child instanceof \Swift_Attachment) {
+                $attachments[] = $child;
+            }
+        }
+
+        return $attachments;
     }
 
     /**

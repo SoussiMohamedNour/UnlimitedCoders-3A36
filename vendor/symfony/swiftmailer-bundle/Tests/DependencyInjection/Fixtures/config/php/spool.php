@@ -1,4 +1,5 @@
 <?php
-$container->loadFromExtension('swiftmailer', array(
-    'spool' => true
-));
+
+$container->loadFromExtension('swiftmailer', [
+    'spool' => true,
+]);

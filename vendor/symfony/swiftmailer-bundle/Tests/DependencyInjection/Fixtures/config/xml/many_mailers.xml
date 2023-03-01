@@ -16,9 +16,10 @@
             auth-mode="login"
             timeout="1000"
             source-ip="127.0.0.1"
-            logging="true"
-            delivery-address="single@host.com">
+            local-domain="first.example.org"
+            logging="true">
             <swiftmailer:antiflood/>
+            <swiftmailer:delivery-address>single@host.com</swiftmailer:delivery-address>
         </swiftmailer:mailer>
         <swiftmailer:mailer name="secondary_mailer"
             transport="smtp"
@@ -30,9 +31,10 @@
             auth-mode="login"
             timeout="1000"
             source-ip="127.0.0.1"
-            logging="true"
-            delivery-address="single@host.com">
+            local-domain="second.example.org"
+            logging="true">
             <swiftmailer:spool type="memory"/>
+            <swiftmailer:delivery-address>single@host.com</swiftmailer:delivery-address>
         </swiftmailer:mailer>
         <swiftmailer:mailer name="third_mailer"
             transport="smtp"
@@ -44,8 +46,9 @@
             auth-mode="login"
             timeout="1000"
             source-ip="127.0.0.1"
-            logging="true"
-            delivery-address="single@host.com">
+            local-domain="third.example.org"
+            logging="true">
+            <swiftmailer:delivery-address>single@host.com</swiftmailer:delivery-address>
         </swiftmailer:mailer>
     </swiftmailer:config>
 </container>

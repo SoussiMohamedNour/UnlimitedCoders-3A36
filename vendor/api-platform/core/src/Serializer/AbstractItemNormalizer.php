@@ -27,6 +27,7 @@ use ApiPlatform\Exception\InvalidArgumentException;
 use ApiPlatform\Exception\InvalidValueException;
 use ApiPlatform\Exception\ItemNotFoundException;
 use ApiPlatform\Metadata\ApiProperty;
+use ApiPlatform\Metadata\CollectionOperationInterface;
 use ApiPlatform\Metadata\Property\Factory\PropertyMetadataFactoryInterface;
 use ApiPlatform\Metadata\Property\Factory\PropertyNameCollectionFactoryInterface;
 use ApiPlatform\Metadata\Resource\Factory\ResourceMetadataCollectionFactoryInterface;
@@ -205,6 +206,11 @@ abstract class AbstractItemNormalizer extends AbstractObjectNormalizer
 
         if ($isResourceClass = $this->resourceClassResolver->isResourceClass($resourceClass)) {
             $context = $this->initContext($resourceClass, $context);
+        }
+
+        if (isset($context['operation']) && $context['operation'] instanceof CollectionOperationInterface) {
+            unset($context['operation']);
+            unset($context['iri']);
         }
 
         $iri = null;
@@ -881,7 +887,6 @@ abstract class AbstractItemNormalizer extends AbstractObjectNormalizer
             }
 
             $normalizedRelatedObject = $this->serializer->normalize($relatedObject, $format, $context);
-            // @phpstan-ignore-next-line throwing an explicit exception helps debugging
             if (!\is_string($normalizedRelatedObject) && !\is_array($normalizedRelatedObject) && !$normalizedRelatedObject instanceof \ArrayObject && null !== $normalizedRelatedObject) {
                 throw new UnexpectedValueException('Expected normalized relation to be an IRI, array, \ArrayObject or null');
             }

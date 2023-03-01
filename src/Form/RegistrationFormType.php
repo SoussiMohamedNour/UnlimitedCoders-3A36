@@ -18,6 +18,7 @@ use Symfony\Component\Validator\Constraints\IsTrue;
 use Symfony\Component\Validator\Constraints\Length;
 use Symfony\Component\Validator\Constraints\NotBlank;
 use Vich\UploaderBundle\Form\Type\VichImageType;
+use Gregwar\CaptchaBundle\Type\CaptchaType;
 
 class RegistrationFormType extends AbstractType
 {
@@ -72,7 +73,12 @@ class RegistrationFormType extends AbstractType
                                 ]),
                             ],
             ])
-            ->add('Register',SubmitType::class,['attr'=>['class' => 'form','placeholder'=>"Register"]])       ;
+            ->add('captcha', CaptchaType::class, array(
+                'width' => 200,
+                'height' => 50,
+                'length' => 6,
+            ))
+            ->add('Register',SubmitType::class,['attr'=>['class' => 'form','placeholder'=>"Register"]]);
         }
         
         public function configureOptions(OptionsResolver $resolver): void

@@ -2,6 +2,8 @@
 
 namespace App\Controller;
 
+use ApiPlatform\Core\Bridge\Doctrine\MongoDbOdm\Paginator;
+use ApiPlatform\State\Pagination\PaginatorInterface as PaginationPaginatorInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
@@ -17,6 +19,7 @@ use Dompdf\Dompdf;
 use Dompdf\Options;
 use Symfony\Component\Serializer\Normalizer\NormalizerInterface;
 use Symfony\Component\Serializer\SerializerInterface;
+use Knp\Component\Pager\PaginatorInterface;
 
 
 class UserController extends AbstractController
@@ -81,12 +84,21 @@ class UserController extends AbstractController
 
     #[IsGranted('ROLE_ADMIN')]
     #[Route('/user', name: 'app_utilisateur_index', methods: ['GET'])]
-    public function index3(UtilisateurRepository $utilisateurRepository): Response
+    public function index3(UtilisateurRepository $utilisateurRepository, PaginatorInterface $paginator, Request $request): Response
     {
-        return $this->render('utilisateur/index.html.twig', [
-            'utilisateurs' => $utilisateurRepository->findAll(),
-        ]);
+        // $query = $utilisateurRepository->findAll();
+        // $pagination = $paginator->paginate(
+        //     $query,
+        //     $request->query->getInt('page', 1),
+        //     4 // Items per page
+        // );
+        $data = $utilisateurRepository->findAll();
+        $utilisateur = $paginator->paginate($data,$request->query->getInt('page',1),3);
+        return $this->render('utilisateur/index.html.twig',[
+        'utilisateurs' => $utilisateur]);
+    ;
     }
+
 
 
     #[Route('/logout', name: 'app_logout', methods: ['GET'])]
