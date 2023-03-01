@@ -24,11 +24,22 @@ class FicheController extends AbstractController
     #[Route('/fiche/new', name: 'app_fiche_new', methods: ['GET', 'POST'])]
     public function new(Request $request, FicheRepository $ficheRepository): Response
     {
+        //generate number of 5 digits
+        $idFiche = rand(10000, 99999);
         $fiche = new Fiche();
         $form = $this->createForm(Fiche1Type::class, $fiche);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
+            $fiche->setIdFiche($idFiche);
+            
+// calcul montant medicament
+            foreach ($fiche->getMedicament() as $medicament) {
+                $fiche->setMontantMedicaments($fiche->getMontantMedicaments() + $medicament->getPrix());
+            }
+// set montant consultation
+            
+
             $ficheRepository->save($fiche, true);
 
             return $this->redirectToRoute('app_fiche_index', [], Response::HTTP_SEE_OTHER);

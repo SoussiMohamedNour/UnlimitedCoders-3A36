@@ -5,7 +5,12 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <title>{% block title %}Healthified Dashboard{% endblock %}</title>
+
     <style>
+      .dropdown-toggle {
+        display: flex;
+        margin-left: auto;
+      }
       .btn-group {
         margin: 10px 0; /* Ajouter de la marge autour des boutons */
       }
@@ -219,6 +224,13 @@
             <a href="/backoffice/remboursement">Supprimer Remboursement</a>
             <a href="/backoffice/remboursement">Afficher Remboursement</a>
           </div>
+        </li><li class="menu-item"> 
+          <a class="menu-link" href="{{path('stats')}}"> <i class="icon material-icons md-bar_chart"></i> 
+            <span class="text">Statistiques</span> 
+          </a> 
+          <div class="submenu">
+          
+          </div>
         </li>
       </ul>
     </nav>
@@ -236,7 +248,7 @@
     <h1 class="h2">Dashboard</h1>
   {% endblock %}
   </main>
-
+  
   </body>
 </html>
     

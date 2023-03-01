@@ -22,7 +22,7 @@ class RemboursementType extends AbstractType
                     'Refusé' => 'refuse',
                 ],
             ])
-            ->add('montantRembourse')
+            //->add('montantRembourse')
             ->add('depot')
         ;
     }

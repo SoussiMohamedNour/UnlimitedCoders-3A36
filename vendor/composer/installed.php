@@ -1,9 +1,9 @@
 <?php return array(
     'root' => array(
         'name' => '__root__',
-        'pretty_version' => 'dev-master',
-        'version' => 'dev-master',
-        'reference' => '9c5037b2c2a76c5d24c5d14dcd290d92ebc80734',
+        'pretty_version' => 'dev-main',
+        'version' => 'dev-main',
+        'reference' => 'fafb2c2a004b6a0f736e6305510a40b6502c3564',
         'type' => 'project',
         'install_path' => __DIR__ . '/../../',
         'aliases' => array(),
@@ -11,11 +11,20 @@
     ),
     'versions' => array(
         '__root__' => array(
-            'pretty_version' => 'dev-master',
-            'version' => 'dev-master',
-            'reference' => '9c5037b2c2a76c5d24c5d14dcd290d92ebc80734',
+            'pretty_version' => 'dev-main',
+            'version' => 'dev-main',
+            'reference' => 'fafb2c2a004b6a0f736e6305510a40b6502c3564',
             'type' => 'project',
             'install_path' => __DIR__ . '/../../',
+            'aliases' => array(),
+            'dev_requirement' => false,
+        ),
+        'cmen/google-charts-bundle' => array(
+            'pretty_version' => '5.0.1',
+            'version' => '5.0.1.0',
+            'reference' => '81d844e7ab21b2c8a403488a51c92dfdb5792658',
+            'type' => 'symfony-bundle',
+            'install_path' => __DIR__ . '/../cmen/google-charts-bundle',
             'aliases' => array(),
             'dev_requirement' => false,
         ),

@@ -29,8 +29,22 @@ class RemboursementController extends AbstractController
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
-            $remboursementRepository->save($remboursement, true);
 
+            $dep=$remboursementRepository->getAllDepotById($form->get('depot')->getData()->getIdDossier());
+            
+            $fiche=$dep[0]->getFiche();
+
+            $idFiche=$fiche->getIdFiche();
+
+            $getFiche=$remboursementRepository->getFicheById($idFiche);
+
+            $montantConsultation=$getFiche[0]->getMontantConsultation();
+            $montantMedecament=$getFiche[0]->getMontantMedicaments();
+
+            $somm= ($montantConsultation*0.7)+($montantMedecament*0.1); 
+            $remboursement->setMontantRembourse($somm);
+
+            $remboursementRepository->save($remboursement, true);
             return $this->redirectToRoute('app_remboursement_index', [], Response::HTTP_SEE_OTHER);
         }
 

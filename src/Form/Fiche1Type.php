@@ -12,10 +12,11 @@ class Fiche1Type extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
         $builder
-            ->add('idFiche')
+
+         //   ->add('idFiche')
             ->add('dateFiche')
             ->add('montantConsultation')
-            ->add('montantMedicaments')
+        //    ->add('montantMedicaments')
             ->add('medicament')
         ;
     }

@@ -63,4 +63,29 @@ class RemboursementRepository extends ServiceEntityRepository
 //            ->getOneOrNullResult()
 //        ;
 //    }
+
+public function getAllDepotById($idDepot): array
+{
+    $entityManager = $this->getEntityManager();
+
+    $query = $entityManager->createQuery(
+        'SELECT d
+        FROM App\Entity\Depot d
+        WHERE d.idDossier = :idDepot'
+    )->setParameter('idDepot', $idDepot);
+
+    // returns an array of Product objects
+    return $query->getResult();
+}
+
+public function getFicheById($idFiche)
+{
+    $entityManager = $this->getEntityManager();
+    $query = $entityManager->createQuery(
+        'SELECT f
+        FROM App\Entity\Fiche f
+        WHERE f.idFiche = :idFiche'
+    )->setParameter('idFiche', $idFiche);
+    return $query->getResult();
+}
 }

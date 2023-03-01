@@ -63,4 +63,17 @@ class FicheRepository extends ServiceEntityRepository
 //            ->getOneOrNullResult()
 //        ;
 //    }
+
+
+//getFiche by idFiche
+    public function getFicheById($idFiche)
+    {
+        $entityManager = $this->getEntityManager();
+        $query = $entityManager->createQuery(
+            'SELECT f
+            FROM App\Entity\Fiche f
+            WHERE f.idFiche = :idFiche'
+        )->setParameter('idFiche', $idFiche);
+        return $query->getResult();
+    }
 }

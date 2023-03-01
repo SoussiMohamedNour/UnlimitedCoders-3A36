@@ -15,13 +15,13 @@ class DepotType extends AbstractType
         $builder
             ->add('idDossier')
             ->add('dateDepot')
-            ->add('etatDossier', ChoiceType::class, [
+        /*    ->add('etatDossier', ChoiceType::class, [
                 'choices' => [
                     'En attente' => 'en_attente',
                     'Approuvé' => 'approuve',
                     'Rejeté' => 'rejete',
                 ],
-            ])
+            ])*/
             ->add('regime', ChoiceType::class, [
                 'choices' => [
                     'APCI' => 'apci',

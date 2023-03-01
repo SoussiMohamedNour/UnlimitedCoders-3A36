@@ -4,7 +4,13 @@
 
 {% block body %}
     <h1>Ajouter un depot</h1>
-
+{% for type, messages in app.session.flashbag.all() %}
+    {% for message in messages %}
+        <div class="alert alert-{{ type }}" role="alert">
+            {{ message }}
+        </div>
+    {% endfor %}
+{% endfor %}
     {{ include('depot/_form.html.twig') }}
 
     <a href="{{ path('app_depot_index') }}">Retourner</a>

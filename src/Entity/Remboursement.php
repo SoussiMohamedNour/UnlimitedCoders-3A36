@@ -26,7 +26,6 @@ class Remboursement
     private ?string $reponse = null;
 
     #[ORM\Column]
-    #[Assert\NotBlank(message:"Montant rembourse is required")]
     private ?float $montantRembourse = null;
 
     #[ORM\OneToOne(cascade: ['persist', 'remove'])]
