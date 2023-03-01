@@ -32,7 +32,6 @@ class RegistrationFormType extends AbstractType
             ->add('numtel',TextType::class,['attr'=>['class' => 'form-input','placeholder'=>"Saisir Votre Numero de telephone"]])
             ->add('imageFile', VichImageType::class, [
                 'label' => 'Image (JPG or PNG)',
-                'required' => true,
                 'allow_delete' => true,
                 'download_uri' => false,
     

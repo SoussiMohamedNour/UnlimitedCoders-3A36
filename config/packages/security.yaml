@@ -55,6 +55,8 @@ security:
         - { path: ^/frontoffice, roles: [ROLE_USER,ROLE_ADMIN,IS_AUTHENTICATED_ANONYMOUSLY] }
         - { path: ^/backofficemed, roles: [ROLE_MEDECIN,ROLE_ADMIN] }
         - { path: ^/backofficeph, roles: [ROLE_PHARMACIEN,ROLE_ADMIN] }
+        - { path: ^/verify/email, roles: [IS_AUTHENTICATED_ANONYMOUSLY] }
+
         
 
 when@test:

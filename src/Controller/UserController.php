@@ -180,7 +180,7 @@ class UserController extends AbstractController
         $utilisateur->setAge($request->get('age'));
         $utilisateur->setCin($request->get('cin'));
         $utilisateur->setNumTel($request->get('numtel'));
-        $utilisateur->setImage($request->get('image'));
+        // $utilisateur->setImage($request->get('image'));
         $utilisateur->setPassword($request->get('plainPassword'));
         $utilisateur->setSexe($request->get('sexe'));
 
