@@ -49,10 +49,14 @@ class Utilisateur
     #[ORM\OneToMany(mappedBy: 'utilisateur', targetEntity: RendezVous::class)]
     private Collection $rendezVouses;
 
+    #[ORM\OneToMany(mappedBy: 'patient', targetEntity: RendezVous::class)]
+    private Collection $RendezVousesPatient;
+
     public function __construct()
     {
         $this->calendrier = new ArrayCollection();
         $this->rendezVouses = new ArrayCollection();
+        $this->RendezVousesPatient = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -236,5 +240,35 @@ class Utilisateur
     public function __toString()
     {
         return $this->getNom() . ' ' . $this->getPrenom();
+    }
+
+    /**
+     * @return Collection<int, RendezVous>
+     */
+    public function getRendezVousesPatient(): Collection
+    {
+        return $this->RendezVousesPatient;
+    }
+
+    public function addRendezVousesPatient(RendezVous $rendezVousesPatient): self
+    {
+        if (!$this->RendezVousesPatient->contains($rendezVousesPatient)) {
+            $this->RendezVousesPatient->add($rendezVousesPatient);
+            $rendezVousesPatient->setPatient($this);
+        }
+
+        return $this;
+    }
+
+    public function removeRendezVousesPatient(RendezVous $rendezVousesPatient): self
+    {
+        if ($this->RendezVousesPatient->removeElement($rendezVousesPatient)) {
+            // set the owning side to null (unless already changed)
+            if ($rendezVousesPatient->getPatient() === $this) {
+                $rendezVousesPatient->setPatient(null);
+            }
+        }
+
+        return $this;
     }
 }

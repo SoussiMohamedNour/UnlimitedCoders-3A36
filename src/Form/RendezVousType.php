@@ -5,6 +5,7 @@ namespace App\Form;
 use App\Entity\RendezVous;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\DateType;
+use Symfony\Component\Form\Extension\Core\Type\HiddenType;
 use Symfony\Component\Form\Extension\Core\Type\TimeType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
@@ -13,7 +14,8 @@ use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Doctrine\ORM\EntityManagerInterface;
-
+use Symfony\Component\Validator\Constraints\GreaterThanOrEqual;
+use Symfony\Component\Validator\Constraints\LessThan;
 
 
 class RendezVousType extends AbstractType
@@ -33,7 +35,9 @@ class RendezVousType extends AbstractType
                 'widget' => 'single_text',
                 'format' => 'yyyy-MM-dd',
                 'data' => new \DateTime(),
-
+                'constraints' => [
+                    new GreaterThanOrEqual('tomorrow'),
+                ],
                 'attr' => ['class' => 'flatpickr-input'],
             ])
             ->add('heure', TimeType::class, [
@@ -41,10 +45,9 @@ class RendezVousType extends AbstractType
                 'attr' => [
                     'class' => 'timepicker',
                     'input' => 'datetime',
-
-                ]
+                    'value' => date('H:i'),
+                ],
             ])
-
             ->add('etat', ChoiceType::class, [
                 'choices' => [
                     'Urgent' => 'Urgent',
@@ -52,8 +55,8 @@ class RendezVousType extends AbstractType
                     'non-urgent' => 'non urgent ',
                     'Consultation de routine' => 'Consultation de routine ',
                     'Suivi' => ' Suivi ',
-
                     'placeholder' => 'Choisissez une une option',]])
+
             ->add('utilisateur', EntityType::class, [
                 'class' => Utilisateur::class,
                 'choice_label' => function (Utilisateur $utilisateur) {
@@ -66,13 +69,23 @@ class RendezVousType extends AbstractType
                         ->orderBy('u.nom', 'ASC');
                 },
             ])
-            ->add('save', SubmitType::class);
+            ->add('patient', HiddenType::class, [
+                'data' => $options['patient']
+            ])
+
+
+            ->add('save', SubmitType::class, [
+                'attr' => [
+                    'class' => "btn btn-primary",
+                ],
+            ]);
     }
 
     public function configureOptions(OptionsResolver $resolver): void
     {
         $resolver->setDefaults([
             'data_class' => RendezVous::class,
+            'patient' => null
         ]);
     }
 }

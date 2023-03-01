@@ -1,7 +1,6 @@
 {% extends 'BackOffice/base.html.twig' %}
 
     {% block body %}
-        {{ form_start(form,{ 'attr':{'novalidate':'novaliddate'} }) }}
 
         <!DOCTYPE html>
         <html>
@@ -59,18 +58,18 @@
                         </a>
                     </li>
                     <li class="menu-item">
-                        <a class="menu-link" href="{{ path('app_calendrier_new') }}"> <i
+                        <a class="menu-link" href="{{ path('app_calendrier_new',{'medecin': utilisateur.id}) }}"> <i
                                     class="icon material-icons md-comment"></i>
                             <span class="text">Indiquer disponibilité</span>
                         </a>
                     </li>
                     <li class="menu-item">
-                        <a class="menu-link" href="{{ path('app_calendrier_index') }}"> <i
+                        <a class="menu-link" href="{{ path('app_calendrier_index',{'medecin':utilisateur.id}) }}"> <i
                                     class="icon material-icons md-stars"></i>
                             <span class="text">Modifier disponibilité</span> </a>
                     </li>
                     <li class="menu-item">
-                        <a class="menu-link" href="/planning"> <i class="icon material-icons md-stars"></i>
+                        <a class="menu-link" href="calendrier/planning/{medecin}"> <i class="icon material-icons md-stars"></i>
                             <span class="text">Consulter Planning</span> </a>
                     </li>
 
@@ -108,26 +107,30 @@
                     </ul>
                 </div>
             </header>
+            {{ form_start(form,{ 'attr':{'novalidate':'novaliddate'} }) }}
             <form  method="post" role="form" class="php-email-form">
-                <div class="container">
+                <div class="container-xl">
+
 
                     <table>
-
                         <tr>
                             <td> {{  form_label(form.date,"Date" )}}</td>
                             <td> {{ form_widget(form.date) }}</td>
+                            <td> {{ form_errors(form.date)}}</td>
 
                         </tr>
                         <tr>
-                            <td> {{  form_label(form.heureDebut," Heure" )}}</td>
+                            <td> {{  form_label(form.heureDebut," HeureDebut" )}}</td>
                             <td> {{ form_widget(form.heureDebut) }}</td>
+                            <td> {{ form_errors(form.heureDebut)}}</td>
 
                         </tr>
                         <tr>
                             <td> {{  form_label(form.heureFin," Heure" )}}</td>
                             <td> {{ form_widget(form.heureFin) }}</td>
-
+                            <td> {{ form_errors(form.heureFin)}}</td>
                         </tr>
+                        <input type="hidden" name="utilisateur" value="{{ utilisateur.id }}">
                     </table>
                     {{ form_widget(form.save) }}
                     <!-- <button class="btn">{{ button_label|default('Save') }}</button> -->

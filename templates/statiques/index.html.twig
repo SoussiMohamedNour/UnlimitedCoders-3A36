@@ -1,0 +1,21 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    {% block javascripts %}
+
+        <script src="{{ asset('js/chart.js') }}"></script>
+
+{% endblock %}
+    <h1>Number of Appointments for {{ utilisateur.nom }} {{ utilisateur.prenom }}:</h1>
+    <p>{{ numberOfAppointments }}</p>
+
+    <canvas id="appointments-chart" data-id="{{ utilisateur.id }}"></canvas>
+
+    {{ form_start(form) }}
+    {{ form_row(form.startDate) }}
+    {{ form_row(form.endDate) }}
+    <button type="submit">Get Number of Appointments</button>
+    {{ form_end(form) }}
+
+{% endblock %}
+

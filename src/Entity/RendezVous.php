@@ -39,9 +39,13 @@ class RendezVous
     #[ORM\ManyToOne(inversedBy: 'rendezVouses')]
     private ?Utilisateur $utilisateur = null;
 
+    #[ORM\ManyToOne(inversedBy: 'RendezVousesPatient')]
+    private ?Utilisateur $patient = null;
+
     public function __construct()
     {
         $this->utilisateur_id = new ArrayCollection();
+
     }
 
     public function getId(): ?int
@@ -116,6 +120,18 @@ class RendezVous
     public function setUtilisateur(?Utilisateur $utilisateur): self
     {
         $this->utilisateur = $utilisateur;
+
+        return $this;
+    }
+
+    public function getPatient(): ?Utilisateur
+    {
+        return $this->patient;
+    }
+
+    public function setPatient(?Utilisateur $patient): self
+    {
+        $this->patient = $patient;
 
         return $this;
     }

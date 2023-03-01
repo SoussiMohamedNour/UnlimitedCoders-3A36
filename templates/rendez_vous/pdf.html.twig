@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>Rendez-vous n°{{ rendezVous.id }}</title>
+    <style>
+        h1 {
+            font-size: 24px;
+            font-weight: bold;
+            text-align: center;
+        }
+        p {
+            margin-bottom: 10px;
+        }
+        strong {
+            font-weight: bold;
+        }
+    </style>
+</head>
+<body>
+<h1>Rendez-vous n°{{ rendezVous.id }}</h1>
+
+<p><strong>Date et heure :</strong> {{ rendezVous.date|date('d/m/Y') }} à {{ rendezVous.heure|date('H:i') }}</p>
+
+<p><strong>Patient :</strong> {{ rendezVous.patient.nom }} {{ rendezVous.patient.prenom }}</p>
+<p><strong>Cin :</strong> {{ rendezVous.patient.cin }} </p>
+
+<p><strong>Médecin :</strong> {{ rendezVous.utilisateur.nom }} {{ rendezVous.utilisateur.prenom }}</p>
+</body>
+</html>

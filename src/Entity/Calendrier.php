@@ -18,8 +18,7 @@ class Calendrier
     private ?int $id = null;
 
     #[ORM\Column(type: Types::DATE_MUTABLE)]
-
-
+    #[Assert\NotBlank(message:"IL FAUT CHOISIR UNE DATE" )]
     private ?\DateTimeInterface $date = null;
 
     #[ORM\Column(type: Types::TIME_MUTABLE)]

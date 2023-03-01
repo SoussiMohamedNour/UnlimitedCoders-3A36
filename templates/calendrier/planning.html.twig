@@ -1,37 +1,131 @@
 {% extends 'BackOffice/base.html.twig' %}
 
 {% block body %}
-    <h1>Planning</h1>
+<!DOCTYPE html>
+<html >
+<head>
+    {% block title %}Calendrier index{% endblock %}
+    <meta charset="UTF-8">
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
-    <table class="table">
+    <link href="{{ asset('images/LogoApp.png') }}" rel="shortcut icon" >
+
+    <link href="{{ asset('css/bootstrapf9e3.css?v=1.1') }}" rel="stylesheet" />
+
+    <!-- custom style -->
+    <link href="{{ asset('css/uif9e3.css?v=1.1') }}" rel="stylesheet"/>
+    <link href="{{ asset('css/responsivef9e3.css?v=1.1') }}" rel="stylesheet" />
+
+    <link rel="stylesheet" href="{{ asset('fonts/material-icon/css/round.css') }}"/>
+
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 128 128%22><text y=%221.2em%22 font-size=%2296%22>⚫️</text></svg>">
+    {# Run `composer require symfony/webpack-encore-bundle` to start using Symfony UX #}
+
+
+
+    {% block javascripts %}
+
+        <script src="{{ asset('js/script.js') }}"></script>
+
+    {% endblock %}
+    <link rel="stylesheet" type="text/css" href="{{ asset('css/myForm.css') }}">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
+</head>
+
+<body >
+<b class="screen-overlay"></b>
+<aside class="navbar-aside" id="offcanvas_aside">
+    <div class="aside-top">
+        <a href="/backoffice" class="brand-wrap">
+            <img src="{{ asset('images/LogoApp.png') }}" height="46" class="logo" alt="Healthified dashboard">
+        </a>
+        <div>
+            <button class="btn btn-icon btn-aside-minimize"> <i class="text-muted material-icons md-menu_open"></i> </button>
+        </div>
+    </div>
+    <nav>
+        <ul class="menu-aside">
+            <li class="menu-item active">
+                <a class="menu-link" href="/backoffice"> <i class="icon material-icons md-home"></i>
+                    <span class="text">Acceuil</span>
+                </a>
+            </li>
+
+
+           {# <li class="menu-aside">
+                <li class="menu-item active">
+                <a class="menu-link" href="{{ path('app_calendrier_new',{'medecin':utilisateur.id})}}"> <i class="icon material-icons md-comment"></i>
+                    <span class="text">Indiquer disponibilité</span>
+                </a>
+            </li>}
+            <li class="menu-item">
+                <a class="menu-link" href="{{ path('app_calendrier_index',{'medecin':utilisateur.id}) }}"> <i class="icon material-icons md-stars"></i>
+                    <span class="text">Modifier disponibilité</span> </a>
+          </li>
+            <li class="menu-item">
+                <a class="menu-link" href="calendrier/planning/{medecin}"> <i class="icon material-icons md-stars"></i>
+                    <span class="text">Consulter Planning</span> </a>
+            </li>#}
+        </ul>
+        <br>
+        <br>
+    </nav>
+</aside>
+
+<main class="main-wrap">
+<table class="table">
         <thead>
         <tr>
+            <th>Date</th>
             <th>Heure</th>
-            <th>{{ 'Lundi'|date('D') }}</th>
-            <th>{{ 'Mardi'|date('D') }}</th>
-            <th>{{ 'Mercredi'|date('D') }}</th>
-            <th>{{ 'Jeudi'|date('D') }}</th>
-            <th>{{ 'Vendredi'|date('D') }}</th>
-            <th>{{ 'Samedi'|date('D') }}</th>
-            <th>{{ 'Dimanche'|date('D') }}</th>
+            <th>Patient</th>
+            <th>Actions</th>
         </tr>
         </thead>
         <tbody>
-        {% for heure in range(8, 20) %}
+        {% for rendezvous in rendezVouses %}
             <tr>
-                <td>{{ heure }}h</td>
-                {% for jour in range(1, 7) %}
-                    <td>
-                        {% for disponibility in disponibilities %}
-                            {% if disponibility.date == "now"|date_modify('next ' ~ jours[jour])|date('Y-m-d') and disponibility.heureDebut|date('H') == heure %}
-                                Disponible
-                            {% endif %}
-                        {% endfor %}
-                    </td>
-                {% endfor %}
+                <td>{{ rendezvous.date|date('d/m/Y') }}</td>
+                <td>{{ rendezvous.heure|date('H:i') }}</td>
+                <td>{{ rendezvous.patient.nom }} {{ rendezvous.patient.prenom }}</td>
+                <td>
+                    <a class="btn btn-primary" href="{{ path('app_rendez_vous_show', {'id': rendezvous.id}) }}">Voir</a>
+                    <form action="{{ path('app_rendez_vous_delete', {'id': rendezvous.id}) }}" method="POST" style="display: inline-block;">
+                        <input type="hidden" name="_method" value="DELETE">
+                        <input type="hidden" name="_token" value="{{ csrf_token('delete' ~ rendezvous.id) }}">
+                        <button type="submit" class="btn btn-danger">Supprimer</button>
+                    </form>
+                </td>
             </tr>
         {% endfor %}
         </tbody>
     </table>
 
+    {% block stylesheets %}
+        {{ parent() }}
+        <style>
+            table.table {
+                border-collapse: collapse;
+                width: 100%;
+            }
+            table.table th, table.table td {
+                border: 1px solid #ddd;
+                padding: 8px;
+                text-align: center;
+            }
+            table.table th {
+                background-color: #f2f2f2;
+            }
+            table.table tr:hover {
+                background-color: #f5f5f5;
+            }
+        </style>
+
+
+
+    {% endblock %}
+</main>
 {% endblock %}
+

@@ -3,8 +3,11 @@
 namespace App\Repository;
 
 use App\Entity\RendezVous;
+use ContainerGfFpkFx\getTranslation_Loader_JsonService;
+use DateTime;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
+use http\Env\Response;
 
 /**
  * @extends ServiceEntityRepository<RendezVous>
@@ -38,6 +41,71 @@ class RendezVousRepository extends ServiceEntityRepository
             $this->getEntityManager()->flush();
         }
     }
+    public function findRendezVousByUtilisateurId($utilisateurId)
+    {
+        return $this->createQueryBuilder('r')
+            ->join('r.utilisateur', 'u')
+            ->where('u.id = :utilisateurId')
+            ->setParameter('utilisateurId', $utilisateurId)
+            ->orderBy('r.date', 'ASC')
+            ->getQuery()
+            ->getResult();
+    }
+
+    public function findRendezVousBetweenDates(DateTime $startDate, DateTime $endDate)
+    {
+        $qb = $this->createQueryBuilder('r');
+
+        $qb->where('r.date >= :startDate')
+            ->andWhere('r.date < :endDate')
+            ->setParameter('startDate', $startDate->format('Y-m-d'))
+            ->setParameter('endDate', $endDate->format('Y-m-d'));
+
+        return $qb->getQuery()->getResult();
+    }
+    public function getNumberOfAppointmentsForDoctor($utilisateur, $startDate, $endDate)
+    {
+        $qb = $this->createQueryBuilder('r');
+        $qb->select('COUNT(r.id)');
+        $qb->where('r.utilisateur = :utilisateurId')
+            ->andWhere('r.date BETWEEN :startDate AND :endDate')
+            ->setParameter('utilisateurId', $utilisateur->getId())
+            ->setParameter('startDate', $startDate)
+            ->setParameter('endDate', $endDate);
+
+        $query = $qb->getQuery();
+        $result = $query->getSingleScalarResult();
+
+        return $result;
+    }
+    public function getNumberOfAppointmentsPerDay($utilisateur, $startDate, $endDate)
+    {
+        $qb = $this->createQueryBuilder('r');
+        $qb->select('COUNT(r.id) as numberOfAppointments, r.date');
+        $qb->where('r.utilisateur = :utilisateurId')
+            ->andWhere('r.date BETWEEN :startDate AND :endDate')
+            ->setParameter('utilisateurId', $utilisateur->getId())
+            ->setParameter('startDate', $startDate)
+            ->setParameter('endDate', $endDate)
+            ->groupBy('r.date');
+
+        $query = $qb->getQuery();
+        $results = $query->getResult();
+
+        $data = [];
+
+        foreach ($results as $result) {
+            $data[] = [
+                'numberOfAppointments' => $result['numberOfAppointments'],
+                'date' => $result['date']->format('Y-m-d'),
+            ];
+        }
+
+        return json_encode($data) ;
+    }
+
+
+
 
 //    /**
 //     * @return RendezVous[] Returns an array of RendezVous objects
@@ -63,4 +131,5 @@ class RendezVousRepository extends ServiceEntityRepository
 //            ->getOneOrNullResult()
 //        ;
 //    }
+
 }
