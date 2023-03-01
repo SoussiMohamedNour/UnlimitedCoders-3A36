@@ -12,6 +12,7 @@ use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Mailer\MailerInterface;
+use Symfony\Component\Mime\Email;
 use Symfony\Component\Mime\Address;
 use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
 use Symfony\Component\Routing\Annotation\Route;
@@ -39,13 +40,17 @@ class ResetPasswordController extends AbstractController
     {
         $form = $this->createForm(ResetPasswordRequestFormType::class);
         $form->handleRequest($request);
+        $email = (new Email());
 
         if ($form->isSubmitted() && $form->isValid()) {
-            return $this->processSendingPasswordResetEmail(
-                $form->get("email")->getData(),
-                $mailer,
-                $translator
-            );
+            $to = $form->get("email")->getData();
+
+            $email->from('healthified.consultation.module@gmail.com')
+            ->to($to)
+            ->subject('Password reset')
+            ->text('reset');
+            $mailer->send($email);
+
         }
 
         return $this->render('reset_password/request.html.twig', [
