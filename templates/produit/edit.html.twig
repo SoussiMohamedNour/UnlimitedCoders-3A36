@@ -1,0 +1,53 @@
+{% extends '/backoffice/base.html.twig' %}
+
+{% block title %}Edit Produit{% endblock %}
+
+{% block body %}
+    <header class="main-header navbar">
+    </header>
+    <b class="screen-overlay"></b>
+    <aside class="navbar-aside" id="offcanvas_aside">
+        <div class="aside-top">
+            <a href="index.html" class="brand-wrap">
+                <img src="{{ asset('images/LogoApp.png') }}" height="46" class="logo" alt="Healthified dashboard">
+            </a>
+            <div>
+                <button class="btn btn-icon btn-aside-minimize"> <i class="text-muted material-icons md-menu_open"></i> </button>
+            </div>
+        </div>
+        <nav>
+            <ul class="menu-aside">
+                <li class="menu-item active">
+                    <a class="menu-link" href="{{path('app_default')}}"> <i class="icon material-icons md-home"></i>
+                        <span class="text">Acceuil</span>
+                    </a>
+                </li>
+                <li class="menu-item ">
+
+                    <a class="menu-link"  href="{{path('app_produit_new')}}"> <i class="icon material-icons md-category"></i>
+                        <span class="text">Ajouter Produits</span>
+                    </a>
+                    <a class="menu-link"  href="{{path('app_categorie_index')}}"> <i class="icon material-icons md-category"></i>
+                        <span class="text">Afficher Categorie</span>
+                    </a>
+                    <a class="menu-link"  href="{{path('app_categorie_new')}}"> <i class="icon material-icons md-category"></i>
+                        <span class="text">Ajouter Categorie</span>
+                    </a>
+                    <a class="menu-link"  href="{{path('app_commande_index')}}"> <i class="icon material-icons md-category"></i>
+                        <span class="text">Afficher commande</span>
+                    </a>
+                </li>
+            </ul>
+        </nav>
+    </aside>
+<div style="
+    margin-left: 300px;">
+    <h1>Edit Produit</h1>
+
+    {{ include('produit/_form.html.twig', {'button_label': 'Update'}) }}
+
+    <a href="{{ path('app_produit_index') }}" class="btn btn-secondary"> Back to list</a>
+
+    {{ include('produit/_delete_form.html.twig') }}
+</div>
+{% endblock %}

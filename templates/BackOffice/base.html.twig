@@ -4,7 +4,146 @@
         <meta charset="UTF-8">
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-        <title>{% block title %}Healthified Dashboard{% endblock %}</title>
+		<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-GLhlTQ8iRABdZLl6O3oVMWSktQOp6b7In1Zl3/Jr59b6EGGoI1aFkw7cmDA6j6gD" crossorigin="anonymous">
+		<link rel="stylesheet" href="{{asset("bundles/mercuryseriesflashy/css/flashy.css")}}">
+
+		<script type="text/javascript" src="https://cdn.weglot.com/weglot.min.js"></script>
+		<script>
+			Weglot.initialize({
+				api_key: 'wg_57f6c3f52c348140124c9e00af5a720e6'
+			});
+		</script>
+
+
+		<link rel="stylesheet" href="{{ asset('bundles/mercuryseriesflashy/css/flashy.css') }}">
+
+        <title>{% block title %}Healthified Dashboard
+
+
+
+			{% endblock %}
+
+
+
+		</title>
+		<style>
+          .btn-group {
+            margin: 10px 0; /* Ajouter de la marge autour des boutons */
+          }
+
+          .afficher-btn {
+            background-color: #DAD8E3; /* Couleur de fond verte */
+            color: black; /* Couleur du texte blanc */
+            border: none; /* Supprimer la bordure */
+            padding: 5px 20px; /* Ajouter un espace autour du texte */
+            text-align: center; /* Centrer le texte */
+            text-decoration: none; /* Supprimer le soulignement */
+            display: inline-block; /* Afficher en ligne */
+            font-size: 16px; /* Taille de police de caractère */
+            margin-right: 10px; /* Ajouter une marge à droite */
+            cursor: pointer; /* Afficher un curseur pointer au survol */
+          }
+
+          .modifier-btn {
+            background-color: #DAD8E3; /* Couleur de fond bleue */
+            color: black; /* Couleur du texte blanc */
+            border: none; /* Supprimer la bordure */
+            padding: 5px 20px; /* Ajouter un espace autour du texte */
+            text-align: center; /* Centrer le texte */
+            text-decoration: none; /* Supprimer le soulignement */
+            display: inline-block; /* Afficher en ligne */
+            font-size: 16px; /* Taille de police de caractère */
+            margin-right: 10px; /* Ajouter une marge à droite */
+            cursor: pointer; /* Afficher un curseur pointer au survol */
+          }
+          .supprimer-btn {
+            background-color: #FE7D33; /* Couleur de fond rouge */
+            color: black; /* Couleur du texte blanc */
+            border: none; /* Supprimer la bordure */
+            padding: 5px 20px; /* Ajouter un espace autour du texte */
+            text-align: center; /* Centrer le texte */
+            text-decoration: none; /* Supprimer le soulignement */
+            display: inline-block; /* Afficher en ligne */
+            font-size: 16px; /* Taille de police de caractère */
+            margin-right: 10px; /* Ajouter une marge à droite */
+            cursor: pointer; /* Afficher un curseur pointer au survol */
+          }
+          .ajouter-btn {
+            background-color: #8EC63F; /* Couleur de fond verte */
+            color: black; /* Couleur du texte blanc */
+            border: none; /* Supprimer la bordure */
+            padding: 5px 20px; /* Ajouter un espace autour du texte */
+            text-align: center; /* Centrer le texte */
+            text-decoration: none; /* Supprimer le soulignement */
+            display: inline-block; /* Afficher en ligne */
+            font-size: 16px; /* Taille de police de caractère */
+            margin-right: 10px; /* Ajouter une marge à droite */
+            cursor: pointer; /* Afficher un curseur pointer au survol */
+          }
+          .enregistrer-btn {
+            background-color: #8EC63F; /* Couleur de fond verte */
+            color: black; /* Couleur du texte blanc */
+            border: none; /* Supprimer la bordure */
+            padding: 5px 20px; /* Ajouter un espace autour du texte */
+            text-align: center; /* Centrer le texte */
+            text-decoration: none; /* Supprimer le soulignement */
+            display: inline-block; /* Afficher en ligne */
+            font-size: 16px; /* Taille de police de caractère */
+            margin-right: 10px; /* Ajouter une marge à droite */
+            cursor: pointer; /* Afficher un curseur pointer au survol */
+          }
+          table,
+          td, {
+              border: 1px solid #333;
+          }
+
+          thead,
+          tfoot {
+              background-color: #333;
+              color: #fff;
+          }
+          form {
+            display: flex;
+            flex-direction: column;
+            max-width: 400px;
+            margin: 0;
+          }
+
+          form label {
+            font-weight: bold;
+            margin-top: 1rem;
+            width: 100%;
+          }
+
+          form input, form select {
+            padding: 0.5rem;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            margin-top: 0.5rem;
+            font-size: 1rem;
+            width: 100%;
+            box-sizing: border-box;
+          }
+
+          form button {
+            background-color: #007bff;
+            color: #fff;
+            padding: 0.5rem 1rem;
+            border-radius: 4px;
+            border: none;
+            margin-top: 1rem;
+            cursor: pointer;
+            font-size: 1rem;
+          }
+
+          /* Alignement à gauche */
+          form {
+            justify-content: flex-start;
+            align-items: flex-start;
+          }
+
+        </style>
+
 
         <link href="{{ asset('images/LogoApp.png') }}" rel="shortcut icon" >
 
@@ -39,159 +178,41 @@
         <div>
             <button class="btn btn-icon btn-aside-minimize"> <i class="text-muted material-icons md-menu_open"></i> </button>
         </div>
-    </div> 
+    </div>
     <nav>
   <ul class="menu-aside">
-    <li class="menu-item active"> 
-      <a class="menu-link" href="index.html"> <i class="icon material-icons md-home"></i> 
-        <span class="text">Acceuil</span> 
-      </a> 
-    </li>
-    <li class="menu-item has-submenu"> 
-      <a class="menu-link" href="ajouter_factures.html"> <i class="icon material-icons md-shopping_bag"></i>  
-        <span class="text">Factures</span> 
-      </a> 
-      <div class="submenu">
-        <a href="ajouter_factures.html">Ajouter Facture</a>
-        <a href="modifier_factures.html">Modifier Facture</a>
-        <a href="supprimer_factures.html">Supprimer Factures</a>
-        <a href="afficher_factures.html">Afficher Factures</a>
-        <a href="calculatrice.html">Calculatrice</a>
-        <a href="mailing_factures.html">Mailing</a>
-        <a href="qrcode.html">QR code</a>
-        <a href="pdf_Excel_factures.html">PDF & Excel</a>
-      </div>
-    </li>
-    <li class="menu-item has-submenu"> 
-      <a class="menu-link" href="page-orders-1.html"> <i class="icon material-icons md-shopping_cart"></i> 
-        <span class="text">Commandes</span> 
+    <li class="menu-item active">
+      <a class="menu-link" href="index.html"> <i class="icon material-icons md-home"></i>
+        <span class="text">Acceuil</span>
       </a>
-      <div class="submenu">
-        <a href="page-orders-1.html">Commandes liste 1</a>
-        <a href="page-orders-2.html">Commandes list 2</a>
-        <a href="page-orders-detail.html">Détail des commandes</a>
-      </div> 
-    </li>
-    <li class="menu-item has-submenu"> 
-      <a class="menu-link" href="page-sellers-cards.html"> <i class="icon material-icons md-store"></i> 
-        <span class="text">Boutiques</span> 
-      </a> 
-      <div class="submenu">
-        <a href="ajouter_boutiques.html">Ajouter Boutique</a>
-        <a href="modifier_boutiques.html">Modifier Boutique</a>
-        <a href="supprimer_boutiques.html">Supprimer Boutiques</a>
-        <a href="afficher_boutiques.html">Afficher Boutiques</a>
-        <a href="rechercher_tri_boutiques.html">Recherche & Tri</a>
-        <a href="statistique_boutiques.html">Statistiques</a>
-        <a href="mailing_boutique.html">Mailing</a>
-        <a href="pdf_Excel_boutique.html">PDF & Excel</a>
-		</div>
-    </li>
-	
-    <li class="menu-item has-submenu"> 
-      <a class="menu-link" href="page-form-product-1.html"> <i class="icon material-icons md-add_box"></i>  
-        <span class="text">Produits</span> 
-      </a> 
-      <div class="submenu">
-        <a href="ajouter_produits.html">Ajouter Produits</a>
-        <a href="modifier_produits.html">Modifier produits</a>
-        <a href="supprimer_produits.html">Supprimer Produits</a>
-        <a href="afficher_produits.html">Afficher Produits</a>
-        <a href="rechercher_tri_produits.html">Recherche & Tri</a>
-        <a href="statistique_produits.html">Statistiques</a>
-        <a href="mailing_boutique.html">Mailing</a>
-        <a href="pdf_Excel_boutique.html">PDF & Excel</a>
-      </div>
-    </li>
-    <li class="menu-item has-submenu"> 
-      <a class="menu-link" href="page-form-product-1.html"> <i class="icon material-icons md-add_box"></i>  
-        <span class="text">Station Recharge</span> 
-      </a> 
-      <div class="submenu">
-        <a href="ajouter_station.html">Ajouter station</a>
-        <a href="modifier_station.html">Modifier station</a>
-        <a href="supprimer_station.html">Supprimer station</a>
-        <a href="afficher_station.html">Afficher station</a>
-        <a href="rechercher_tri_station.html">Recherche & Tri</a>
-        <a href="statistique_station.html">Statistiques</a>
-        <a href="Calcul_gain.html">Calcul Gain</a>
-      </div>
     </li>
     <li class="menu-item has-submenu">
-      <a class="menu-link" href="page-transactions-A.html"> <i class="icon material-icons md-monetization_on"></i> 
-        <span class="text">Transactions</span> 
-      </a> 
-      <div class="submenu">
-        <a href="page-transactions-A.html">Transaction 1</a>
-        <a href="page-transactions-B.html">Transaction 2</a>
-      </div>
-    </li>
-    <li class="menu-item has-submenu"> 
-      <a class="menu-link" href="#"> <i class="icon material-icons md-person"></i>  
-        <span class="text">Utilsateurs</span> 
-      </a> 
-      <div class="submenu">
-        <a href="ajouter_utilisateurs.html">Ajouter Utilisateurs</a>
-        <a href="modifier_utilisateurs.html">Modifier Utilisateurs</a>
-        <a href="supprimer_utilisateurs.html">Supprimer Utilisateurs</a>
-        <a href="afficher_utilisateurs.html">Afficher Utilisateurs</a>
-        <a href="rechercher_tri_utilisateurs.html">Recherche & Tri</a>
-        <a href="classification_utilisateurs.html">Classification Utilisateurs</a>
-        <a href="calcul_nombre_utilisateurs.html">Calcul Nombre Utilisateurs</a>
-        <a href="mailing_utilisateurs.html">Mailing</a>
-        <a href="pdf_utilisateurs.html">PDF</a>
-		</div>
-		</li>
-    <li class="menu-item has-submenu"> 
-      <a class="menu-link" href="#"> <i class="icon material-icons md-person"></i>  
-        <span class="text">Ouvriers</span> 
-      </a> 
-      <div class="submenu">
-        <a href="ajouter_ouvriers.html">Ajouter ouvriers</a>
-        <a href="modifier_ouvriers.html">Modifier ouvriers</a>
-        <a href="supprimer_ouvriers.html">Supprimer ouvriers</a>
-        <a href="afficher_ouvriers.html">Afficher ouvriers</a>
-        <a href="rechercher_tri_ouvriers.html">Recherche & Tri</a>
-        <a href="mailing_ouvriers.html">Mailing</a>
-        <a href="pdf_ouvriers.html">PDF</a>
-        <a href="excel_ouvriers.html">Excel</a>
-		</div>
-		</li>
-    <li class="menu-item"> 
-      <a class="menu-link" href="page-reviews.html"> <i class="icon material-icons md-comment"></i> 
-        <span class="text">Reviews</span> 
-      </a> 
-    </li>
-    <li class="menu-item"> 
-      <a class="menu-link" href="page-brands.html"> <i class="icon material-icons md-stars"></i> 
-        <span class="text">Marques</span> </a> 
-    </li>
-    <li class="menu-item"> 
-      <a class="menu-link" disabled href="#"> <i class="icon material-icons md-pie_chart"></i> 
-        <span class="text">Statistiques/span> 
-      </a> 
-    </li>
-  </ul>
-  <hr>
-  <ul class="menu-aside">
-    <li class="menu-item has-submenu"> 
-      <a class="menu-link" href="#"> <i class="icon material-icons md-settings"></i> 
-        <span class="text">Paramètres</span> 
+      <a class="menu-link" href="categorie"> <i class="icon material-icons md-category"></i>
+        <span class="text">Gestion produits</span>
       </a>
       <div class="submenu">
-        <a href="page-settings-1.html">Setting sample 1</a>
-        <a href="page-settings-2.html">Setting sample 2</a>
+        <a href="/backoffice/categorie/new">Ajouter Categorie</a>
+        <a href="{{path('app_categorie_index')}}">afficher tout les categorie</a>
+		  <a href="/backoffice/produit/new">Ajouter proudit</a>
+		  <a href="{{path('app_produit_index')}}">afficher tout les produit</a>
+		  <a href="{{path('app_commande_index')}}">afficher tout les commandes</a>
+
+
+
       </div>
     </li>
-    <li class="menu-item">
-      <a class="menu-link" href="page-0-blank.html"> <i class="icon material-icons md-local_offer"></i> 
-    <span class="text"> Starter page </span>
-      </a> 
+
+
+
     </li>
+
   </ul>
+
+
+
   <br>
   <br>
-</nav>
+
 </aside>
 <main class="main-wrap">
 	<header class="main-header navbar">
@@ -477,9 +498,12 @@
 
 <!-- ChartJS files-->
 <script src="https://cdn.jsdelivr.net/npm/chart.js@2.8.0"></script>
+			<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js" integrity="sha384-w76AqPfDkMBDXo30jS1Sgez6pr3x5MlQ1ZAGC+nuZB+EYdgRZgiwxhTBTkF7CXvN" crossorigin="anonymous"></script>
 
 <!-- Custom JS -->
 <script src="js/scriptc619.js?v=1.0" type="text/javascript"></script>
+
+			<script src="{{asset("bundles/mercuryseriesflashy/jd/flashy.js")}}"></script>
 
 <!-- ChartJS customize-->
 <script>
@@ -514,6 +538,18 @@
 </script>
 
         {% endblock %}
+
+
+
+		{#   {{include('@mercurySeriesFlashy/flashy.html.twig')}}#}
+
+		<script src="//code.jquery.com/jquery.js"></script>
+		<!-- Load Flashy default JavaScript -->
+		<script src="{{ asset('bundles/mercuryseriesflashy/js/flashy.js') }}"></script>
+		<!-- Include Flashy default partial -->
+
+		{{ include('@MercurySeriesFlashy/flashy.html.twig') }}
     </body>
+
 </html>
     

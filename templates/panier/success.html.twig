@@ -1,0 +1,24 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+<section class="bg-light p-3">
+    <h1>Votre Commande</h1>
+
+</section>
+<div class="row" style="display: flex;align-items: center;justify-content: center;margin-top: 150px;">
+    <div class="col-lg-6">
+
+            <div class="card-body">
+
+                <table border="1">
+                    <table class="table">
+                        <td>
+                            <h1>Votre commande est valide avec success</h1>
+                            <a class="btn btn-success" href="{{ path('app') }}">Back to shop</a></td>
+                        <tfoot>
+                        <tr>
+                        </tr>
+                        </tfoot>
+                    </table>
+
+                    {% endblock %}

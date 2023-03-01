@@ -1,0 +1,92 @@
+{% extends '/backoffice/base.html.twig' %}
+
+{% block title %}Produit index{% endblock %}
+
+{% block body %}
+    <header class="main-header navbar">
+    </header>
+    <b class="screen-overlay"></b>
+    <aside class="navbar-aside" id="offcanvas_aside">
+        <div class="aside-top">
+            <a href="index.html" class="brand-wrap">
+                <img src="{{ asset('images/LogoApp.png') }}" height="46" class="logo" alt="Healthified dashboard">
+            </a>
+            <div>
+                <button class="btn btn-icon btn-aside-minimize"> <i class="text-muted material-icons md-menu_open"></i> </button>
+            </div>
+        </div>
+        <nav>
+            <ul class="menu-aside">
+                <li class="menu-item active">
+                    <a class="menu-link" href="{{path('app_default')}}"> <i class="icon material-icons md-home"></i>
+                        <span class="text">Acceuil</span>
+                    </a>
+                </li>
+                <li class="menu-item ">
+
+                    <a class="menu-link"  href="{{path('app_produit_new')}}"> <i class="icon material-icons md-category"></i>
+                        <span class="text">Ajouter Produits</span>
+                    </a>
+                    <a class="menu-link"  href="{{path('app_categorie_index')}}"> <i class="icon material-icons md-category"></i>
+                        <span class="text">Afficher Categorie</span>
+                    </a>
+                    <a class="menu-link"  href="{{path('app_categorie_new')}}"> <i class="icon material-icons md-category"></i>
+                        <span class="text">Ajouter Categorie</span>
+                    </a>
+                    <a class="menu-link"  href="{{path('app_commande_index')}}"> <i class="icon material-icons md-category"></i>
+                        <span class="text">Afficher commande</span>
+                    </a>
+                </li>
+            </ul>
+        </nav>
+    </aside>
+<div style="
+    margin-left: 300px;">
+    <h1>Produit index</h1>
+     <a href="{{ path('app_produit_new') }}" class="btn btn-secondary"> Create new</a>
+    <table class="table" border="1"  cellpadding="5" cellspacing="10" width="100%">
+
+        <div align="Right">
+            {{ form_start(formsearch,{'attr': {'novalidate': 'novalidate'}} ) }}
+            {{ form_widget(formsearch.nom,{'class':'form-control'},)}}
+            {{ form_widget(formsearch.search, {'attr': {'placeholder': 'REGISTER','class':'btn btn-secondary    ' }})}}
+            {{ form_end(formsearch) }}
+        </div>
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>Nom</th>
+                <th>Matricule_asseu</th>
+                <th>Categorie</th>
+                <th>Prix</th>
+                <th>Image</th>
+                <th>actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for produit in produits %}
+            <tr>
+                <td>{{ produit.id }}</td>
+                <td>{{ produit.nom }}</td>
+                <td>{{ produit.matriculeAsseu }}</td>
+                <td>{{ produit.categorie }}</td>
+                <td>{{ produit.prix }} DT</td>
+                <td><img src="{{asset('/images/')~ produit.image  }}"
+                     alt="" style="width: 100px; height: 100px"></td>
+                <td>
+                    <a href="{{ path('app_produit_show', {'id': produit.id}) }}" class="btn btn-secondary">show</a>
+                    <a href="{{ path('app_produit_edit', {'id': produit.id}) }}" class="btn btn-secondary">edit</a>
+                </td>
+            </tr>
+        {% else %}
+            <tr>
+                <td colspan="4">no records found</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+
+    
+</div>
+{% endblock %}
