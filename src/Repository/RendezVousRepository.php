@@ -51,6 +51,16 @@ class RendezVousRepository extends ServiceEntityRepository
             ->getQuery()
             ->getResult();
     }
+    public function findRendezVousByPatientId($patientId)
+    {
+        return $this->createQueryBuilder('r')
+            ->join('r.patient', 'u')
+            ->where('u.id = :patientId')
+            ->setParameter('patientId', $patientId)
+            ->orderBy('r.date', 'ASC')
+            ->getQuery()
+            ->getResult();
+    }
 
     public function findRendezVousBetweenDates(DateTime $startDate, DateTime $endDate)
     {
@@ -78,16 +88,17 @@ class RendezVousRepository extends ServiceEntityRepository
 
         return $result;
     }
-    public function getNumberOfAppointmentsPerDay($utilisateur, $startDate, $endDate)
+    public function getNumberOfAppointmentsPerDay($utilisateur, $startDate, $endDate, ): array
     {
+
         $qb = $this->createQueryBuilder('r');
-        $qb->select('COUNT(r.id) as numberOfAppointments, r.date');
-        $qb->where('r.utilisateur = :utilisateurId')
+        $qb->select('COUNT(r.id) as numberOfAppointments,r.date as date');
+        $qb->where('r.utilisateur = :utilisateur')
             ->andWhere('r.date BETWEEN :startDate AND :endDate')
-            ->setParameter('utilisateurId', $utilisateur->getId())
+            ->setParameter('utilisateur', $utilisateur->getId())
             ->setParameter('startDate', $startDate)
             ->setParameter('endDate', $endDate)
-            ->groupBy('r.date');
+            ->groupBy('date');
 
         $query = $qb->getQuery();
         $results = $query->getResult();
@@ -97,12 +108,12 @@ class RendezVousRepository extends ServiceEntityRepository
         foreach ($results as $result) {
             $data[] = [
                 'numberOfAppointments' => $result['numberOfAppointments'],
-                'date' => $result['date']->format('Y-m-d'),
+                'date' => $result['date'],
             ];
         }
-
-        return json_encode($data) ;
+        return $data;
     }
+
 
 
 
@@ -131,5 +142,7 @@ class RendezVousRepository extends ServiceEntityRepository
 //            ->getOneOrNullResult()
 //        ;
 //    }
+
+
 
 }

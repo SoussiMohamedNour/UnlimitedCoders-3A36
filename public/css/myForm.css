@@ -85,4 +85,30 @@ input[type="submit"]:hover {
     background-color: #e0a800;
     border-color: #d39e00;
 }
+.pagination {
+    margin-top: 20px;
+}
+
+.pagination .page-item.disabled .page-link {
+    background-color: #ddd;
+    border-color: #ddd;
+    color: #555;
+}
+
+.pagination .page-item.active .page-link {
+    background-color: #007bff;
+    border-color: #007bff;
+}
+
+.pagination .page-link {
+    color: #007bff;
+}
+
+.pagination .page-link:hover {
+    color: #0056b3;
+    text-decoration: none;
+    background-color: #e9ecef;
+    border-color: #dee2e6;
+}
+
 

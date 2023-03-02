@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <title>{% block title %}Healthified Dashboard{% endblock %}</title>
+
+    <link href="{{ asset('images/LogoApp.png') }}" rel="shortcut icon" >
+
+    <link href="{{ asset('css/bootstrapf9e3.css?v=1.1') }}" rel="stylesheet" />
+
+    <!-- custom style -->
+    <link href="{{ asset('css/uif9e3.css?v=1.1') }}" rel="stylesheet"/>
+    <link href="{{ asset('css/responsivef9e3.css?v=1.1') }}" rel="stylesheet" />
+
+    <link rel="stylesheet" href="{{ asset('fonts/material-icon/css/round.css') }}"/>
+
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 128 128%22><text y=%221.2em%22 font-size=%2296%22>⚫️</text></svg>">
+    {# Run `composer require symfony/webpack-encore-bundle` to start using Symfony UX #}
+
+    {% block stylesheets %}
+        {{ encore_entry_link_tags('app') }}
+    {% endblock %}
+
+    {% block javascripts %}
+        {{ encore_entry_script_tags('app') }}
+        {{ encore_entry_link_tags('app') }}
+    {% endblock %}
+</head>
+<body >
+{% block body %}
+    <b class="screen-overlay"></b>
+
+    <aside class="navbar-aside" id="offcanvas_aside">
+        <div class="aside-top">
+            <a href="index.html" class="brand-wrap">
+                <img src="{{ asset('images/LogoApp.png') }}" height="46" class="logo" alt="Healthified dashboard">
+            </a>
+            <div>
+                <button class="btn btn-icon btn-aside-minimize"> <i class="text-muted material-icons md-menu_open"></i> </button>
+            </div>
+        </div>
+        <nav>
+            <ul class="menu-aside">
+                <li class="menu-item active">
+                    <a class="menu-link" href="/backoffice"> <i class="icon material-icons md-home"></i>
+                        <span class="text">Acceuil</span>
+                    </a>
+                </li>
+
+
+                <li class="menu-item">
+                    <a class="menu-link" href={{ path('app_rendez_vous_index') }}> <i class="icon material-icons md-comment"></i>
+                        <span class="text">Liste rendez-vous</span>
+                    </a>
+                </li>
+                <li class="menu-item">
+                    <a class="menu-link" href="/calendrier"> <i class="icon material-icons md-stars"></i>
+                        <span class="text">Liste médecins</span> </a>
+                </li>
+                <li class="menu-item">
+                    <a class="menu-link" href="calendrier/planning/{medecin}"> <i class="icon material-icons md-stars"></i>
+                        <span class="text">Consulter Planning</span> </a>
+
+            </ul>
+            <br>
+            <br>
+        </nav>
+    </aside>
+    <main class="main-wrap">
+        <header class="main-header navbar">
+            <div class="col-nav">
+                <button class="btn btn-icon btn-mobile me-auto" data-trigger="#offcanvas_aside"> <i class="md-28 material-icons md-menu"></i> </button>
+                <ul class="nav">
+                    <li class="nav-item">
+                        <a class="nav-link btn-icon" onclick="darkmode(this)" title="Dark mode" href="#"> <i class="material-icons md-nights_stay"></i> </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link btn-icon" href="#"> <i class="material-icons md-notifications_active"></i> </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#"> English </a>
+                    </li>
+                    <li class="dropdown nav-item">
+                        <a class="dropdown-toggle" data-bs-toggle="dropdown" href="#"> <img class="img-xs rounded-circle" src="images/people/avatar1.jpg" alt="User"></a>
+                        <div class="dropdown-menu dropdown-menu-end">
+                            <a class="dropdown-item" href="#">Mon profile</a>
+                            <a class="dropdown-item" href="#">Paramètres</a>
+                            <a class="dropdown-item text-danger" href="#">Sortie</a>
+                        </div>
+                    </li>
+                </ul>
+            </div>
+        </header>
+
+
+    </main>
+    <script type="text/javascript">
+        if(localStorage.getItem("darkmode")){
+            var body_el = document.body;
+            body_el.className += 'dark';
+        }
+    </script>
+
+    <script src="{{ asset('js/jquery-3.5.0.min.js') }}"></script>
+    <script src="{{ asset('js/bootstrap.bundle.min.js')}}"></script>
+
+    <!-- ChartJS files-->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@2.8.0"></script>
+
+    <!-- Custom JS -->
+    <script src="js/scriptc619.js?v=1.0" type="text/javascript"></script>
+
+    <!-- ChartJS customize-->
+    <script>
+        var ctx = document.getElementById('myChart').getContext('2d');
+        var chart = new Chart(ctx, {
+            // The type of chart we want to create
+            type: 'line',
+
+            // The data for our dataset
+            data: {
+                labels: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'],
+                datasets: [
+                    {
+                        label: 'Sales',
+                        backgroundColor: 'rgb(44, 120, 220)',
+                        borderColor: 'rgb(44, 120, 220)',
+                        data: [18, 17, 4, 3, 2, 20, 25, 31, 25, 22, 20, 9]
+                    },
+                    {
+                        label: 'Visitors',
+                        backgroundColor: 'rgb(180, 200, 230)',
+                        borderColor: 'rgb(180, 200, 230)',
+                        data: [40, 20, 17, 9, 23, 35, 39, 30, 34, 25, 27, 17]
+                    }
+
+                ]
+            },
+
+            // Configuration options go here
+            options: {}
+        });
+    </script>
+
+{% endblock %}
+</body>
+</html>

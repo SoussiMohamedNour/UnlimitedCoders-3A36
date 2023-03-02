@@ -58,16 +58,16 @@
 
             <li class="menu-aside">
             <li class="menu-item active">
-              {#  <a class="menu-link" href="{{ path('app_calendrier_new')}}"> <i class="icon material-icons md-comment"></i>
+               <a class="menu-link" href="{{ path('app_calendrier_new',{'medecin': utilisateur.id})}}"> <i class="icon material-icons md-comment"></i>
                     <span class="text">Indiquer disponibilité</span>
-                </a>#}
+                </a>
             </li>
-           {# <li class="menu-item">
-                <a class="menu-link" href="{{ path('app_calendrier_index',{'medecin': utilisateur.id}) }}"> <i class="icon material-icons md-stars"></i>
-                    <span class="text">Modifier disponibilité</span> </a>
-            </li>#}
             <li class="menu-item">
-                <a class="menu-link" href="calendrier/planning/{medecin}"> <i class="icon material-icons md-stars"></i>
+                <a class="menu-link" href="{{ path('app_calendrier_index')}}"> <i class="icon material-icons md-stars"></i>
+                    <span class="text">Modifier disponibilité</span> </a>
+            </li>
+            <li class="menu-item">
+                <a class="menu-link" href="{{ path('app_planning',{'medecin':utilisateur.id}) }}"> <i class="icon material-icons md-stars"></i>
                     <span class="text">Consulter Planning</span> </a>
             </li>
         </ul>

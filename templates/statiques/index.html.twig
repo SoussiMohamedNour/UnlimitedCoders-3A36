@@ -1,21 +1,17 @@
-{% extends 'base.html.twig' %}
+{% extends 'Backoffice/base.html.twig' %}
 
 {% block body %}
-    {% block javascripts %}
 
-        <script src="{{ asset('js/chart.js') }}"></script>
 
-{% endblock %}
-    <h1>Number of Appointments for {{ utilisateur.nom }} {{ utilisateur.prenom }}:</h1>
-    <p>{{ numberOfAppointments }}</p>
+    <h1>{{ utilisateur.nom }}'s Appointments Statistics</h1>
 
-    <canvas id="appointments-chart" data-id="{{ utilisateur.id }}"></canvas>
+    {{ render_chart(chart) }}
 
-    {{ form_start(form) }}
-    {{ form_row(form.startDate) }}
-    {{ form_row(form.endDate) }}
-    <button type="submit">Get Number of Appointments</button>
-    {{ form_end(form) }}
 
 {% endblock %}
+
+
+
+
+
 

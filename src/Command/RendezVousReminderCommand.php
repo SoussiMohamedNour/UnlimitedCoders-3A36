@@ -44,7 +44,7 @@ class RendezVousReminderCommand extends Command
         $now = new DateTime();
 
         // Add one day to current date
-        $tomorrow = (new DateTime())->add(new DateInterval('P1D'));
+        $tomorrow = (new DateTime())->add(new DateInterval('P2D'));
 
         // Fetch all rendez-vous scheduled for tomorrow
         $rendezVousList = $this->rendezVousRepository->findRendezVousBetweenDates($now, $tomorrow);
@@ -52,18 +52,18 @@ class RendezVousReminderCommand extends Command
         // Loop through the rendez-vous list
         foreach ($rendezVousList as $rendezVous) {
             // Get the associated utilisateur object
-            $utilisateur = $this->utilisateurRepository->find($rendezVous->getUtilisateurId());
+            $utilisateur = $this->utilisateurRepository->find($rendezVous->getUtilisateur());
 
             // Get the email address of the user
             $email = $utilisateur->getEmail();
 
             // Send a reminder email to the user
             $email = (new Email())
-                ->from('your_email@example.com')
+                ->from('healthified.consultation.module@gmail.com')
                 ->to($email)
                 ->subject('Reminder for your rendez-vous tomorrow')
                 ->text('Dear ' . $utilisateur->getNom() . ', your rendez-vous is scheduled for tomorrow. Please don\'t forget to attend it.');
-
+            dump($email);
             $this->mailer->send($email);
         }
 

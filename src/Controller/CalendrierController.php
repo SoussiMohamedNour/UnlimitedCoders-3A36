@@ -11,6 +11,7 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use Knp\Component\Pager\PaginatorInterface;
 
 #[Route('/calendrier')]
 class CalendrierController extends AbstractController
@@ -84,14 +85,25 @@ class CalendrierController extends AbstractController
     }
 
     #[Route('/planning/{medecin}', name: 'app_planning', methods: ['GET'])]
-    public function planning(UtilisateurRepository $utilisateurRepository, RendezVousRepository $rendezVousRepository, $medecin): Response
-    {
+    public function planning(
+        UtilisateurRepository $utilisateurRepository,
+        RendezVousRepository $rendezVousRepository,
+        PaginatorInterface $paginator,
+        Request $request,
+                              $medecin
+    ): Response {
         $utilisateur = $utilisateurRepository->find($medecin);
         $rendezVouses = $rendezVousRepository->findBy(['utilisateur' => $utilisateur]);
 
+        $pagination = $paginator->paginate(
+            $rendezVouses,
+            $request->query->getInt('page', 1),
+            5 // items per page
+        );
+
         return $this->render('calendrier/planning.html.twig', [
             'utilisateur' => $utilisateur,
-            'rendezVouses' => $rendezVouses,
+            'rendezVouses' => $pagination,
         ]);
     }
 
