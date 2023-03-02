@@ -22,7 +22,7 @@ use Gregwar\CaptchaBundle\Type\CaptchaType;
 
 class RegistrationFormType extends AbstractType
 {
-    public function buildForm(FormBuilderInterface $builder, array $options): void
+    public function buildForm(FormBuilderInterface $builder, array $options,): void
     {
         $builder
             ->add("email",EmailType::class,['attr'=>['class' => 'form-input','placeholder'=>"Votre Email"]])

@@ -100,6 +100,25 @@ class UserController extends AbstractController
     }
 
 
+   #[Route('/user/ban/{id}', name: 'app_ban', methods: ['GET','POST'])]
+    public function ban (UtilisateurRepository $utilisateurRepository,Request $request,$id): Response
+    {
+        
+        $utilisateur=$utilisateurRepository->findOneBy(['id' => $id]);
+        
+       
+        
+        $utilisateur->setIsbanned(true);
+        $utilisateurRepository->save($utilisateur, true);
+        // <!-- dd($utilisateur); -->
+        
+        
+        return $this->renderForm('404/404.html.twig',['utilisateurs'=>$utilisateur]);
+    }
+
+
+
+
 
     #[Route('/logout', name: 'app_logout', methods: ['GET'])]
     public function logout()

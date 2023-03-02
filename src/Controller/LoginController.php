@@ -10,7 +10,6 @@ use App\Entity\Utilisateur;
 use App\Form\ResetPasswordRequestFormType;
 use App\Repository\UtilisateurRepository;
 use App\Repository\NotificationRepository;
-use FFI;
 use PhpParser\Builder\Method;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Security\Http\Attribute\CurrentUser;
@@ -36,13 +35,8 @@ class LoginController extends AbstractController
             return $this->render('login/index.html.twig', [
             'last_username' => $lastUsername,
             'error'         => $error,
-        ]);
-        // $builder
-        // ->add('captcha', CaptchaType::class, array(
-        //     'width' => 200,
-        //     'height' => 50,
-        //     'length' => 6,
-        // ));
+            ]);
+       
     }
 
 
