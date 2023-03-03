@@ -1,0 +1,37 @@
+{% extends 'basebackarticle.html.twig' %}
+{% block stats %}
+    <!-- Chart js -->
+    {#<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.3/Chart.min.css" integrity="sha512-/zs32ZEJh+/EO2N1b0PEdoA10JkdC3zJ8L5FTiQu82LR9S/rOQNfQN7U59U9BC12swNeRAz3HSzIL2vpp4fv3w==" crossorigin="anonymous"/>
+    <script src="{{ asset('assets/plugins/Chart.js/Chart.min.js') }}"></script>
+    <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>"#}
+
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <canvas id="comments-chart" width="400" height="150"></canvas>
+    <script>
+        var ctx = document.getElementById('comments-chart').getContext('2d');
+        var chart = new Chart(ctx, {
+            type: 'bar',
+            data: {
+                labels: {{ articleCount|raw }},
+                datasets: [{
+                    label: 'Nombre de commentaires',
+                    data:{{ nbcomment|raw }},
+                    backgroundColor: 'rgba(54, 162, 235,0.55)',
+                    borderColor: 'rgba(54, 162, 235, 1)',
+                    borderWidth: 1
+                }]
+            },
+            options: {
+                scales: {
+                    yAxes: [{
+                        ticks: {
+                            beginAtZero: true
+                        }
+                    }]
+                }
+            }
+        });
+        console.log(document.getElementById("comments-chart"))
+    </script>
+
+{% endblock %}
