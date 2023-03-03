@@ -47,4 +47,17 @@ class ProduitRepository extends ServiceEntityRepository
             ->getQuery()
             ->execute();
     }
+    public function chart_repository(){
+        return  $this->createQueryBuilder('r')
+
+                    ->join('r.categorie','s')
+                    -> addSelect('s')
+                    ->where('r.categorie=s.id')
+                    -> select('s.nom, COUNT(r.id) as count')
+
+                   ->groupBy('s.nom')  
+                   ->getQuery()
+                   ->getResult()
+               ;
+       }
 }

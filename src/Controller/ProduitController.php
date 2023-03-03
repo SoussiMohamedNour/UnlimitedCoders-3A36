@@ -12,26 +12,51 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\Serializer\Normalizer\NormalizerInterface;
+use App\dto\Pie;
 
 #[Route('/backoffice')]
 class ProduitController extends AbstractController
 {
     #[Route('/produit', name: 'app_produit_index')]
-    public function index(ProduitRepository $produitRepository,Request $request): Response
+    public function index(ProduitRepository $produitRepository, Request $request): Response
     {
         $formsearchI = $this->createForm(SearchType::class);
         $formsearchI->handleRequest($request);
+        $results = $produitRepository->chart_repository();
+
+
+        $totalCount = array_reduce($results, function ($carry, $result) {
+            return $carry + $result['count'];
+        }, 0);
+
+
+        $resultArray = [];
+
+        foreach ($results as $result) {
+            $percentage = round($result['count']);
+            $obj = new Pie();
+            $obj->value = $result['nom'];
+            $obj->valeur = $percentage;
+            $resultArray[] = $obj;
+        }
         if ($formsearchI->isSubmitted()) {
             $nom = $formsearchI->getData();
             $TSearch = $produitRepository->search($nom['nom']);
 
-            return $this->render("produit/index.html.twig",
-                array("produits" => $TSearch,"formsearch" => $formsearchI->createView())) ;
+            return $this->render(
+                "produit/index.html.twig",
+                array(
+                    "produits" => $TSearch,
+                    "formsearch" => $formsearchI->createView(),
+                    'results'  =>  $resultArray
+                )
+            );
         }
-        return $this->render("produit/index.html.twig",array(
+        return $this->render("produit/index.html.twig", array(
             "formsearch" => $formsearchI->createView(),
-            'produits' => $produitRepository->findAll()));
-
+            'produits' => $produitRepository->findAll(),
+            'results'  =>  $resultArray
+        ));
     }
 
     #[Route('/produit/new', name: 'app_produit_new', methods: ['GET', 'POST'])]
@@ -43,7 +68,7 @@ class ProduitController extends AbstractController
 
         if ($form->isSubmitted() && $form->isValid()) {
             $image = $form->get('image')->getData();
-            foreach($image as $ima){
+            foreach ($image as $ima) {
                 $fichier = md5(uniqid()) . '.' . $ima->guessExtension();
                 $ima->move(
                     $this->getParameter('img_directory'),
@@ -62,7 +87,7 @@ class ProduitController extends AbstractController
         ]);
     }
 
-    #[Route('/produit/{id}', name: 'app_produit_show', methods: ['GET'])]
+    #[Route('/produit', name: 'app_produit_show', methods: ['GET'])]
     public function show(Produit $produit): Response
     {
         return $this->render('produit/show.html.twig', [
@@ -89,9 +114,9 @@ class ProduitController extends AbstractController
     }
 
     #[Route('/produit/{id}', name: 'app_produit_delete', methods: ['POST'])]
-    public function delete(Request $request, Produit $produit, ProduitRepository $produitRepository,FlashyNotifier $flashyNotifier): Response
+    public function delete(Request $request, Produit $produit, ProduitRepository $produitRepository, FlashyNotifier $flashyNotifier): Response
     {
-        if ($this->isCsrfTokenValid('delete'.$produit->getId(), $request->request->get('_token'))) {
+        if ($this->isCsrfTokenValid('delete' . $produit->getId(), $request->request->get('_token'))) {
             $produitRepository->remove($produit, true);
             $flashyNotifier->error('Produit supprimé');
         }
@@ -127,7 +152,6 @@ class ProduitController extends AbstractController
         return new Response(json_encode($jsonContent));
     }
 
-
     #[Route("/produitJ/{id}", name: "find")]
     public function produitId($id, NormalizerInterface $normalizer, ProduitRepository $repo)
     {
@@ -150,7 +174,6 @@ class ProduitController extends AbstractController
         return new Response("Produit deleted successfully" . json_encode($jsonContent));
     }
 
-
     #[Route("/updateP/{id}", name: "update")]
     public function updateP(Request $request, $id, NormalizerInterface $Normalizer)
 
@@ -167,4 +190,34 @@ class ProduitController extends AbstractController
         return new Response("Produit updated successfully" . json_encode($jsonContent));
     }
 
+    #[Route('/produit/chart', name: 'app_produit_chart', methods: ['GET', 'POST'])]
+    public function barChartAction(ProduitRepository $produitRepository)
+    {
+        $results = $produitRepository->chart_repository();
+
+
+        $totalCount = array_reduce($results, function ($carry, $result) {
+            return $carry + $result['count'];
+        }, 0);
+
+
+        $resultArray = [];
+
+        foreach ($results as $result) {
+            $percentage = round($result['count']);
+            $obj = new Pie();
+            $obj->value = $result['nom'];
+            $obj->valeur = $percentage;
+            $resultArray[] = $obj;
+        }
+
+        return $this->render('produit/index3.html.twig', array(
+   'results'  =>  $resultArray,
+    
+    ));
+        /*return $this->render('BackOffice/base.html.twig'/*, array(
+            'results'  =>  $resultArray,
+
+        )*/
+    }
 }

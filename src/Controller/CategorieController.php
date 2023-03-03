@@ -12,6 +12,7 @@ use Symfony\Component\HttpFoundation\Response;
 use MercurySeries\FlashyBundle\FlashyNotifier;
 
 
+
 use Symfony\Component\Routing\Annotation\Route;
 
 #[Route('/backoffice')]
@@ -81,6 +82,7 @@ class CategorieController extends AbstractController
         }
         return $this->redirectToRoute('app_categorie_index', [], Response::HTTP_SEE_OTHER);
     }
-
+    
+ 
 
 }
