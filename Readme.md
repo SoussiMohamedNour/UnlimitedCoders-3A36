@@ -35,3 +35,19 @@ Dès que vous clonnez le repo utiliser cette commande pour satisfaire toutes les
 ```bash
 user@localhost: composer update
 ```
+
+#### Liste des routes
+- Module **Utilisateur**:
+    - `/login`
+    - `/reset-password`
+    - `/check-email`
+    - `/reset/{token}`
+- Module **Consultation**:
+    - `/backoffice/consultation`
+    - `/backoffice/ordonnance`
+    - `/backoffice/medicament`
+
+- Module **Article**:
+    - `/article`
+    - `/commentaire`
+    - `/favoris`
