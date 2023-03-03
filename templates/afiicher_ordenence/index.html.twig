@@ -92,10 +92,11 @@
                 {{ form_widget(form.code,{'attr':{'class':'form-control'}},'rgtfeb') }}
                 
 				  <!--<input  type="text" class="form-control" placeholder="Search Ordenencer">-->
-				  <button class="btn btn-light bg" type="sumbit"> <i class="material-icons md-search"></i> </button>
+          <a href="{{ path('app_afiicher_ordenence', ) }}">show</a>
+				  <button class="btn btn-light bg" type="sumbit"{'id': form.code}> <i class="material-icons md-search"></i> </button>
 				</div>
 				{{ form_end(form) }}
-			{% if articles %}
+			
     <table id="articles" style = "position:relative; left:700px; top:100px;">
       
         <tr>
@@ -106,22 +107,84 @@
         </tr>
      
       
-        {% for Ordonnance in articles %}
+       
           <tr>
           <td>TEST</td>
           <td>TEST</td>
           <td>TEST</td>
 
-            <td>{{ Ordonnance.validite}}</td>
-            <td>{{ Ordonnance.medicaments }}</td>
-             <td>{{ Ordonnance.code}}</td>
+            
           </tr>
-        {% endfor %}
+        
       
     </table>
-  {% else %}
-    <p>Aucun articles</p>
-  {% endif %} 
+  
+   <div class="container">
+    <form id="search-student-form">
+        <div class="form-group">
+            <input type="text" name="searchTerm" class="form-control" placeholder="Enter student name">
+        </div>
+        <button type="submit" class="btn btn-primary">Search</button>
+    </form>
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>Title</th>
+            </tr>
+        </thead>
+        <tbody >
+<div id="table-body"></div>
+        </tbody>
+    </table>
+</div>
+
+<script type="text/javascript">
+    $(document).ready(function() {
+        $('#search-student-form').submit(function(event) {
+            event.preventDefault();
+            search();
+        
+        });
+    
+
+  function search() {
+    var code = $('input[name=searchTerm]').val();
+   var $searchResults = $('#table-body');
+        $searchResults.append('<p>No results found.</p>');
+  $searchResults.empty();
+
+
+    $.ajax({
+        type: 'GET',
+        url: '/afiicher/ordenence',
+        data: $code.serialize(),
+        dataType: 'json',
+        success: function(response) {
+            if (response.sessions.length === 0) {
+                // Display message if no sessions were found
+                $('#table-body').html('<tr><td colspan="2">No sessions were found with that name.</td></tr>');
+            } else {
+                // Display session data in table
+                var tableRows = '';
+                $.each(response.sessions, function(index, session) {
+                    tableRows += '<tr><td>' + session.validite + '</td><td>' + session.code + '</td></tr>';
+                });
+                $('#table-body').html(tableRows);
+            }
+        },
+        
+        error: function(xhr, status, error) {
+            console.log(error);
+        }
+    });
+}});
+</script>
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.1.1/jquery.min.js%22%3E"</script>
+    
+    
+    
+   
 		</div>
         
 		<div class="col-nav">

@@ -211,49 +211,22 @@ footer p {
         <tbody>
             <tr>
                 <th>Id</th>
-                <td>{{ facteur.id }}</td>
+                <td>{{ Ordonnance.validite}}</td>
             </tr>
             <tr>
                 <th>Cin</th>
-                <td>{{ facteur.cin }}</td>
+                <td>{{ Ordonnance.medicaments }}</td>
             </tr>
             <tr>
                 <th>Nom</th>
-                <td>{{ facteur.nom }}</td>
+                <td>{{ Ordonnance.code}}</td>
             </tr>
-            <tr>
-                <th>Prenom</th>
-                <td>{{ facteur.prenom }}</td>
-            </tr>
-            <tr>
-                <th>Id_patient</th>
-                <td>{{ facteur.idPatient }}</td>
-            </tr>
-            <tr>
-                <th>Id_medicament</th>
-                <td>{{ facteur.idMedicament }}</td>
-            </tr>
-            <tr>
-                <th>Nom_med</th>
-                <td>{{ facteur.nomMed }}</td>
-            </tr>
-            <tr>
-                <th>Dosage</th>
-                <td>{{ facteur.dosage }}</td>
-            </tr>
-            <tr>
-                <th>Prix</th>
-                <td>{{ facteur.prix }}</td>
-            </tr>
+           
         </tbody>
     </table>
 </div>
 </div></section>
 <div style = "position:relative; left:400px; ">
     <a href="{{ path('app_facteurcrud_index') }}">back to list</a>
-
-    <a href="{{ path('app_facteurcrud_edit', {'id': facteur.id}) }}">edit</a></div>
-
-    {{ include('facteurcrud/_delete_form.html.twig') }}
     
 {% endblock %}

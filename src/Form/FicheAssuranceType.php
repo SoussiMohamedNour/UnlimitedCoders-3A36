@@ -6,14 +6,18 @@ use App\Entity\FicheAssurance;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
-
+use Symfony\Component\Form\Extension\Core\Type\TextType;
 class FicheAssuranceType extends AbstractType
 {
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
         $builder
-            ->add('CIN')
-            ->add('nom')
+            ->add('CIN',TextType::class, ['disabled' => true,
+            'data' => $options['cin']
+                ])
+            ->add('nom',TextType::class, [
+                'disabled' => true,
+                'data' => $options['nom']])
             ->add('prenom')
             ->add('addresse')
             ->add('matricule_cnam')
@@ -29,6 +33,8 @@ class FicheAssuranceType extends AbstractType
     {
         $resolver->setDefaults([
             'data_class' => FicheAssurance::class,
+            'nom' => null, // add default value for the option
+            'cin' => null, // add default value for the option
         ]);
     }
 }

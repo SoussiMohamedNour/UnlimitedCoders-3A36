@@ -1,11 +1,12 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}New Facteur{% endblock %}
+{% block title  %}New Facteur{% endblock %}
 
 {% block section %}
     
 
     {{ include('facteurcrud/_form.html.twig') }}
 
-    <a href="{{ path('app_facteurcrud_index') }}">back to list</a>
+    <a  style = "position:relative; left:500px; "href="{{ path('app_facteurcrud_index') }}">back to list</a>
+     <a style = "position:relative; left:500px; "href="{{ path('app_fiche_assurancecrud_new') }}">fiche de assurence </a></div>
 {% endblock %}

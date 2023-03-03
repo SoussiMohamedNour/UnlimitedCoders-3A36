@@ -31,10 +31,13 @@ class Ordonnance
     #[ORM\ManyToOne(inversedBy: 'ordonnances')]
     #[ORM\JoinColumn(nullable: false)]
     #[Groups('ordonnances')]
+    
     private ?Consultation $consultation = null;
 
     #[ORM\ManyToMany(targetEntity: Medicament::class, inversedBy: 'ordonnances')]
     #[Groups('ordonnances')]
+    #@Exclude()
+
     private Collection $medicaments;
 
     public function __construct()

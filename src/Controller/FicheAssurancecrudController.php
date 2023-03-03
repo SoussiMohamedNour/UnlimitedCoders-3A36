@@ -5,6 +5,8 @@ namespace App\Controller;
 use App\Entity\FicheAssurance;
 use App\Form\FicheAssuranceType;
 use App\Repository\FicheAssuranceRepository;
+use Doctrine\ORM\Mapping\Id;
+use App\Entity\Facteur;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -22,12 +24,18 @@ class FicheAssurancecrudController extends AbstractController
     }
 
     #[Route('/new', name: 'app_fiche_assurancecrud_new', methods: ['GET', 'POST'])]
-    public function new(Request $request, FicheAssuranceRepository $ficheAssuranceRepository): Response
+    public function new(Request $request, FicheAssuranceRepository $ficheAssuranceRepository  ): Response
     {
+        $cin= $request->query->get('cin', '');
+        $nom = $request->query->get('nom', '');
         $ficheAssurance = new FicheAssurance();
-        $form = $this->createForm(FicheAssuranceType::class, $ficheAssurance);
+        $form = $this->createForm(FicheAssuranceType::class, $ficheAssurance, [
+            'cin' => $cin,
+            'nom' => $nom,
+        
+        ]);
         $form->handleRequest($request);
-
+       
         if ($form->isSubmitted() && $form->isValid()) {
             $ficheAssuranceRepository->save($ficheAssurance, true);
 

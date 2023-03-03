@@ -21,6 +21,26 @@ class OrdonnanceRepository extends ServiceEntityRepository
         parent::__construct($registry, Ordonnance::class);
     }
 
+
+    
+    public function searchByName(string $code)
+    {
+        $qb = $this->createQueryBuilder('s')
+            ->where('s.code LIKE :code')
+            ->setParameter('code', '%'.$code.'%')
+            ->getQuery();
+
+        return $qb->execute();
+    }
+  /**  public function searchByName($searchTerm)
+    * {
+      *   $qb = $this->createQueryBuilder('s')
+            * ->where('s.code LIKE :searchTerm')
+            * ->setParameter('searchTerm', '%'.$searchTerm.'%')
+            * ->getQuery();
+
+        * return $qb->execute();
+    * }*/
     public function save(Ordonnance $entity, bool $flush = false): void
     {
         $this->getEntityManager()->persist($entity);
@@ -39,10 +59,12 @@ class OrdonnanceRepository extends ServiceEntityRepository
         }
     }
 
+    
+
 //    /**
 //     * @return Ordonnance[] Returns an array of Ordonnance objects
 //     */
-//    public function findByExampleField($value): array
+//    public function findByCode($value): array
 //    {
 //        return $this->createQueryBuilder('o')
 //            ->andWhere('o.exampleField = :val')

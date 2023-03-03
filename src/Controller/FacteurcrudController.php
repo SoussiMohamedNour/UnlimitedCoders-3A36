@@ -30,8 +30,13 @@ class FacteurcrudController extends AbstractController
 
         if ($form->isSubmitted() && $form->isValid()) {
             $facteurRepository->save($facteur, true);
-
-            return $this->redirectToRoute('app_facteurcrud_index', [], Response::HTTP_SEE_OTHER);
+            $nom = $facteur->getnom();
+            $cin = $facteur->getCin();
+            return $this->redirectToRoute('app_fiche_assurancecrud_new', [
+                'cin' => $cin,
+                'nom' => $nom
+                
+            ]);
         }
 
         return $this->renderForm('facteurcrud/new.html.twig', [
