@@ -78,6 +78,43 @@ class UtilisateurRepository extends ServiceEntityRepository implements PasswordU
     //     $utilisateur->setIsbanned(true);
     //     $entityManager->flush();
     // }
+
+
+    public function total_utilisateur():float
+    {
+        $query = $this->createQueryBuilder('c')
+        ->select('count(c) as nombre_total_utilisateur')
+        // ->from('Utilisateur' , 'c')
+        ->getQuery()
+        ->getSingleResult();
+
+        return $query['nombre_total_utilisateur'];
+    }
+
+    public function total_utilisateur_banned():float
+    {
+        $query = $this->createQueryBuilder('c')
+        ->select('count(c) as nombre_total_utilisateur_banned')
+            // ->from('utilisateur' , 'c')
+            ->where('c.isbanned = true')
+            ->getQuery()
+            ->getSingleResult();
+
+        return $query['nombre_total_utilisateur_banned'];
+    }
+
+    public function total_utilisateur_unbanned():float
+    {
+        $query = $this->createQueryBuilder('c')
+        ->select('count(c) as nombre_total_utilisateur_unbanned')
+            // ->from('utilisateur' , 'c')
+            ->where('c.isbanned = false')
+            ->getQuery()
+            ->getSingleResult();
+
+        return $query['nombre_total_utilisateur_unbanned'];
+    }
+
     }
 
 

@@ -92,6 +92,7 @@
         </div>
         <a href="{{ path('app_utilisateur_show', {'id': utilisateur.id}) }}" class="user-show">Show</a>
         <a href="{{ path('app_ban', {'id': utilisateur.id}) }}" class="user-ban" value="POST" type="submit" >Ban</a>
+        <a href="{{ path('app_unban', {'id': utilisateur.id}) }}" class="user-unban" value="POST" type="submit" >Unban</a>
         {# {{ form_start }}
       <button type="submit" href="{{ path('app_ban', {'id': utilisateur.id}) }}">Delete</button>
         {{  form_end }} #}
@@ -204,6 +205,22 @@
     margin-top:1rem;
     color:white;
     background-color:#DC143C;
+    border-radius: 12px;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    text-decoration:none;
+    transition: background-color 0.6s ease;
+  }
+
+   .user-unban{
+    border:none;
+    padding: 0.75rem 1.5rem;
+    width:100%;
+    margin:0;
+    margin-top:1rem;
+    color:white;
+    background-color:#01a049;
     border-radius: 12px;
     display:flex;
     justify-content:center;

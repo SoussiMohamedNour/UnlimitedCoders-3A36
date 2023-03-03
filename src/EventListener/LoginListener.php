@@ -1,6 +1,7 @@
 <?php
 namespace App\EventListener;
 
+use ApiPlatform\Core\Bridge\Symfony\Bundle\Test\Response;
 use App\Entity\Utilisateur;
 use phpDocumentor\Reflection\Types\Boolean;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
@@ -21,7 +22,7 @@ class LoginListener implements EventSubscriberInterface
         return [LoginSuccessEvent::class => 'onLoginSuccess'];
     }
 
-    public function onLoginSuccess(LoginSuccessEvent $event): void
+    public function onLoginSuccess(LoginSuccessEvent $event,$id): void
     {
          
         $token = $event->getAuthenticatedToken();
@@ -29,9 +30,10 @@ class LoginListener implements EventSubscriberInterface
         
        
         
-        if ($user instanceof Utilisateur && $user->isIsbanned())
+        if ($user instanceof Utilisateur && $user->isIsbanned(true))
         {
-            $response = new RedirectResponse($this->urlGenerator->generate('app_banned'));
+            $response = new RedirectResponse($this->urlGenerator->generate('app_ban'));
+
         }
 
         elseif (in_array("ROLE_ADMIN", $user->getRoles())) {
