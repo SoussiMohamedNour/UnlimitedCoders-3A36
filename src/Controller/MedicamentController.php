@@ -147,7 +147,7 @@ class MedicamentController extends AbstractController
         $jsonContent = $normalizerInterface->normalize($medicament,'json',['groups'=>'medicaments']);
         return new Response(json_encode($jsonContent));
     }
-    #[Route('/medicament/modifier/{id}',name:'app_medicament_modifier_json')]
+    #[Route('/medicament/modifierjson/{id}',name:'app_medicament_modifier_json')]
     public function modifierJson(Request $request,$id,NormalizerInterface $normalizerInterface)
     {
         $em = $this->getDoctrine()->getManager();
@@ -161,7 +161,7 @@ class MedicamentController extends AbstractController
         $jsonContent = $normalizerInterface->normalize($medicament,'json',['groups'=>'medicaments']);
         return new Response("Médicament Modifié avec succès".json_encode($jsonContent));
     }
-    #[Route('/medicament/supprimer/{id}',name:'app_medicament_supprimer_json')]
+    #[Route('/medicament/supprimerjson/{id}',name:'app_medicament_supprimer_json')]
     public function supprimerJson(Request $request,$id,NormalizerInterface $normalizerInterface)
     {
         $em = $this->getDoctrine()->getManager();

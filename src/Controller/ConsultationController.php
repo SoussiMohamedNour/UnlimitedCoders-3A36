@@ -162,7 +162,7 @@ class ConsultationController extends AbstractController
     #[Route('/consultation/ajouter_json',name:'app_consultation_ajouter_json')]
     public function ajouterJson(Request $req,NormalizerInterface $normalizerInterface)
     {
-        $format = "Y-m-d";
+        $format = "d-m-y";
         $em = $this->getDoctrine()->getManager();
         $consultation = new Consultation();
         $consultation->setMatriculemedecin($req->get('matricule'));
@@ -174,6 +174,22 @@ class ConsultationController extends AbstractController
         $em->flush();
         $jsonContent  = $normalizerInterface->normalize($consultation,'json',['groups'=>'consultations']);
         return new Response(json_encode($jsonContent));
+    }
+    #[Route('/consultation/modifierjson/{reference}',name:"app_consultation_modifier_json")]
+    public function modifierJson(Request $request,$reference,NormalizerInterface $normalizerInterface)
+    {
+        $em =  $this->getDoctrine()->getManager();
+        $consultation = $em->getRepository(Consultation::class)->find($reference);
+        $consultation->setIdpatient($request->get('id'));
+        $consultation->setMontant($request->get('montant'));
+        $consultation->setMatriculemedecin($request->get('matricule'));
+        $consultation->setDateconsultation($consultation->getDateconsultation());
+
+        $em->flush();
+
+        $jsonContent = $normalizerInterface->normalize($consultation,'json',['groups'=>'consultation']);
+        return new Response("Concultation Modifiée".json_encode($jsonContent));
+
     }
     #[Route('/consultation/supprimerjson/{reference}',name:'app_consultaiton_suuprimer_json')]
     public function supprimerJson(Request $req,$reference,NormalizerInterface $normalizerInterface)
