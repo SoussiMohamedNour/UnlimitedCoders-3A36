@@ -34,22 +34,6 @@ class UserController extends AbstractController
     
     }
 
-    // #[Route('/banned', name: 'app_ban')]
-    // public function banUser(): Response
-    // {
-    //     $entityManager = $this->getEntityManager();
-    //     $utilisateur=$this->getUser();
-    //     $utilisateurRoles=$utilisateur->getRoles();
-
-    //     if (!in_array('ROLE_BANNED', $utilisateurRoles)) {
-    //         $userRoles[] = 'ROLE_BANNED';
-    //         $utilisateur->setRoles($utilisateurRoles);
-    //     }
-    //     $utilisateur->setIsbanned(true);
-    //     $entityManager->flush();
-    //     return $this->render('404/404.html.twig');
-    // }
-
     #[IsGranted('ROLE_ADMIN')]
     #[Route('/backofficeadmin', name: 'app_admin')]
     public function admin(): Response
@@ -65,13 +49,6 @@ class UserController extends AbstractController
         ]);
     }
 
-    #[Route('/banned', name: 'app_banned')]
-    public function banned(): Response
-    {
-        return $this->render('404/404.html.twig', [
-            'controller_name' => 'DefaultController',
-        ]);
-    }
 
 
     #[Route('/frontoffice', name: 'app_home')]
@@ -86,14 +63,8 @@ class UserController extends AbstractController
     #[Route('/user', name: 'app_utilisateur_index', methods: ['GET'])]
     public function index3(UtilisateurRepository $utilisateurRepository, PaginatorInterface $paginator, Request $request): Response
     {
-        // $query = $utilisateurRepository->findAll();
-        // $pagination = $paginator->paginate(
-        //     $query,
-        //     $request->query->getInt('page', 1),
-        //     4 // Items per page
-        // );
         $data = $utilisateurRepository->findAll();
-        $utilisateur = $paginator->paginate($data,$request->query->getInt('page',1),3);
+        $utilisateur = $paginator->paginate($data,$request->query->getInt('page',1),4);
         return $this->render('utilisateur/index.html.twig',[
         'utilisateurs' => $utilisateur]);
     ;
@@ -116,9 +87,21 @@ class UserController extends AbstractController
         return $this->renderForm('404/404.html.twig',['utilisateurs'=>$utilisateur]);
     }
 
-
-
-
+    #[Route('/user/unban/{id}', name: 'app_unban', methods: ['GET','POST'])]
+    public function unban (UtilisateurRepository $utilisateurRepository,Request $request,$id): Response
+    {
+        
+        $utilisateur=$utilisateurRepository->findOneBy(['id' => $id]);
+        
+       
+        
+        $utilisateur->setIsbanned(false);
+        $utilisateurRepository->save($utilisateur, true);
+        
+        
+        
+        return $this->render('404/unbanned.html.twig',['utilisateurs'=>$utilisateur]);
+    }
 
     #[Route('/logout', name: 'app_logout', methods: ['GET'])]
     public function logout()
