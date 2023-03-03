@@ -38,7 +38,29 @@ class FicheAssuranceRepository extends ServiceEntityRepository
             $this->getEntityManager()->flush();
         }
     }
+    public function total_ficheAssurance(): float
+    {
+        $query = $this->createQueryBuilder('o')
+            ->select("count(o) as total_ordonnance")
+            ->andWhere('o.matricule_cnam = :matricule_cnam')
+            ->setParameter('matricule_cnam', 'AZ2223')
+            ->getQuery()
+            ->getSingleResult();
+    
+        return $query['total_ordonnance'];
+    }
 
+    public function total_ficheAssuranceé(): float
+    {
+        $query = $this->createQueryBuilder('o')
+            ->select("count(o) as total_ordonnance")
+            ->andWhere('o.matricule_cnam = :matricule_cnam')
+            ->setParameter('matricule_cnam', '3213')
+            ->getQuery()
+            ->getSingleResult();
+    
+        return $query['total_ordonnance'];
+    }
 //    /**
 //     * @return FicheAssurance[] Returns an array of FicheAssurance objects
 //     */

@@ -12,11 +12,11 @@ class FicheAssuranceType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
         $builder
-            ->add('CIN',TextType::class, ['disabled' => true,
+            ->add('CIN',TextType::class, [
             'data' => $options['cin']
                 ])
             ->add('nom',TextType::class, [
-                'disabled' => true,
+               
                 'data' => $options['nom']])
             ->add('prenom')
             ->add('addresse')
