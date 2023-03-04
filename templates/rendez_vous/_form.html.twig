@@ -1,0 +1,116 @@
+{% extends 'base.html.twig' %}
+{% block body %}
+
+{{ form_start(form,{ 'attr':{'novalidate':'novaliddate'} }) }}
+<section id="hero" class="d-flex align-items-center">
+    <div class="container">
+        <h1>Welcome to Healthified</h1>
+        <a href="/home/page"  class="btn-get-started scrollto">Get Started</a>
+    </div>
+
+</section><!-- End Hero -->
+<section id="appointment" class="appointment section-bg">
+    <div class="container">
+
+        <div class="section-title">
+            <h2>Reserver un Rendez_vous</h2>
+        </div>
+
+        <form  method="post" role="form" class="php-email-form">
+            <div class="row">
+
+                <table>
+                    <tr>
+                        <td> {{  form_label(form.utilisateur,"Medicin" )}}</td>
+                        <td> {{ form_widget(form.utilisateur) }}</td>
+                        <td> {{ form_errors(form.utilisateur)}}</td>
+                    </tr>
+                    <tr>
+                        <td> {{  form_label(form.etat,"Etat" )}}</td>
+                        <td> {{ form_widget(form.etat) }}</td>
+                        <td> {{ form_errors(form.etat)}}</td>
+                    </tr>
+
+                    <tr>
+                        <td> {{  form_label(form.description,"Description" )}}</td>
+                        <td> {{ form_widget(form.description) }}</td>
+                        <td> {{ form_errors(form.description)}}</td>
+                    </tr>
+
+                    <tr>
+                        <td> {{  form_label(form.date,"Date" )}}</td>
+                        <td> {{ form_widget(form.date) }}</td>
+                        <td> {{ form_errors(form.date)}}</td>
+                    </tr>
+                    <tr>
+                        <td> {{  form_label(form.heure," Heure" )}}</td>
+                        <td> {{ form_widget(form.heure) }}</td>
+                        <td> {{ form_errors(form.heure)}}</td>
+                    </tr>
+                </table>
+                {{ form_widget(form.save) }}
+                <!-- <button class="btn">{{ button_label|default('Save') }}</button> -->
+                {{ form_end(form) }}
+
+            </div>
+        </form>
+
+        <div class="container d-md-flex py-4">
+        </div>
+    </div>
+</section><!--
+
+                <div class="col-md-4 form-group">
+                    <input type="text" name="name" class="form-control" id="name" placeholder="Your Name" data-rule="minlen:4" data-msg="Please enter at least 4 chars">
+                    <div class="validate"></div>
+                </div>
+                <div class="col-md-4 form-group mt-3 mt-md-0">
+                    <input type="email" class="form-control" name="email" id="email" placeholder="Your Email" data-rule="email" data-msg="Please enter a valid email">
+                    <div class="validate"></div>
+                </div>
+                <div class="col-md-4 form-group mt-3 mt-md-0">
+                    <input type="tel" class="form-control" name="phone" id="phone" placeholder="Your Phone" data-rule="minlen:4" data-msg="Please enter at least 4 chars">
+                    <div class="validate"></div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-4 form-group mt-3">
+                    <input type="datetime" name="date" class="form-control datepicker" id="date" placeholder="Appointment Date" data-rule="minlen:4" data-msg="Please enter at least 4 chars">
+                    <div class="validate"></div>
+                </div>
+                <div class="col-md-4 form-group mt-3">
+                    <select name="department" id="department" class="form-select">
+                        <option value="">Select Department</option>
+                        <option value="Department 1">Department 1</option>
+                        <option value="Department 2">Department 2</option>
+                        <option value="Department 3">Department 3</option>
+                    </select>
+                    <div class="validate"></div>
+                </div>
+                <div class="col-md-4 form-group mt-3">
+                    <select name="doctor" id="doctor" class="form-select">
+                        <option value="">Select Doctor</option>
+                        <option value="Doctor 1">Doctor 1</option>
+                        <option value="Doctor 2">Doctor 2</option>
+                        <option value="Doctor 3">Doctor 3</option>
+                    </select>
+                    <div class="validate"></div>
+                </div>
+            </div>
+
+            <div class="form-group mt-3">
+                <textarea class="form-control" name="message" rows="5" placeholder="Message (Optional)"></textarea>
+                <div class="validate"></div>
+            </div>
+            <div class="mb-3">
+                <div class="loading">Loading</div>
+                <div class="error-message"></div>
+                <div class="sent-message">Your appointment request has been sent successfully. Thank you!</div>
+            </div>
+            <div class="text-center"><button type="submit">Make an Appointment</button></div>
+        </form>
+
+    </div>
+</section> End Appointment Section -->
+
+    {% endblock%}

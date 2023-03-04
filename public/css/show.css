@@ -1,0 +1,93 @@
+
+body {
+    font-family: 'Helvetica Neue', sans-serif;
+    background-color: #f2f2f2;
+}
+
+table {
+    border-collapse: collapse;
+    margin: 20px 0;
+    width: 100%;
+}
+
+th, td {
+    border: 1px solid #ccc;
+    padding: 8px;
+    text-align: left;
+}
+
+th {
+    background-color: #e6e6e6;
+}
+
+a {
+    color: #007aff;
+}
+
+a:hover {
+    color: #0056b3;
+}
+.btn {
+    display: inline-block;
+    padding: 0.5rem 1rem;
+    border-radius: 0.25rem;
+    text-decoration: none;
+    font-size: 1rem;
+    font-weight: 600;
+    transition: all 0.2s ease-in-out;
+}
+
+.btn-medical {
+    color: #fff;
+    background-color: #b00020;
+    border-color: #b00020;
+}
+
+.btn-medical:hover {
+    background-color: #d32f2f;
+    border-color: #d32f2f;
+}
+
+.btn-apple {
+    color: #fff;
+    background-color: #4d4d4d;
+    border-color: #4d4d4d;
+}
+
+.btn-apple:hover {
+    background-color: #666666;
+    border-color: #666666;
+}
+
+.fa-chevron-left {
+    margin-right: 0.5rem;
+}
+
+.fa-edit {
+    margin-right: 0.5rem;
+}
+form {
+    margin-top: 20px;
+}
+
+button.btn {
+    background-color: #ff3b30; /* red color for apple theme */
+    color: white;
+    border-radius: 5px;
+    padding: 10px 20px;
+    border: none;
+    font-size: 16px;
+    font-weight: bold;
+}
+
+button.btn:hover {
+    background-color: #cc2c23; /* darker red color for apple theme on hover */
+}
+
+button.btn.medical {
+    background-color: #008000; /* green color for medical theme */
+}
+
+button.btn.medical:hover {
+    background-color: #006600; /* darker green color for medical theme on hover */
+}

@@ -24,8 +24,8 @@
     {% endblock %}
 
     {% block javascripts %}
-    {{ encore_entry_script_tags('app') }}
-    {{ encore_entry_link_tags('app') }}
+        {{ encore_entry_script_tags('app') }}
+        {{ encore_entry_link_tags('app') }}
     {% endblock %}
 </head>
 <body >
@@ -51,22 +51,18 @@
 
 
                 <li class="menu-item">
-                    <a class="menu-link" href="/calendrier/new/"> <i class="icon material-icons md-comment"></i>
-                        <span class="text">Indiquer disponibilité</span>
+                    <a class="menu-link" href={{ path('app_rendez_vous_index') }}> <i class="icon material-icons md-comment"></i>
+                        <span class="text">Liste rendez-vous</span>
                     </a>
                 </li>
                 <li class="menu-item">
                     <a class="menu-link" href="/calendrier"> <i class="icon material-icons md-stars"></i>
-                        <span class="text">Modifier disponibilité</span> </a>
+                        <span class="text">Liste médecins</span> </a>
                 </li>
                 <li class="menu-item">
                     <a class="menu-link" href="calendrier/planning/{medecin}"> <i class="icon material-icons md-stars"></i>
                         <span class="text">Consulter Planning</span> </a>
-                </li>
-                <li class="menu-item">
-                    <a class="menu-link" href="/submit/{id}"> <i class="icon material-icons md-stars"></i>
-                        <span class="text">Statistique</span> </a>
-                </li>
+
             </ul>
             <br>
             <br>

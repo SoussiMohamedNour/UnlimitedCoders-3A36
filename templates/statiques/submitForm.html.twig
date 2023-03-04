@@ -1,0 +1,106 @@
+{% extends 'Backoffice/base.html.twig' %}
+{% block body %}
+<!DOCTYPE html>
+<html >
+<head>
+    {% block title %}Calendrier index{% endblock %}
+    <meta charset="UTF-8">
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <link href="{{ asset('images/LogoApp.png') }}" rel="shortcut icon" >
+
+    <link href="{{ asset('css/bootstrapf9e3.css?v=1.1') }}" rel="stylesheet" />
+
+    <!-- custom style -->
+    <link href="{{ asset('css/uif9e3.css?v=1.1') }}" rel="stylesheet"/>
+    <link href="{{ asset('css/responsivef9e3.css?v=1.1') }}" rel="stylesheet" />
+
+    <link rel="stylesheet" href="{{ asset('fonts/material-icon/css/round.css') }}"/>
+
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 128 128%22><text y=%221.2em%22 font-size=%2296%22>⚫️</text></svg>">
+    {# Run `composer require symfony/webpack-encore-bundle` to start using Symfony UX #}
+
+
+
+    {% block javascripts %}
+
+        <script src="{{ asset('js/script.js') }}"></script>
+
+    {% endblock %}
+    <link rel="stylesheet" type="text/css" href="{{ asset('css/myForm.css') }}">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
+</head>
+
+<body >
+<b class="screen-overlay"></b>
+<aside class="navbar-aside" id="offcanvas_aside">
+    <div class="aside-top">
+        <a href="/backoffice" class="brand-wrap">
+            <img src="{{ asset('images/LogoApp.png') }}" height="46" class="logo" alt="Healthified dashboard">
+        </a>
+        <div>
+            <button class="btn btn-icon btn-aside-minimize"> <i class="text-muted material-icons md-menu_open"></i> </button>
+        </div>
+    </div>
+    <nav>
+        <ul class="menu-aside">
+            <li class="menu-item active">
+                <a class="menu-link" href="/backoffice"> <i class="icon material-icons md-home"></i>
+                    <span class="text">Acceuil</span>
+                </a>
+            </li>
+
+            <li class="menu-aside">
+            <li class="menu-item active">
+                <a class="menu-link" href="{{ path('app_calendrier_new',{'medecin':id})}}"> <i class="icon material-icons md-comment"></i>
+                    <span class="text">Indiquer disponibilité</span>
+                </a>
+            </li>
+            {#  <li class="menu-item">
+                <a class="menu-link" href="{{ path('app_calendrier_index',{'medecin':utilisateur.id}) }}"> <i class="icon material-icons md-stars"></i>
+                    <span class="text">Modifier disponibilité</span> </a>
+          </li>#}
+            <li class="menu-item">
+                <a class="menu-link" href="calendrier/planning/{medecin}"> <i class="icon material-icons md-stars"></i>
+                    <span class="text">Consulter Planning</span> </a>
+            </li>
+        </ul>
+        <br>
+        <br>
+    </nav>
+</aside>
+<main class="main-wrap">
+    <header class="main-header navbar">
+        <div class="col-nav">
+            <button class="btn btn-icon btn-mobile me-auto" data-trigger="#offcanvas_aside"> <i class="md-28 material-icons md-menu"></i> </button>
+            <ul class="nav">
+                <li class="nav-item">
+                    <a class="nav-link btn-icon" onclick="darkmode(this)" title="Dark mode" href="#"> <i class="material-icons md-nights_stay"></i> </a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link btn-icon" href="#"> <i class="material-icons md-notifications_active"></i> </a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="#"> English </a>
+                </li>
+                <li class="dropdown nav-item">
+                    <a class="dropdown-toggle" data-bs-toggle="dropdown" href="#"> <img class="img-xs rounded-circle" src="images/people/avatar1.jpg" alt="User"></a>
+                    <div class="dropdown-menu dropdown-menu-end">
+                        <a class="dropdown-item" href="#">Mon profile</a>
+                        <a class="dropdown-item" href="#">Paramètres</a>
+                        <a class="dropdown-item text-danger" href="#">Sortie</a>
+                    </div>
+                </li>
+            </ul>
+        </div>
+    </header>
+
+    <h1>Submit Form</h1>
+
+    {{ form_start(form) }}
+    {{ form_widget(form) }}
+    {{ form_end(form) }}
+</main>
+{% endblock %}

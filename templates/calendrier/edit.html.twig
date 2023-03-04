@@ -1,0 +1,12 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Edit Calendrier{% endblock %}
+
+{% block body %}
+
+    {{ include('calendrier/_form.html.twig', {'button_label': 'Update'}) }}
+
+    <a href="{{ path('app_calendrier_index',{'medecin':utilisateur.id}) }}">back to list</a>
+
+    {{ include('calendrier/_delete_form.html.twig') }}
+{% endblock %}

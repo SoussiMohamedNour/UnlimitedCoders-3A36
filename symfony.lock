@@ -65,7 +65,7 @@
         }
     },
     "knplabs/knp-paginator-bundle": {
-        "version": "v5.9.0"
+        "version": "v5.4.0"
     },
     "lexik/jwt-authentication-bundle": {
         "version": "2.18",
