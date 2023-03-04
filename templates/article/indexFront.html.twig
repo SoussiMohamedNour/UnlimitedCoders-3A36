@@ -1,0 +1,56 @@
+{% extends 'basefrontarticle.html.twig' %}
+{% block articlesfront %}
+
+    <div class="container">
+        <div class="section-title">
+    <h2>Nos Articles</h2>
+        </div>
+        <div class="intro">
+            <div class="container">
+                <!--<div class="row">
+                    <div class="col">
+                        <h2 class="intro_title text-center">Récemment publiée</h2>
+                    </div>
+                </div>-->
+
+                <div class="row intro_items">
+                    {% for article in articles %}
+                    <div class="col-lg-4 intro_col">
+                        <div class="intro_item">
+                            <div class="intro_item_overlay"></div>
+                            <!-- Image by https://unsplash.com/@dnevozhai -->
+                            {% if article.file|lower matches '/(pdf)$/' %}
+                                <object class="intro_item_background" data="{{ vich_uploader_asset(article, 'fileFile') }}" type="application/pdf" width="100%" height="800">
+                                    <p>Your web browser doesn't have a PDF plugin. Instead you can <a href="{{ vich_uploader_asset(article, 'fileFile') }}">click here to download the PDF file.</a></p>
+                                </object>
+                            {% elseif article.file|lower matches '/(mp4|webm|ogv)$/' %}
+                                <video class="intro_item_background" controls width="100%" height="auto">
+                                    <source src="{{ vich_uploader_asset(article, 'fileFile') }}" type="video/{{ article.file|lower|split('.')|last }}">
+                                    Your browser does not support the video tag.
+                                </video>
+                            {% else %}
+                                <div class="intro_item_background" style="background-image:url({{vich_uploader_asset(article,'fileFile') }})"></div>
+                            {% endif %}
+
+                            <div class="intro_item_content d-flex flex-column align-items-center justify-content-center">
+
+                                <div class="button intro_button"><div  class="btn-get-started scrollto"></div><a href="{{ path('app_article_showfront', {'id': article.id}) }}">Détails
+                                        <span></span><span></span><span></span></a></div>
+                                <div class="intro_center text-center">
+                                    <h6 style="color: #ffffff">{{ article.titre }}</h6>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                   {% endfor %}
+                    <div class="blog_navigation">
+                        <ul>
+                            {{ knp_pagination_render(articles) }}
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+{% endblock %}

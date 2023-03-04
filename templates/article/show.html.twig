@@ -1,0 +1,107 @@
+{% extends 'basebackarticle.html.twig' %}
+{% block articlebutton %}
+    <li class="menu-item ">
+        <a class="menu-link" href="{{ path('app_article_stats') }}"> <i class="icon material-icons md-home"></i>
+            <span class="text">Acceuil</span>
+        </a>
+    </li>
+    <li class="menu-item active">
+        <a class="menu-link" href="{{ path('app_article_index') }}"> <i class="icon material-icons md-article"></i>
+            <span class="text">Article</span>
+        </a>
+    </li>
+{% endblock %}
+{% block table %}
+    {% block titreArticle %}<h5>Article</h5>{% endblock %}
+
+{% block articles %}
+
+
+<table class="table table-hover">
+        <tbody>
+            <tr>
+                <th>Id</th>
+                <td>{{ article.id }}</td>
+            </tr>
+            <tr>
+                <th>Titre</th>
+                <td>{{ article.titre }}</td>
+            </tr>
+            <tr>
+                <th>Description</th>
+                <td>{{ article.articleDesc }}</td>
+            </tr>
+
+            <tr>
+                <th>Date</th>
+                <td>{{ article.articleDate ? article.articleDate|date('Y-m-d') : '' }}</td>
+            </tr>
+        <tr>
+            <th>Article</th>
+            <td>
+                {% if article.file|lower matches '/(pdf)$/' %}
+                    <object data="{{ vich_uploader_asset(article, 'fileFile') }}" type="application/pdf" width="100%" height="800">
+                        <p>Your web browser doesn't have a PDF plugin. Instead you can <a href="{{ vich_uploader_asset(article, 'fileFile') }}">click here to download the PDF file.</a></p>
+                    </object>
+                {% elseif article.file|lower matches '/(mp4|webm|ogv)$/' %}
+                    <video controls width="100%" height="auto">
+                        <source src="{{ vich_uploader_asset(article, 'fileFile') }}" type="video/{{ article.file|lower|split('.')|last }}">
+                        Your browser does not support the video tag.
+                    </video>
+                {% else %}
+                    <img src="{{vich_uploader_asset(article,'fileFile') }}" width="200" height="200">
+                {% endif %}
+
+            </td>
+        </tr>
+            <tr>
+                <th>Les commentaires</th>
+            </tr>
+ <tr>
+     <th>Commenatire</th>
+     <th>Utilisateur</th>
+     <th>Date</th>
+     <th></th>
+ </tr>
+            {% for commentaire in commentaires %}
+
+                <tr>
+                    {% if ('*' in commentaire.commentairecontenu) %}
+                    <td>{{ commentaire.commentairecontenu }}</td>
+                        <td>
+                            {% for user in commentaire.users %}
+                                {# houni taffichi les infomations mtaa l user elli aamal commentaire #}
+                                {{ user.id }}
+                                {# fel integration badel elli fel ligne 74 b hedhi:
+                                {{ user.nom}} {{ user.prenom}} #}
+                            {% endfor %}
+                        </td>
+                    <td>{{ commentaire.commentairedate ? commentaire.commentairedate|date('Y-m-d'):''}}</td>
+                    <td>
+                        {{ include('commentaire/_delete_form2.html.twig') }}
+
+                    </td>
+                    {% else %}
+                        <td>{{ commentaire.commentairecontenu }}</td>
+                        <td>{{ commentaire.commentairedate ? commentaire.commentairedate|date('Y-m-d'):''}}</td>
+                        <td></td>
+                    {% endif %}
+                </tr>
+
+            {% else %}
+
+                <tr>
+                    <th>Aucun commentaire ajouté</th>
+
+                </tr>
+            {% endfor %}
+        </tbody>
+</table>
+
+      <a href="{{ path('app_article_index') }}"><img src="{{ asset('images/undo.png') }}" height="30" width="30"></a>
+
+      <a href="{{ path('app_article_edit', {'id': article.id}) }}"><img src="{{ asset('images/refresh.png') }}" height="30" width="30"></a>
+
+      {{ include('article/_delete_form.html.twig') }}
+{% endblock %}
+{% endblock %}

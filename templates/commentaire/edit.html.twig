@@ -1,0 +1,392 @@
+{% extends 'basefrontarticle.html.twig' %}
+{% block topBar %}
+    <!-- ======= Top Bar ======= -->
+    <div id="topbar" class="d-flex align-items-center fixed-top">
+        <div class="container d-flex justify-content-between">
+            <div class="contact-info d-flex align-items-center">
+                <i class="bi bi-envelope"></i> <a href="mailto:healthiefield@esprit.com">healthiefield@esprit.com</a>
+                <i class="bi bi-phone"></i> +216 99170951
+            </div>
+            <div class="d-none d-lg-flex social-links align-items-center">
+                <a href="#" class="twitter"><i class="bi bi-twitter"></i></a>
+                <a href="https://www.facebook.com/omar.bali23" class="facebook"><i class="bi bi-facebook"></i></a>
+                <a href="#" class="instagram"><i class="bi bi-instagram"></i></a>
+                <a href="#" class="linkedin"><i class="bi bi-linkedin"></i></a>
+            </div>
+        </div>
+    </div>
+
+    <!-- ======= Header ======= -->
+    <header id="header" class="fixed-top">
+        <div class="container d-flex align-items-center">
+
+            <h1 class="logo me-auto"><a href="index.html">Healthified</a></h1>
+            <!-- Uncomment below if you prefer to use an image logo -->
+            <!-- <a href="index.html" class="logo me-auto"><img src="assets/img/logo.png" alt="" class="img-fluid"></a>-->
+
+            <nav id="navbar" class="navbar order-last order-lg-0">
+                <ul>
+                    <li><a class="nav-link scrollto" href="{{ path('app_article_indexfront') }}">Accueil</a></li>
+                    <li><a class="nav-link scrollto" href="{{ path('app_article_indexfront') }}">A propos</a></li>
+                    <li><a class="nav-link scrollto" href="{{ path('app_article_indexfront') }}">Services</a></li>
+                    <li><a class="nav-link scrollto active" href="{{ path('app_article_indexfront') }}">Article</a></li>
+                    <li><a class="nav-link scrollto" href="{{ path('app_article_indexfront') }}">Medecin</a></li>
+                    <li><a class="nav-link scrollto" href="#contact">Contact</a></li>
+                </ul>
+                <i class="bi bi-list mobile-nav-toggle"></i>
+            </nav><!-- .navbar -->
+
+            <a href="#appointment" class="appointment-btn scrollto"><span class="d-none d-md-inline">Rendez-vous</span> </a>
+
+        </div>
+    </header><!-- End Header -->
+{% endblock %}
+{% block welcome %}
+    <div class="blog">
+    <div class="container">
+        <div class="row">
+
+            <!-- Blog Content -->
+
+            <div class="col-lg-8">
+                <script >
+                    /* Voici la fonction javascript qui change la propriété "display"
+                    pour afficher ou non le div selon que ce soit "none" ou "block". */
+                    function togg(){
+                        let d1 = document.getElementById("d1");
+                        if(getComputedStyle(d1).display != "none"){
+                            d1.style.display = "none";
+                        } else {
+                            d1.style.display = "block";
+                        }
+                    };
+                    function AfficherMasquer()
+                    {
+                        divInfo = document.getElementById('d1');
+
+                        if (divInfo.style.display == 'none')
+                            divInfo.style.display = 'block';
+                        else
+                            divInfo.style.display = 'none';
+
+                    }
+
+                </script>
+                <div class="blog_post_container">
+                    <div class="blog_">
+                        <div class="blog_post_image">
+                            {% if article.file|lower matches '/(pdf)$/' %}
+                                <object data="{{ vich_uploader_asset(article, 'fileFile') }}" type="application/pdf" width="100%" height="800">
+                                    <p>Your web browser doesn't have a PDF plugin. Instead you can <a href="{{ vich_uploader_asset(article, 'fileFile') }}">click here to download the PDF file.</a></p>
+                                </object>
+                            {% elseif article.file|lower matches '/(mp4|webm|ogv)$/' %}
+                                <video controls width="100%" height="auto">
+                                    <source src="{{ vich_uploader_asset(article, 'fileFile') }}" type="video/{{ article.file|lower|split('.')|last }}">
+                                    Your browser does not support the video tag.
+                                </video>
+                            {% else %}
+                                <img src="{{vich_uploader_asset(article,'fileFile') }}" width="300">
+                            {% endif %}
+
+                            <div class="blog_post_date d-flex flex-column align-items-center justify-content-center">
+                                <div class="blog_post_day">{{ article.articleDate ? article.articleDate|date('d') : '' }}</div>
+                                <div class="blog_post_month">{{ article.articleDate ? article.articleDate|date('m-y') : '' }}</div>
+                            </div>
+                        </div>
+                        <div class="blog_post_title"><h1>{{ article.titre }}</h1></div>
+                        <div class="blog_post_text">
+                            <p>{{ article.articleDesc }}</p>
+
+                            <div class="social-icons social-icons-color">
+                                {% if article in user.articles %}
+                                    <a href="{{ path('app_remove_favoris', {'id': article.id}) }}"><img src="{{ asset('assets/img/favori.png') }}" height="30" width="30"></a>
+                                {% else %}
+                                    <a href="{{ path('app_add_favoris', {'id': article.id}) }}"><img src="{{ asset('assets/img/favori.png') }}" height="30" width="30"></a>
+                                {% endif %}
+                                <a href="{{ path('app_article_like', {'id': article.id}) }}"><img src="{{ asset('assets/img/bien.png') }}" height="30" width="30"></a>
+                                <a href="{{ path('app_article_dislike', {'id': article.id}) }}"><img src="{{ asset('assets/img/unlock.png') }}" height="30" width="30"></a>
+                                <span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                        &nbsp;&nbsp;&nbsp;&nbsp;
+                        </span>
+                                {% if ( article.nbcomment ==0) %}
+                                    Aucun commentaire ajouté
+                                {% elseif ( article.nbcomment ==1)%}
+                                    {{ article.nbcomment }} commentaire
+                                {% else %}
+                                    {{ article.nbcomment }} commentaires
+                                {% endif %}
+                            </div>
+                        </div>
+                        <div class="blog_post_meta">
+                            <ul>
+                                <li class="blog_post_meta_item">
+                                    <button id="btn" style="color:#a5a5a5;border: none;background-color: #feffff" onClick="togg()">
+                                        {% if ( article.nbcomment ==0) %}
+                                            Aucun commentaire ajouté
+                                        {% else %}
+                                            Les commentaires
+                                        {% endif %}
+                                    </button>
+
+
+                                    <div class="blog_post_text" id="d1" style="display:none">
+                                        {# {% if app.user %}#}
+                                        {% for comment in commentaires %}
+                                            {# {% for user in comment.users%} #}
+                                            {#{% if app.user.id==user.id %}#}
+                                            <p style="color: #0a1219">Vous</p>
+                                            <style>
+                                                .button-container {
+                                                    display: flex;
+                                                    align-items: center;
+                                                }
+                                                #btn-delete, #btn-edit {
+                                                    color: #a5a5a5;
+                                                    border: none;
+                                                    background-color: #feffff;
+                                                    margin-right: 10px;
+                                                }
+                                            </style>
+
+                                            <form method="post" action="{{ path('app_commentaire_delete2', {'id': comment.id}) }}" onsubmit="return confirm('Voulez vous vraiment supprimer ce commentaire?');">
+                                                <input type="hidden" name="_method" value="DELETE">
+                                                <input type="hidden" name="_token" value="{{ csrf_token('delete' ~ comment.id) }}">
+                                                <p>
+                                                    {{ comment.commentairecontenu }} : {{ comment.commentairedate ? comment.commentairedate|date('Y-m-d') : '' }}
+                                                    <button type="submit" id="btn-delete" style="color:#a5a5a5;border: none;background-color: #feffff">
+                                                        <img src="{{ asset('images/delete.png') }}" width="25" height="25">
+                                                    </button>
+                                                    <a href="{{ path('app_commentaire_edit', {'id': comment.id}) }}" id="btn-edit" style="color:#a5a5a5;border: none;background-color: #feffff">
+                                                        <img src="{{ asset('images/refresh.png') }}" width="25" height="25">
+                                                    </a>
+                                                </p>
+                                            </form>
+
+
+
+
+
+                                            {#{% else %}#}
+                                            {# {% for user in comment.users%} #}
+                                            {# <p style="color: #0a1219">{{ user.nom }} {{ user.prenom }}</p>#}
+                                            {#{% endfor %}#}
+                                            {# {% for comment in commentaires %}
+                                            <p> {{ comment.commentairecontenu }} : {{ comment.commentairedate ? comment.commentairedate|date('Y-m-d'):''}}</p>#}
+                                            {#{% endfor %}#}
+                                            {# {% endfor%} #}
+                                        {% endfor %}
+                                        {#  {% endif %}
+                                    {% endfor %}
+                                {% endif %}  #}
+                                    </div>
+
+
+                                </li>
+                            </ul>
+
+
+                        </div>
+                        {{ include('article/_formCommentaire.html.twig') }}
+
+                        <div class="col-md-auto mt-2 mt-md-0">
+                            <div class="social-icons social-icons-color">
+                                <span class="social-label">Partager cet article:</span>
+                                <a href="https://www.facebook.com/sharer/sharer.php?u={{absolute_url(path('app_article_showfront',{'id': article.getId()}))}}" class="fa fa-facebook" title="Facebook" target="_blank"><i class="icon-facebook-f"></i></a>
+                                <a href="https://twitter.com/intent/tweet?text={{article.titre|url_encode}}%20{{absolute_url(path('app_article_showfront',{'id': article.getId()}))}}%20@GreenSteps" class="fa fa-twitter" title="Twitter" target="_blank"><i class="icon-twitter"></i></a>
+                                <a href="https://www.linkedin.com/shareArticle?url={{absolute_url(path('app_article_showfront',{'id': article.getId()}))}}" class="fa fa-linkedin" title="LinkedIn" target="_blank"><i class="icon-linkedin"></i></a>
+                                <a href="https://www.reddit.com/submit?url={{absolute_url(path('app_article_showfront',{'id': article.getId()}))}}" class="fa fa-reddit" title="Reddit" target="_blank"><i class="icon-reddit"></i></a>
+                                <a href="mailto:?subject={{ article.getTitre() }}&amp;body={{ absolute_url(path('app_article_showfront', {'id': article.getId()})) }}" class="fa fa-mail" title="Email" target="_blank"><i class="fa fa-envelope fa-1.9x"></i></a>
+                            </div><!-- End .soial-icons -->
+
+                        </div><!-- End .col-auto -->
+
+                    </div><!-- End .entry-footer row no-gutters -->
+                </div><!-- End .entry-body -->
+
+
+            </div>
+            <div class="col-lg-4 sidebar-product">
+                &nbsp;&nbsp;&nbsp;
+                <div class="sidebar_title">&nbsp;&nbsp;Vos articles favoris</div>
+                <div class="latest_posts_container">
+                    <ul>
+                        {% for article in favoris %}
+
+                            <!-- Latest Post -->
+                            <li class="latest_post clearfix">
+                                <div class="latest_post_image">
+                                    <a href="{{ path('app_article_showfront', {'id': article.id}) }}">
+                                        {% if article.file|lower matches '/(pdf)$/' %}
+                                            <object data="{{ vich_uploader_asset(article, 'fileFile') }}" type="application/pdf" width="60" height="60">
+                                                <p>Your web browser doesn't have a PDF plugin. Instead you can <a href="{{ vich_uploader_asset(article, 'fileFile') }}">click here to download the PDF file.</a></p>
+                                            </object>
+                                        {% elseif article.file|lower matches '/(mp4|webm|ogv)$/' %}
+                                            <video controls width="60" height="60">
+                                                <source src="{{ vich_uploader_asset(article, 'fileFile') }}" type="video/{{ article.file|lower|split('.')|last }}">
+                                                Your browser does not support the video tag.
+                                            </video>
+                                        {% else %}
+                                            <img src="{{vich_uploader_asset(article,'fileFile') }}" width="60" height="60">
+                                        {% endif %}
+                                    </a>
+                                </div>
+                                <div class="latest_post_content">
+                                    <div class="latest_post_title trans_200"><a href="{{ path('app_article_showfront', {'id': article.id}) }}">{{ article.titre }}</a></div>
+                                    <div class="latest_post_meta">
+
+                                        <div class="latest_post_date trans_200">{{ article.articleDate ? article.articleDate|date('Y-m-d'):''}}</div>
+                                    </div>
+                                </div>
+                            </li>
+
+
+                        {% endfor %}
+
+                    </ul>
+
+                </div>
+                <div class="sidebar_latest_posts">
+                    <div class="sidebar_title">Article Récemment ajoutés</div>
+                    <div class="latest_posts_container">
+                        <ul>
+                            {% for article in articles %}
+                                <!-- Latest Post -->
+                                <li class="latest_post clearfix">
+                                    <div class="latest_post_image">
+                                        <a href="{{ path('app_article_showfront', {'id': article.id}) }}">
+                                            {% if article.file|lower matches '/(pdf)$/' %}
+                                                <object data="{{ vich_uploader_asset(article, 'fileFile') }}" type="application/pdf" width="60" height="60">
+                                                    <p>Your web browser doesn't have a PDF plugin. Instead you can <a href="{{ vich_uploader_asset(article, 'fileFile') }}">click here to download the PDF file.</a></p>
+                                                </object>
+                                            {% elseif article.file|lower matches '/(mp4|webm|ogv)$/' %}
+                                                <video controls width="60" height="60">
+                                                    <source src="{{ vich_uploader_asset(article, 'fileFile') }}" type="video/{{ article.file|lower|split('.')|last }}">
+                                                    Your browser does not support the video tag.
+                                                </video>
+                                            {% else %}
+                                                <img src="{{vich_uploader_asset(article,'fileFile') }}" width="60" height="60">
+                                            {% endif %}
+                                        </a>
+                                    </div>
+                                    <div class="latest_post_content">
+                                        <div class="latest_post_title trans_200"><a href="{{ path('app_article_showfront', {'id': article.id}) }}">{{ article.titre }}</a></div>
+                                        <div class="latest_post_meta">
+
+                                            <div class="latest_post_date trans_200">{{ article.articleDate ? article.articleDate|date('Y-m-d'):''}}</div>
+                                        </div>
+                                    </div>
+                                </li>
+                            {% endfor %}
+
+                        </ul>
+
+                    </div>
+
+                </div>
+                <div class="sidebar_latest_posts">
+                    <div class="sidebar_title">Article les plus appréciés</div>
+                    <div class="latest_posts_container">
+                        <ul>
+                            {% for article in articlesnblike %}
+                                <!-- Latest Post -->
+                                <li class="latest_post clearfix">
+                                    <div class="latest_post_image">
+                                        <a href="{{ path('app_article_showfront', {'id': article.id}) }}">
+                                            {% if article.file|lower matches '/(pdf)$/' %}
+                                                <object data="{{ vich_uploader_asset(article, 'fileFile') }}" type="application/pdf" width="100%" height="800">
+                                                    <p>Your web browser doesn't have a PDF plugin. Instead you can <a href="{{ vich_uploader_asset(article, 'fileFile') }}">click here to download the PDF file.</a></p>
+                                                </object>
+                                            {% elseif article.file|lower matches '/(mp4|webm|ogv)$/' %}
+                                                <video controls width="100%" height="auto">
+                                                    <source src="{{ vich_uploader_asset(article, 'fileFile') }}" type="video/{{ article.file|lower|split('.')|last }}">
+                                                    Your browser does not support the video tag.
+                                                </video>
+                                            {% else %}
+                                                <img src="{{vich_uploader_asset(article,'fileFile') }}" width="60" height="60">
+                                            {% endif %}
+
+                                        </a>
+                                    </div>
+                                    <div class="latest_post_content">
+                                        <div class="latest_post_title trans_200"><a href="{{ path('app_article_showfront', {'id': article.id}) }}">{{ article.titre }}</a></div>
+                                        <div class="latest_post_meta">
+
+                                            <div class="latest_post_date trans_200">{{ article.articleDate ? article.articleDate|date('Y-m-d'):''}}</div>
+                                        </div>
+                                    </div>
+                                </li>
+                            {% endfor %}
+
+                        </ul>
+
+                    </div>
+
+                </div>
+            </div>
+
+        </div>
+
+
+
+
+    </div>
+    <!-- ======= Contact Section ======= -->
+    <section id="contact" class="contact">
+        <div class="container">
+
+            <div class="section-title">
+                <h2>Contact</h2>
+                <p>Magnam dolores commodi suscipit. Necessitatibus eius consequatur ex aliquid fuga eum quidem. Sit sint consectetur velit. Quisquam quos quisquam cupiditate. Et nemo qui impedit suscipit alias ea. Quia fugiat sit in iste officiis commodi quidem hic quas.</p>
+            </div>
+        </div>
+
+        <div>
+            <iframe style="border:0; width: 100%; height: 350px;" src="https://www.google.com/maps/embed?pb=!1m28!1m12!1m3!1d799.1198414655778!2d10.186982998462296!3d36.75906609266022!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!4m13!3e0!4m5!1s0x12e2cad2e1d7f1bb%3A0x902488d100b5819b!2sA%C3%A9roport%20Tunis-Carthage%2C%20Tunis!3m2!1d36.8475562!2d10.2175601!4m5!1s0x12fd6392f2b26221%3A0xe9cf290510e9a7c3!2sM%C3%A9hari%20Hammamet%2C%20Yasmine%20Hammamet!3m2!1d36.3632716!2d10.5346542!5e0!3m2!1sfr!2stn!4v1676384025374!5m2!1sfr!2stn" frameborder="0" allowfullscreen></iframe>
+        </div>
+
+        <div class="container">
+            <div class="row mt-5">
+
+                <div class="col-lg-4">
+                    <div class="info">
+                        <div class="address">
+                            <i class="bi bi-geo-alt"></i>
+                            <h4>Localisation:</h4>
+                            <p>Avenue 10656 2066 Ibn Sina - TUNIS</p>
+                        </div>
+
+                        <div class="email">
+                            <i class="bi bi-envelope"></i>
+                            <h4>Email:</h4>
+                            <p>healthiefield@example.com</p>
+                        </div>
+
+                        <div class="phone">
+                            <i class="bi bi-phone"></i>
+                            <h4>Call:</h4>
+                            <p>+216 99170951</p>
+                        </div>
+
+                    </div>
+
+                </div>
+            </div>
+        </div>
+
+
+    </section><!-- End Contact Section -->
+{% endblock %}
