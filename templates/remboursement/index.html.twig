@@ -1,51 +1,70 @@
 {% extends 'backoffice/base.html.twig' %}
 
-{% block title %}Remboursement index{% endblock %}
+{% block title %}Remboursement index
+{% endblock %}
 
 {% block body %}
-    <h1>Liste des remboursements</h1>
+	<section class="content-main">
+		<div class="card mb-4 padding">
+			<div class="content-header">
+				<h2 class="content-title">Liste des remboursements</h1>
+				<div>
+					<a href="{{ path('app_remboursement_new') }}" class="btn btn-primary">
+						<i class="material-icons md-plus"></i>Ajouter</a>
+				</div>
+			</div>
 
-    <table class="table">
-        <thead>
-            <tr>
-                <th>Id</th>
-                <th>Identifiant</th>
-                <th>Date</th>
-                <th>Reponse</th>
-                <th>Montant rembourse</th>
-                <th>Actions</th>
-            </tr>
-        </thead>
-        <tbody>
-        {% for remboursement in remboursements %}
-            <tr>
-                <td>{{ remboursement.id }}</td>
-                <td>{{ remboursement.idRemboursement }}</td>
-                <td>{{ remboursement.dateRemboursement ? remboursement.dateRemboursement|date('Y-m-d') : '' }}</td>
-                <td>{{ remboursement.reponse }}</td>
-                <td>{{ remboursement.montantRembourse }}</td>
-                <td>
-                    <div class="btn-group">
-                        <form action="{{ path('app_remboursement_show', {'id': remboursement.id}) }}" method="get">
-                            <button class="afficher-btn" type="submit">Details</button>
-                        </form>
-                        <form action="{{ path('app_remboursement_edit', {'id': remboursement.id}) }}" method="get">
-                            <button class="modifier-btn" type="submit">Modifier</button>
-                        </form>
-                    </div>
-                </td>
-            </tr>
-        {% else %}
-            <tr>
-                <td colspan="6">no records found</td>
-            </tr>
-        {% endfor %}
-                 
+			<table class="table" class="table table-hover">
+				<thead>
+					<tr>
+						<th>Id</th>
+						<th>Identifiant</th>
+						<th>Date</th>
+						<th>Reponse</th>
+						<th>Montant rembourse</th>
+						<th>Actions</th>
+					</tr>
+				</thead>
+				<tbody>
+					{% for remboursement in remboursements %}
+						<tr>
+							<td>{{ remboursement.id }}</td>
+							<td>{{ remboursement.idRemboursement }}</td>
+							<td>{{ remboursement.dateRemboursement ? remboursement.dateRemboursement|date('Y-m-d') : '' }}</td>
+							<td>{{ remboursement.reponse }}</td>
+							<td>{{ remboursement.montantRembourse }}</td>
+							<td>
+								<div class="btn-group">
+									<form action="{{ path('app_remboursement_show', {'id': remboursement.id}) }}" method="get">
+										<button class="afficher-btn" type="submit">Details</button>
+									</form>
+									<form action="{{ path('app_remboursement_edit', {'id': remboursement.id}) }}" method="get">
+										<button class="modifier-btn" type="submit">Modifier</button>
+									</form>
+								</div>
+							</td>
+						</tr>
+					{% else %}
+						<tr>
+							<td colspan="6">no records found</td>
+						</tr>
+					{% endfor %}
 
-        </tbody>
-    </table>
- {{ knp_pagination_render(remboursements) }}
-    <form action="{{ path('app_remboursement_new') }}" method="get">
-        <button class="ajouter-btn" type="submit">Ajouter</button>
-    </form>
+
+				</tbody>
+			</table>
+			<div>
+                    <nav>
+                      
+                        </ul>
+                    </nav>
+                </div>
+		</div>
+		 </div>
+
+     <div class="page-link">
+    {{ knp_pagination_render(remboursements) }}
+</div>
+	</section>
+
 {% endblock %}

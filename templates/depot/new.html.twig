@@ -3,15 +3,15 @@
 {% block title %}New Depot{% endblock %}
 
 {% block body %}
-    <h1>Ajouter un depot</h1>
-{% for type, messages in app.session.flashbag.all() %}
-    {% for message in messages %}
-        <div class="alert alert-{{ type }}" role="alert">
-            {{ message }}
-        </div>
-    {% endfor %}
-{% endfor %}
-    {{ include('depot/_form.html.twig') }}
-
-    <a href="{{ path('app_depot_index') }}">Retourner</a>
+	<section class="content-main">
+		<div class="card mb-4 padding">
+			<div class="content-header">
+				<h2 class="content-title">Ajouter un depot</h2>
+			</div>
+			<div>
+				{{ include('depot/_form.html.twig') }}
+				<a href="{{ path('app_depot_index') }}">Retourner</a>
+			</div>
+		</div>
+	</section>
 {% endblock %}

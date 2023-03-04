@@ -51,7 +51,24 @@
 					{% endfor %}
 				</tbody>
 			</table>
-
+			<div>
+                    <nav>
+                        <ul class="pagination">
+                            <li class="page-item disabled">
+                                <span class="page-link">&laquo;&nbsp;Précédent</span>
+                            </li>
+                            <li class="page-item active">
+                                <span class="page-link">1</span>
+                            </li>
+                            <li class="page-item">
+                                <a class="page-link" href="/assurance">2</a>
+                            </li>
+                            <li class="page-item">
+                                <a class="page-link" rel="next" href="/assurance">Suivant &nbsp;&raquo;</a>
+                            </li>
+                        </ul>
+                    </nav>
+                </div>
 		</div>
 	</section>
 {% endblock %}

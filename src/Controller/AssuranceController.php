@@ -9,15 +9,23 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use Knp\Component\Pager\PaginatorInterface;
 
 #[Route('/backoffice')]
 class AssuranceController extends AbstractController
 {
     #[Route('/assurance', name: 'app_assurance_index', methods: ['GET'])]
-    public function index(AssuranceRepository $assuranceRepository): Response
-    {
+    public function index(Request $request,AssuranceRepository $assuranceRepository, PaginatorInterface $paginator): Response
+    {$data = $assuranceRepository->findAll();
+
+        $assurances = $paginator->paginate(
+            $data,
+            $request->query->getInt('page', 1), // Current page number. If none is specified, default to 1.
+            1 // Number of items to display per page
+        );
+    
         return $this->render('assurance/index.html.twig', [
-            'assurances' => $assuranceRepository->findAll(),
+            'assurances' => $assurances,
         ]);
     }
 

@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 <style>
-.btn{
+{#.btn{
         background-color: #8EC63F; /* Couleur de fond verte */
         color: black; /* Couleur du texte blanc */
         border: none; /* Supprimer la bordure */
@@ -13,9 +13,10 @@
         margin-right: 10px; /* Ajouter une marge à droite */
         cursor: pointer; /* Afficher un curseur pointer au survol */
       }
+      } #}
 </style>
 {{ form_start(form,{'attr': {'novalidate': 'novalidate'}} ) }}
     {{ form_widget(form) }}
-    <button class="btn">{{ button_label|default('Enregistrer') }}</button>
+    <button class="btn btn-success">{{ button_label|default('Enregistrer') }}</button>
 {{ form_end(form) }}
 </html>
