@@ -1,0 +1,16 @@
+{% extends 'BackOffice/back_med.html.twig' %}
+{% block title %}New Remboursement{% endblock %}
+
+{% block body %}
+	<section class="content-main">
+		<div class="card mb-4 padding">
+			<div class="content-header">
+				<h2 class="content-title">Ajouter un remboursement</h2>
+			</div>
+			<div>
+				{{ include('remboursement/_form.html.twig') }}
+				<a href="{{ path('app_remboursement_index') }}">Retourner</a>
+			</div>
+		</div>
+	</section>
+{% endblock %}

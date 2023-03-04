@@ -1,0 +1,46 @@
+{% extends 'BackOffice/back_med.html.twig' %}
+{% block title %}Depot
+{% endblock %}
+
+{% block body %}
+	<section class="content-main">
+		<div class="card mb-4 padding">
+			<div class="content-header">
+				<h2 class="content-title">Depot</h2>
+			</div>
+			<table class="table">
+				<tbody>
+					<tr>
+						<th>Id</th>
+						<td>{{ depot.id }}</td>
+					</tr>
+					<tr>
+						<th>Idenfiant</th>
+						<td>{{ depot.idDossier }}</td>
+					</tr>
+					<tr>
+						<th>Date</th>
+						<td>{{ depot.dateDepot ? depot.dateDepot|date('Y-m-d') : '' }}</td>
+					</tr>
+					<tr>
+						<th>Etat</th>
+						<td>{{ depot.etatDossier }}</td>
+					</tr>
+					<tr>
+						<th>Regime</th>
+						<td>{{ depot.regime }}</td>
+					</tr>
+					<tr>
+						<th>Total depense</th>
+						<td>{{ depot.totalDepense }}</td>
+					</tr>
+				</tbody>
+			</table>
+			<div>
+				<a href="{{ path('app_depot_index') }}" class="btn btn-primary">Retour</a>
+				<a href="{{ path('app_depot_edit', {'id': depot.id}) }}" class="btn btn-warning">Modifier</a>
+				{{ include('depot/_delete_form.html.twig', {'supprimer-btn': 'Supprimer'}) }}
+			</div>
+		</div>
+	</section>
+{% endblock %}

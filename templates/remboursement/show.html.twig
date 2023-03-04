@@ -1,0 +1,37 @@
+{% extends 'BackOffice/back_med.html.twig' %}
+{% block title %}Remboursement{% endblock %}
+
+{% block body %}
+    <h1>Remboursement</h1>
+
+    <table class="table">
+        <tbody>
+            <tr>
+                <th>Id</th>
+                <td>{{ remboursement.id }}</td>
+            </tr>
+            <tr>
+                <th>Identifiant</th>
+                <td>{{ remboursement.idRemboursement }}</td>
+            </tr>
+            <tr>
+                <th>Date</th>
+                <td>{{ remboursement.dateRemboursement ? remboursement.dateRemboursement|date('Y-m-d') : '' }}</td>
+            </tr>
+            <tr>
+                <th>Reponse</th>
+                <td>{{ remboursement.reponse }}</td>
+            </tr>
+            <tr>
+                <th>Montant rembourse</th>
+                <td>{{ remboursement.montantRembourse }}</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <a href="{{ path('app_remboursement_index') }}">Retourner</a>
+
+    <a href="{{ path('app_remboursement_edit', {'id': remboursement.id}) }}">Modifier</a>
+
+    {{ include('remboursement/_delete_form.html.twig') }}
+{% endblock %}

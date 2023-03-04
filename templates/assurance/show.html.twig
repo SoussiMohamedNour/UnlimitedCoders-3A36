@@ -1,0 +1,43 @@
+{% extends 'BackOffice/back_med.html.twig' %}
+
+{% block title %}Assurance
+{% endblock %}
+
+{% block body %}
+	<section class="content-main">
+		<div class="card mb-4 padding">
+			<div class="content-header">
+				<h2 class="content-title">Assurance</h2>
+			</div>
+			<table class="table">
+				<tbody>
+					<tr>
+						<th>Id</th>
+						<td>{{ assurance.id }}</td>
+					</tr>
+					<tr>
+						<th>Identifiant</th>
+						<td>{{ assurance.idAssurance }}</td>
+					</tr>
+					<tr>
+						<th>Nom</th>
+						<td>{{ assurance.nomAssurance }}</td>
+					</tr>
+					<tr>
+						<th>Plafond</th>
+						<td>{{ assurance.plafond }}</td>
+					</tr>
+					<tr>
+						<th>Adresse</th>
+						<td>{{ assurance.adresseAssurance }}</td>
+					</tr>
+				</tbody>
+			</table>
+			<div>
+				<a href="{{ path('app_assurance_index') }}" class="btn btn-primary">Retourner</a>
+				<a href="{{ path('app_assurance_edit', {'id': assurance.id}) }}" class="btn btn-warning">Modifier</a>
+				{{ include('assurance/_delete_form.html.twig', {'supprimer-btn': 'Supprimer'}) }}
+			</div>
+		</div>
+	</section>
+{% endblock %}

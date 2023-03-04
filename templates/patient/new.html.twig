@@ -1,0 +1,12 @@
+{% extends 'BackOffice/back_med.html.twig' %}
+
+
+{% block title %}New Patient{% endblock %}
+
+{% block body %}
+    <h1>Ajouter un patient</h1>
+
+    {{ include('patient/_form.html.twig') }}
+
+    <a href="{{ path('app_patient_index') }}">Retourner</a>
+{% endblock %}

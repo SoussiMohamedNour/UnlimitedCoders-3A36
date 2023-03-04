@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html>
+<style>
+{# .btn{
+        background-color: #8EC63F; /* Couleur de fond verte */
+        color: black; /* Couleur du texte blanc */
+        border: none; /* Supprimer la bordure */
+        padding: 5px 20px; /* Ajouter un espace autour du texte */
+        text-align: center; /* Centrer le texte */
+        text-decoration: none; /* Supprimer le soulignement */
+        display: inline-block; /* Afficher en ligne */
+        font-size: 16px; /* Taille de police de caractère */
+        margin-right: 10px; /* Ajouter une marge à droite */
+        cursor: pointer; /* Afficher un curseur pointer au survol */
+      } #}
+</style>
+	{{ form_start(form,{'attr': {'novalidate': 'novalidate'}}
+	) }}
+	{{ form_widget(form) }}
+	<button class="btn btn-success">{{ button_label|default('Enregistrer') }}</button>
+	{{ form_end(form) }}
+</html>

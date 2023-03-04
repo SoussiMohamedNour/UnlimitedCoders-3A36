@@ -1,0 +1,44 @@
+{% extends 'BackOffice/back_med.html.twig' %}
+{% block section %}
+		<div class="container pt-3">
+        {{form_start(form)}}
+        {{form_row(form.recherche)}}
+        {{form_end(form)}}
+			<table class="table mt-5">
+				<thead>
+					<tr>
+						<th>Id</th>
+						<th>Identifiant</th>
+						<th>Date</th>
+						<th>Etat</th>
+						<th>Regime</th>
+						<th>Total depense</th>
+                        <th>Nom patient</th>
+					</tr>
+				</thead>
+				<tbody>
+					{% for depot in depots %}
+						<tr>
+							<td>{{ depot.id }}</td>
+							<td>{{ depot.idDossier }}</td>
+							<td>{{ depot.dateDepot ? depot.dateDepot|date('Y-m-d') : '' }}</td>
+							<td>{{ depot.etatDossier }}</td>
+							<td>{{ depot.regime }}</td>
+							<td>{{ depot.totalDepense }}</td>
+                            <td>{{depot.patient.nom}}</td>
+
+
+                        
+						</tr>
+					{% else %}
+						<tr>
+							<td colspan="7">no records found</td>
+						</tr>
+					{% endfor %}
+				</tbody>
+			</table>
+			
+		</div>
+		{% endblock %}
+
+

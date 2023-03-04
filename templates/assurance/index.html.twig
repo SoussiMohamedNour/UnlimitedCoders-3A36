@@ -1,0 +1,74 @@
+{% extends 'BackOffice/back_med.html.twig' %}
+
+{% block title %}Assurance index
+{% endblock %}
+
+{% block body %}
+	<section class="content-main">
+		<div class="card mb-4 padding">
+			<div class="content-header">
+				<h2 class="content-title">Liste des assurances</h2>
+				<div>
+
+					<a href="{{ path('app_assurance_new') }}" class="btn btn-primary">
+						<i class="material-icons md-plus"></i>Ajouter</a>
+				</div>
+			</div>
+			<table class="table table-hover">
+				<thead>
+					<tr>
+						<th>Id</th>
+						<th>Identifiant</th>
+						<th>Nom</th>
+						<th>Plafond</th>
+						<th>Adresse</th>
+						<th>Actions</th>
+					</tr>
+				</thead>
+				<tbody>
+					{% for assurance in assurances %}
+						<tr>
+							<td>{{ assurance.id }}</td>
+							<td>{{ assurance.idAssurance }}</td>
+							<td>{{ assurance.nomAssurance }}</td>
+							<td>{{ assurance.plafond }}</td>
+							<td>{{ assurance.adresseAssurance }}</td>
+							<td>
+								<div class="btn-group">
+									<form action="{{ path('app_assurance_show', {'id': assurance.id}) }}" method="get">
+										<button class="afficher-btn" type="submit">Details</button>
+									</form>
+									<form action="{{ path('app_assurance_edit', {'id': assurance.id}) }}" method="get">
+										<button class="modifier-btn" type="submit">Modifier</button>
+									</form>
+								</div>
+							</td>
+						</tr>
+					{% else %}
+						<tr>
+							<td colspan="6">no records found</td>
+						</tr>
+					{% endfor %}
+				</tbody>
+			</table>
+			<div>
+                    <nav>
+                        <ul class="pagination">
+                            <li class="page-item disabled">
+                                <span class="page-link">&laquo;&nbsp;Précédent</span>
+                            </li>
+                            <li class="page-item active">
+                                <span class="page-link">1</span>
+                            </li>
+                            <li class="page-item">
+                                <a class="page-link" href="/assurance">2</a>
+                            </li>
+                            <li class="page-item">
+                                <a class="page-link" rel="next" href="/assurance">Suivant &nbsp;&raquo;</a>
+                            </li>
+                        </ul>
+                    </nav>
+                </div>
+		</div>
+	</section>
+{% endblock %}

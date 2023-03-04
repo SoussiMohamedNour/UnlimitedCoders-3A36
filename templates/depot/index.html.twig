@@ -1,0 +1,84 @@
+{% extends 'BackOffice/back_med.html.twig' %}
+
+{% block title %}Depot index
+{% endblock %}
+
+{% block body %}
+	<section class="content-main">
+		<div class="card mb-4 padding">
+			<div class="content-header">
+				<h2 class="content-title">Liste des depots</h2>
+				<div>
+					<a href="{{ path('app_depot_new') }}" class="btn btn-primary">
+						<i class="material-icons md-plus"></i>Ajouter</a>
+				</div>
+			</div>
+			<table class="table table-hover">
+				<thead>
+					<tr>
+						<th>Id</th>
+						<th>Identifiant</th>
+						<th>Date</th>
+						<th>Etat</th>
+						<th>Regime</th>
+						<th>Total depense</th>
+						<th>Actions</th>
+					</tr>
+				</thead>
+				<tbody>
+					{% for depot in depots %}
+						<tr>
+							<td>{{ depot.id }}</td>
+							<td>{{ depot.idDossier }}</td>
+							<td>{{ depot.dateDepot ? depot.dateDepot|date('Y-m-d') : '' }}</td>
+							<td>{{ depot.etatDossier }}</td>
+							<td>{{ depot.regime }}</td>
+							<td>{{ depot.totalDepense }}</td>
+							<td>
+								<div class="btn-group">
+									<form action="{{ path('app_depot_show', {'id': depot.id}) }}" method="get">
+										<button class="afficher-btn" type="submit">Details</button>
+									</form>
+									<form action="{{ path('app_depot_edit', {'id': depot.id}) }}" method="get">
+										<button class="modifier-btn" type="submit">Modifier</button>
+									</form>
+								</div>
+							</td>
+						</tr>
+					{% else %}
+						<tr>
+							<td colspan="7">no records found</td>
+						</tr>
+					{% endfor %}
+				</tbody>
+			</table>
+			<div>
+                    <nav>
+                        <ul class="pagination">
+                            <li class="page-item disabled">
+                                <span class="page-link">&laquo;&nbsp;Précédent</span>
+                            </li>
+                            <li class="page-item active">
+                                <span class="page-link">1</span>
+                            </li>
+                            <li class="page-item">
+                                <a class="page-link" href="/depot/?page=2">2</a>
+                            </li>
+                            <li class="page-item">
+                                <a class="page-link" rel="next" href="/depot/?page=2">Suivant &nbsp;&raquo;</a>
+                            </li>
+                        </ul>
+                    </nav>
+                </div>
+		</div>
+		<div>
+			<nav>
+				<ul class="pagination">
+					<li class="page-item"></li>
+					<li class="page-item active"></li>
+					<li class="page-item disabled"></li>
+				</ul>
+			</nav>
+		</div>
+	</section>
+{% endblock %}

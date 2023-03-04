@@ -1,0 +1,49 @@
+{% extends 'BackOffice/back_med.html.twig' %}
+
+{% block title %}Patient index{% endblock %}
+
+{% block body %}
+    <h1>Liste des patients</h1>
+
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>Identifiant</th>
+                <th>CIN</th>
+                <th>Nom</th>
+                <th>Prenom</th>
+                <th>Date de naissance</th>
+                <th>Mobile</th>
+                <th>Adresse</th>
+                <th>Email</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for patient in patients %}
+            <tr>
+                <td>{{ patient.id }}</td>
+                <td>{{ patient.idPatient }}</td>
+                <td>{{ patient.cin }}</td>
+                <td>{{ patient.nom }}</td>
+                <td>{{ patient.prenom }}</td>
+                <td>{{ patient.dateNaissance ? patient.dateNaissance|date('Y-m-d') : '' }}</td>
+                <td>{{ patient.mobile }}</td>
+                <td>{{ patient.adressePatient }}</td>
+                <td>{{ patient.email }}</td>
+                <td>
+                    <a href="{{ path('app_patient_show', {'id': patient.id}) }}">Details</a>
+                    <a href="{{ path('app_patient_edit', {'id': patient.id}) }}">Modifier</a>
+                </td>
+            </tr>
+        {% else %}
+            <tr>
+                <td colspan="9">no records found</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+    <a href="{{ path('app_patient_new') }}">Ajouter</a>
+{% endblock %}

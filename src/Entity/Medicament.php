@@ -7,74 +7,59 @@ use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 
-use Symfony\Component\Serializer\Annotation\Groups;
-use Symfony\Component\Validator\Constraints as Assert;
-
 #[ORM\Entity(repositoryClass: MedicamentRepository::class)]
 class Medicament
 {
     #[ORM\Id]
     #[ORM\GeneratedValue]
-    #[ORM\Column(name:'id',type:'integer')]
-    #[Groups('medicaments')]
-    // #[Assert\NotBlank(message:"Identifiant est un champs obligatoire")]
+    #[ORM\Column]
     private ?int $id = null;
 
+    #[ORM\Column]
+    private ?int $code = null;
+
     #[ORM\Column(length: 255)]
-    #[Groups('medicaments')]
-    #[Assert\NotBlank(message:"Nom est un champs obligatoire")]
-    private ?string $nom = null;
+    private ?string $libelle = null;
 
     #[ORM\Column]
-    #[Groups('medicaments')]
-    #[Assert\Positive(message:"Dosage doit etre un champs positif")]
-    private ?int $dosage = null;
-
-    #[ORM\Column]
-    #[Groups('medicaments')]
-    #[Assert\Positive(message:"Prix doit etre un champs positif")]
     private ?float $prix = null;
 
     #[ORM\Column(length: 255)]
-    #[Groups('medicaments')]
-    private ?string $description = null;
+    private ?string $type = null;
 
-    #[ORM\ManyToMany(targetEntity: Ordonnance::class, mappedBy: 'medicaments')]
-    // #[Groups('medicaments')]
-    private Collection $ordonnances;
+    #[ORM\ManyToMany(targetEntity: Fiche::class, mappedBy: 'medicament')]
+    private Collection $fiches;
 
     public function __construct()
     {
-        $this->consultations = new ArrayCollection();
-        $this->ordonnances = new ArrayCollection();
+        $this->fiches = new ArrayCollection();
     }
-
 
     public function getId(): ?int
     {
         return $this->id;
     }
 
-    public function getNom(): ?string
+    public function getCode(): ?int
     {
-        return $this->nom;
+        return $this->code;
     }
 
-    public function setNom(string $nom): self
+    public function setCode(int $code): self
     {
-        $this->nom = $nom;
+        $this->code = $code;
 
         return $this;
     }
 
-    public function getDosage(): ?int
+    public function getLibelle(): ?string
     {
-        return $this->dosage;
+        return $this->libelle;
     }
 
-    public function setDosage(int $dosage): self
+    public function setLibelle(string $libelle): self
     {
-        $this->dosage = $dosage;
+        $this->libelle = $libelle;
 
         return $this;
     }
@@ -91,46 +76,53 @@ class Medicament
         return $this;
     }
 
-    public function getDescription(): ?string
+    public function getType(): ?string
     {
-        return $this->description;
+        return $this->type;
     }
 
-    public function setDescription(string $description): self
+    public function setType(string $type): self
     {
-        $this->description = $description;
+        $this->type = $type;
 
         return $this;
     }
+
     /**
-     * @return Collection<int, Ordonnance>
+     * @return Collection<int, Fiche>
      */
-    public function getOrdonnances(): Collection
+    public function getFiches(): Collection
     {
-        return $this->ordonnances;
+        return $this->fiches;
     }
 
-    public function addOrdonnance(Ordonnance $ordonnance): self
+    public function addFich(Fiche $fich): self
     {
-        if (!$this->ordonnances->contains($ordonnance)) {
-            $this->ordonnances->add($ordonnance);
-            $ordonnance->addMedicament($this);
+        if (!$this->fiches->contains($fich)) {
+            $this->fiches->add($fich);
+            $fich->addMedicament($this);
         }
 
         return $this;
     }
 
-    public function removeOrdonnance(Ordonnance $ordonnance): self
+    public function removeFich(Fiche $fich): self
     {
-        if ($this->ordonnances->removeElement($ordonnance)) {
-            $ordonnance->removeMedicament($this);
+        if ($this->fiches->removeElement($fich)) {
+            $fich->removeMedicament($this);
         }
 
         return $this;
     }
-    public function __toString():string
-    {
-        return $this->nom;
-    }
 
+    public function __toString()
+    {
+    $attributes = array(
+        $this->code,
+        $this->libelle,
+        $this->prix,
+        $this->type
+    );
+    return implode(' - ', $attributes);
+    }
 }

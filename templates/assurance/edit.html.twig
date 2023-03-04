@@ -1,0 +1,19 @@
+{% extends 'BackOffice/back_med.html.twig' %}
+
+{% block title %}Edit Assurance
+{% endblock %}
+
+{% block body %}
+	<section class="content-main">
+		<div class="card mb-4 padding">
+			<div class="content-header">
+				<h2 class="content-title">Modifier l'assurance</h2>
+			</div>
+			<div>
+				{{ include('assurance/_form.html.twig', {'button_label': 'Mettre à jour'}) }}
+				<a href="{{ path('app_assurance_index') }}">Retourner</a>
+				{{ include('assurance/_delete_form.html.twig', {'supprimer-btn': 'Supprimer'}) }}
+			</div>
+		</div>
+	</section>
+{% endblock %}
