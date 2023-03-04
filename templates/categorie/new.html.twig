@@ -1,0 +1,91 @@
+{% extends '/backoffice/base.html.twig' %}
+
+
+{% block body %}
+<Main class="main-wrap">
+<header class="main-header navbar">
+		<div class="col-search">
+			<form class="searchform">
+				<div class="input-group">
+				  <input list="search_terms" type="text" class="form-control" placeholder="Search term">
+				  <button class="btn btn-light bg" type="button"> <i class="material-icons md-search"></i> </button>
+				</div>
+				<datalist id="search_terms">
+				  <option value="Produits">
+				  <option value="Nouvelle commande">
+				  <option value="Apple iphone">
+				  <option value="Ahmed Hassan">
+				</datalist>
+			</form>
+		</div>
+		<div class="col-nav">
+     <button class="btn btn-icon btn-mobile me-auto" data-trigger="#offcanvas_aside"> <i class="md-28 material-icons md-menu"></i> </button>
+     <ul class="nav">
+      <li class="nav-item">
+          <a class="nav-link btn-icon" onclick="darkmode(this)" title="Dark mode" href="#"> <i class="material-icons md-nights_stay"></i> </a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link btn-icon" href="#"> <i class="material-icons md-notifications_active"></i> </a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="#"> English </a>
+      </li>
+      <li class="dropdown nav-item">
+        <a class="dropdown-toggle" data-bs-toggle="dropdown" href="#"> <img class="img-xs rounded-circle" src="images/people/avatar1.jpg" alt="User"></a>
+        <div class="dropdown-menu dropdown-menu-end">
+          <a class="dropdown-item" href="#">Mon profile</a>
+          <a class="dropdown-item" href="#">Paramètres</a>
+          <a class="dropdown-item text-danger" href="#">Sortie</a>
+        </div>
+      </li>
+    </ul> 
+  </div>
+	</header>
+</Main>
+    <header class="main-header navbar">
+    </header>
+<b class="screen-overlay"></b>
+<aside class="navbar-aside" id="offcanvas_aside">
+    <div class="aside-top">
+        <a href="index.html" class="brand-wrap">
+            <img src="{{ asset('images/LogoApp.png') }}" height="46" class="logo" alt="Healthified dashboard">
+        </a>
+        <div>
+            <button class="btn btn-icon btn-aside-minimize"> <i class="text-muted material-icons md-menu_open"></i> </button>
+        </div>
+    </div>
+
+    <nav>
+        <ul class="menu-aside">
+            <li class="menu-item active">
+                <a class="menu-link" href="{{path('app_default')}}"> <i class="icon material-icons md-home"></i>
+                    <span class="text">Acceuil</span>
+                </a>
+            </li>
+            <li class="menu-item ">
+                <a class="menu-link"  href="{{path('app_categorie_index')}}"> <i class="icon material-icons md-category"></i>
+                    <span class="text">Afficher Categorie</span>
+                </a>
+                <a class="menu-link"  href="{{path('app_produit_new')}}"> <i class="icon material-icons md-category"></i>
+                    <span class="text">Ajouter Produits</span>
+                </a>
+                <a class="menu-link"  href="{{path('app_produit_index')}}"> <i class="icon material-icons md-category"></i>
+                    <span class="text">Afficher produit</span>
+                </a>
+                <a class="menu-link"  href="{{path('app_commande_index')}}"> <i class="icon material-icons md-category"></i>
+                    <span class="text">Afficher commande</span>
+                </a>
+            </li>
+        </ul>
+    </nav>
+</aside>
+<div style="
+    margin-left: 300px;">
+    <h1>Create new Categorie</h1>
+
+    {{ include('categorie/_form.html.twig') }}
+
+    <a href="{{ path('app_categorie_index') }}"class="btn btn-secondary">back to list</a>
+</div>
+
+{% endblock %}
