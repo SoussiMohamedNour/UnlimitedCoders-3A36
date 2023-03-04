@@ -21,6 +21,7 @@ class PatientType extends AbstractType
                 'years' => range(1900, 2010)])
             ->add('mobile')
             ->add('adressePatient')
+            ->add('email')
         ;
     }
 

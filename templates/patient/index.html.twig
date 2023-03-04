@@ -16,6 +16,7 @@
                 <th>Date de naissance</th>
                 <th>Mobile</th>
                 <th>Adresse</th>
+                <th>Email</th>
                 <th>Actions</th>
             </tr>
         </thead>
@@ -30,6 +31,7 @@
                 <td>{{ patient.dateNaissance ? patient.dateNaissance|date('Y-m-d') : '' }}</td>
                 <td>{{ patient.mobile }}</td>
                 <td>{{ patient.adressePatient }}</td>
+                <td>{{ patient.email }}</td>
                 <td>
                     <a href="{{ path('app_patient_show', {'id': patient.id}) }}">Details</a>
                     <a href="{{ path('app_patient_edit', {'id': patient.id}) }}">Modifier</a>

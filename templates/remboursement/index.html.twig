@@ -40,9 +40,11 @@
                 <td colspan="6">no records found</td>
             </tr>
         {% endfor %}
+                 
+
         </tbody>
     </table>
-
+ {{ knp_pagination_render(remboursements) }}
     <form action="{{ path('app_remboursement_new') }}" method="get">
         <button class="ajouter-btn" type="submit">Ajouter</button>
     </form>

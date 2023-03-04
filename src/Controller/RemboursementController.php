@@ -2,33 +2,49 @@
 
 namespace App\Controller;
 
+use App\Service\Mailer;
+use App\Form\MailerType;
 use App\Entity\Remboursement;
 use App\Form\RemboursementType;
+use Symfony\Component\Mime\Email;
 use App\Repository\RemboursementRepository;
-use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\Mailer\MailerInterface;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Knp\Component\Pager\PaginatorInterface;
+
 
 #[Route('/backoffice')]
 class RemboursementController extends AbstractController
 {
+    
     #[Route('/remboursement', name: 'app_remboursement_index', methods: ['GET'])]
-    public function index(RemboursementRepository $remboursementRepository): Response
-    {
+    public function index(Request $request,RemboursementRepository $remboursementRepository, PaginatorInterface $paginator): Response
+    {   $data = $remboursementRepository->findAll();
+
+        $remboursements = $paginator->paginate(
+            $data,
+            $request->query->getInt('page', 1), // Current page number. If none is specified, default to 1.
+            1 // Number of items to display per page
+        );
+    
         return $this->render('remboursement/index.html.twig', [
-            'remboursements' => $remboursementRepository->findAll(),
+            'remboursements' => $remboursements,
         ]);
     }
+    
 
     #[Route('/remboursement/new', name: 'app_remboursement_new', methods: ['GET', 'POST'])]
-    public function new(Request $request, RemboursementRepository $remboursementRepository): Response
+    public function new(Request $request, RemboursementRepository $remboursementRepository, MailerInterface $mailer): Response
     {
         $remboursement = new Remboursement();
         $form = $this->createForm(RemboursementType::class, $remboursement);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
+
 
             $dep=$remboursementRepository->getAllDepotById($form->get('depot')->getData()->getIdDossier());
             
@@ -45,15 +61,29 @@ class RemboursementController extends AbstractController
             $remboursement->setMontantRembourse($somm);
 
             $remboursementRepository->save($remboursement, true);
+            // Après l'enregistrement du remboursement
+            $patient = $remboursement->getDepot()->getPatient();
+            $montant = $remboursement->getMontantRembourse();
+            $subject = 'Notification de remboursement';
+            $message = "Bonjour " . $patient->getNom() .$patient->getPrenom(). ",\n\nNous vous informons que le montant de votre remboursement est de " . $montant . " Dinars.\n\nCordialement,\nL'équipe de CNAM.";
+
+            $email = (new Email())
+                ->from('healthified.consultation.module@gmail.com')
+                ->to("takwa.sakouhi@esprit.tn")
+                ->subject($subject)
+                ->text($message);
+
+            $mailer->send($email);
+
             return $this->redirectToRoute('app_remboursement_index', [], Response::HTTP_SEE_OTHER);
         }
-
+       
         return $this->renderForm('remboursement/new.html.twig', [
             'remboursement' => $remboursement,
             'form' => $form,
         ]);
     }
-
+    
     #[Route('/remboursement/{id}', name: 'app_remboursement_show', methods: ['GET'])]
     public function show(Remboursement $remboursement): Response
     {

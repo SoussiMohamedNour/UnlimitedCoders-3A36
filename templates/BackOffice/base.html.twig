@@ -1,254 +1,340 @@
 <!DOCTYPE html>
-<html>
-  <head>
-    <meta charset="UTF-8">
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <title>{% block title %}Healthified Dashboard{% endblock %}</title>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8">
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+		<title>
+			{% block title %}Healthified Dashboard
+			{% endblock %}
+		</title>
 
-    <style>
-      .dropdown-toggle {
-        display: flex;
-        margin-left: auto;
-      }
-      .btn-group {
-        margin: 10px 0; /* Ajouter de la marge autour des boutons */
-      }
 
-      .afficher-btn {
-        background-color: #DAD8E3; /* Couleur de fond verte */
-        color: black; /* Couleur du texte blanc */
-        border: none; /* Supprimer la bordure */
-        padding: 5px 20px; /* Ajouter un espace autour du texte */
-        text-align: center; /* Centrer le texte */
-        text-decoration: none; /* Supprimer le soulignement */
-        display: inline-block; /* Afficher en ligne */
-        font-size: 16px; /* Taille de police de caractère */
-        margin-right: 10px; /* Ajouter une marge à droite */
-        cursor: pointer; /* Afficher un curseur pointer au survol */
-      }
+		<link href="{{ asset('images/LogoApp.png') }}" rel="shortcut icon">
+		<link href="{{ asset('images/people/avatar1.png') }}" rel="shortcut icon">
+		<link
+		href="{{ asset('css/bootstrapf9e3.css?v=1.1') }}" rel="stylesheet"/>
+		<!-- custom style -->
+		<link href="{{ asset('css/uif9e3.css?v=1.1') }}" rel="stylesheet"/>
+		<link href="{{ asset('css/responsivef9e3.css?v=1.1') }}" rel="stylesheet"/>
+		<link rel="icon" href="{{ asset('images/LogoApp2.png') }}">
+		<link href="{{ asset('css/responsivef9e3.css?v=1.1') }}" rel="stylesheet"/>
+		<link rel="stylesheet" href="{{ asset('fonts/material-icon/css/round.css') }}"/>
+		<link
+		rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 128 128%22><text y=%221.2em%22 font-size=%2296%22>⚫️</text></svg>">
+		{# Run `composer require symfony/webpack-encore-bundle` to start using Symfony UX #}
+		{% block stylesheets %}
+			{{ encore_entry_link_tags('app') }}
+			<style>
+				.btn-loope {
+					margin-top: 8px !important;
+					background-color: #FFF !important;
+					border: 1px solid #cfdbe6 !important;
+				}
+				.dropdown-toggle {
+					display: flex;
+					margin-left: auto;
+				}
+				.btn-group {
+					margin: 10px 0; /* Ajouter de la marge autour des boutons */
+				}
 
-      .modifier-btn {
-        background-color: #DAD8E3; /* Couleur de fond bleue */
-        color: black; /* Couleur du texte blanc */
-        border: none; /* Supprimer la bordure */
-        padding: 5px 20px; /* Ajouter un espace autour du texte */
-        text-align: center; /* Centrer le texte */
-        text-decoration: none; /* Supprimer le soulignement */
-        display: inline-block; /* Afficher en ligne */
-        font-size: 16px; /* Taille de police de caractère */
-        margin-right: 10px; /* Ajouter une marge à droite */
-        cursor: pointer; /* Afficher un curseur pointer au survol */
-      }
-      .supprimer-btn {
-        background-color: #FE7D33; /* Couleur de fond rouge */
-        color: black; /* Couleur du texte blanc */
-        border: none; /* Supprimer la bordure */
-        padding: 5px 20px; /* Ajouter un espace autour du texte */
-        text-align: center; /* Centrer le texte */
-        text-decoration: none; /* Supprimer le soulignement */
-        display: inline-block; /* Afficher en ligne */
-        font-size: 16px; /* Taille de police de caractère */
-        margin-right: 10px; /* Ajouter une marge à droite */
-        cursor: pointer; /* Afficher un curseur pointer au survol */
-      }
-      .ajouter-btn {
-        background-color: #8EC63F; /* Couleur de fond verte */
-        color: black; /* Couleur du texte blanc */
-        border: none; /* Supprimer la bordure */
-        padding: 5px 20px; /* Ajouter un espace autour du texte */
-        text-align: center; /* Centrer le texte */
-        text-decoration: none; /* Supprimer le soulignement */
-        display: inline-block; /* Afficher en ligne */
-        font-size: 16px; /* Taille de police de caractère */
-        margin-right: 10px; /* Ajouter une marge à droite */
-        cursor: pointer; /* Afficher un curseur pointer au survol */
-      }
-      .enregistrer-btn {
-        background-color: #8EC63F; /* Couleur de fond verte */
-        color: black; /* Couleur du texte blanc */
-        border: none; /* Supprimer la bordure */
-        padding: 5px 20px; /* Ajouter un espace autour du texte */
-        text-align: center; /* Centrer le texte */
-        text-decoration: none; /* Supprimer le soulignement */
-        display: inline-block; /* Afficher en ligne */
-        font-size: 16px; /* Taille de police de caractère */
-        margin-right: 10px; /* Ajouter une marge à droite */
-        cursor: pointer; /* Afficher un curseur pointer au survol */
-      }
-      table,
-      td, {
-          border: 1px solid #333;
-      }
+				.afficher-btn {
+					background-color: #DAD8E3; /* Couleur de fond verte */
+					color: black; /* Couleur du texte blanc */
+					border: none; /* Supprimer la bordure */
+					padding: 5px 20px; /* Ajouter un espace autour du texte */
+					text-align: center; /* Centrer le texte */
+					text-decoration: none; /* Supprimer le soulignement */
+					display: inline-block; /* Afficher en ligne */
+					font-size: 16px; /* Taille de police de caractère */
+					margin-right: 10px; /* Ajouter une marge à droite */
+					cursor: pointer; /* Afficher un curseur pointer au survol */
+				}
 
-      thead,
-      tfoot {
-          background-color: #333;
-          color: #fff;
-      }
-      form {
-        display: flex;
-        flex-direction: column;
-        max-width: 400px;
-        margin: 0;
-      }
+				.modifier-btn {
+					background-color: #DAD8E3; /* Couleur de fond bleue */
+					color: black; /* Couleur du texte blanc */
+					border: none; /* Supprimer la bordure */
+					padding: 5px 20px; /* Ajouter un espace autour du texte */
+					text-align: center; /* Centrer le texte */
+					text-decoration: none; /* Supprimer le soulignement */
+					display: inline-block; /* Afficher en ligne */
+					font-size: 16px; /* Taille de police de caractère */
+					margin-right: 10px; /* Ajouter une marge à droite */
+					cursor: pointer; /* Afficher un curseur pointer au survol */
+				}
+				.supprimer-btn {
+					background-color: #FE7D33; /* Couleur de fond rouge */
+					color: black; /* Couleur du texte blanc */
+					border: none; /* Supprimer la bordure */
+					padding: 5px 20px; /* Ajouter un espace autour du texte */
+					text-align: center; /* Centrer le texte */
+					text-decoration: none; /* Supprimer le soulignement */
+					display: inline-block; /* Afficher en ligne */
+					font-size: 16px; /* Taille de police de caractère */
+					margin-right: 10px; /* Ajouter une marge à droite */
+					cursor: pointer; /* Afficher un curseur pointer au survol */
+				}
+				.ajouter-btn {
+					background-color: #8EC63F; /* Couleur de fond verte */
+					color: black; /* Couleur du texte blanc */
+					border: none; /* Supprimer la bordure */
+					padding: 5px 20px; /* Ajouter un espace autour du texte */
+					text-align: center; /* Centrer le texte */
+					text-decoration: none; /* Supprimer le soulignement */
+					display: inline-block; /* Afficher en ligne */
+					font-size: 16px; /* Taille de police de caractère */
+					margin-right: 10px; /* Ajouter une marge à droite */
+					cursor: pointer; /* Afficher un curseur pointer au survol */
+				}
+				.enregistrer-btn {
+					background-color: #8EC63F; /* Couleur de fond verte */
+					color: black; /* Couleur du texte blanc */
+					border: none; /* Supprimer la bordure */
+					padding: 5px 20px; /* Ajouter un espace autour du texte */
+					text-align: center; /* Centrer le texte */
+					text-decoration: none; /* Supprimer le soulignement */
+					display: inline-block; /* Afficher en ligne */
+					font-size: 16px; /* Taille de police de caractère */
+					margin-right: 10px; /* Ajouter une marge à droite */
+					cursor: pointer; /* Afficher un curseur pointer au survol */
+				}
+				.padding {
+					padding: 20px;
+				}
+				form {
+					display: flex;
+					flex-direction: column;
+					max-width: 400px;
+					margin: 0;
+				}
 
-      form label {
-        font-weight: bold;
-        margin-top: 1rem;
-        width: 100%;
-      }
+				form label {
+					font-weight: bold;
+					margin-top: 1rem;
+					width: 100%;
+				}
 
-      form input, form select {
-        padding: 0.5rem;
-        border: 1px solid #ccc;
-        border-radius: 4px;
-        margin-top: 0.5rem;
-        font-size: 1rem;
-        width: 100%;
-        box-sizing: border-box;
-      }
+				form input,
+				form select {
+					padding: 0.5rem;
+					border: 1px solid #ccc;
+					border-radius: 4px;
+					margin-top: 0.5rem;
+					font-size: 1rem;
+					width: 100%;
+					box-sizing: border-box;
+				}
 
-      form button {
-        background-color: #007bff;
-        color: #fff;
-        padding: 0.5rem 1rem;
-        border-radius: 4px;
-        border: none;
-        margin-top: 1rem;
-        cursor: pointer;
-        font-size: 1rem;
-      }
+				form button {
+					background-color: #007bff;
+					color: #fff;
+					padding: 0.5rem 1rem;
+					border-radius: 4px;
+					border: none;
+					margin-top: 1rem;
+					cursor: pointer;
+					font-size: 1rem;
+				}
 
-      /* Alignement à gauche */
-      form {
-        justify-content: flex-start;
-        align-items: flex-start;
-      }
-    </style>
-    <link href="{{ asset('images/LogoApp.png') }}" rel="shortcut icon" >
-    <link href="{{ asset('css/bootstrapf9e3.css?v=1.1') }}" rel="stylesheet" />
-        <!-- custom style -->
-    <link href="{{ asset('css/uif9e3.css?v=1.1') }}" rel="stylesheet"/>
-    <link href="{{ asset('css/responsivef9e3.css?v=1.1') }}" rel="stylesheet" />
-    <link rel="icon" href="{{ asset('images/LogoApp2.png') }}">
-    <link rel="stylesheet" href="{{ asset('fonts/material-icon/css/round.css') }}"/>
-        {# Run `composer require symfony/webpack-encore-bundle` to start using Symfony UX #}
-  </head>
+				/* Alignement à gauche */
+				form {
+					justify-content: flex-start;
+					align-items: flex-start;
+				}
+			</style>
+		{% endblock %}
 
-  <body>
-    <b class="screen-overlay"></b>
-    <aside class="navbar-aside" id="offcanvas_aside">
-      <div class="aside-top">
-        <a href="index.html" class="brand-wrap">
-          <img src="{{ asset('images/LogoApp.png') }}" height="46" class="logo" alt="Healthified dashboard">
-        </a>
-      </div> 
-    <nav>
-      <ul class="menu-aside">
+		
+	</head>
+	<body>
+		<b class="screen-overlay"></b>
+		<aside class="navbar-aside" id="offcanvas_aside">
+			<div class="aside-top">
+				<a href="index.html" class="brand-wrap">
+					<img src="{{ asset('images/LogoApp.png') }}" height="46" class="logo" alt="Healthified dashboard">
+				</a>
+				<div>
+					<button class="btn btn-icon btn-aside-minimize">
+						<i class="text-muted material-icons md-menu_open"></i>
+					</button>
+				</div>
+			</div>
+			<nav>
+				<ul class="menu-aside">
 
-        <li class="menu-item"> 
-          <a class="menu-link" href="/backoffice"> <i class="icon material-icons md-home"></i> 
-            <span class="text">Acceuil</span> 
-          </a> 
-        </li>
+					<li class="menu-item">
+						<a class="menu-link" href="/backoffice">
+							<i class="icon material-icons md-home"></i>
+							<span class="text">Acceuil</span>
+						</a>
+					</li>
 
-        <li class="menu-item"> 
-          <a class="menu-link" href="/backoffice/assurance"> <i class="icon material-icons md-policy"></i> 
-            <span class="text">Assurance</span> 
-          </a> 
-          <div class="submenu">
-            <a href="/backoffice/assurance/new">Ajouter Assurance</a>
-            <a href="/backoffice/assurance/edit">Modifier Assurance</a>
-            <a href="/backoffice/assurance">Supprimer Assurance</a>
-            <a href="/backoffice/assurance">Afficher Assurance</a>
-          </div>
-        </li>
+					<li class="menu-item">
+						<a class="menu-link" href="/backoffice/assurance">
+							<i class="icon material-icons md-policy"></i>
+							<span class="text">Assurance</span>
+						</a>
+						<div class="submenu">
+							<a href="/backoffice/assurance/new">Ajouter Assurance</a>
+							<a href="/backoffice/assurance/edit">Modifier Assurance</a>
+							<a href="/backoffice/assurance">Supprimer Assurance</a>
+							<a href="/backoffice/assurance">Afficher Assurance</a>
+						</div>
+					</li>
 
-        <li class="menu-item"> 
-          <a class="menu-link" href="/backoffice/patient"> <i class="icon material-icons md-person"></i> 
-            <span class="text">Patient</span> 
-          </a> 
-          <div class="submenu">
-            <a href="/backoffice/patient/new">Ajouter Patient</a>
-            <a href="/backoffice/patient/edit">Modifier Patient</a>
-            <a href="/backoffice/patient">Supprimer Patient</a>
-            <a href="/backoffice/patient">Afficher Patient</a>
-          </div>
-        </li>
+					<li class="menu-item has-submenu">
+						<a class="menu-link" href="/backoffice/patient">
+							<i class="icon material-icons md-person"></i>
+							<span class="text">Patient</span>
+						</a>
+						<div class="submenu">
+							<a href="/backoffice/patient/new">Ajouter Patient</a>
+							<a href="/backoffice/patient/edit">Modifier Patient</a>
+							<a href="/backoffice/patient">Supprimer Patient</a>
+							<a href="/backoffice/patient">Afficher Patient</a>
+						</div>
+					</li>
 
-        <li class="menu-item"> 
-          <a class="menu-link" href="/backoffice/medicament"> <i class="icon material-icons md-medical_services"></i>
+					<li class="menu-item">
+						<a class="menu-link" href="/backoffice/medicament">
+							<i class="icon material-icons md-medical_services"></i>
 
-            <span class="text">Medicament</span> 
-          </a> 
-          <div class="submenu">
-            <a href="/backoffice/medicament/new">Ajouter Medicament</a>
-            <a href="/backoffice/medicament/edit">Modifier Medicament</a>
-            <a href="/backoffice/medicament">Supprimer Medicament</a>
-            <a href="/backoffice/medicament">Afficher Medicament</a>
-          </div>
-        </li>
+							<span class="text">Medicament</span>
+						</a>
+						<div class="submenu">
+							<a href="/backoffice/medicament/new">Ajouter Medicament</a>
+							<a href="/backoffice/medicament/edit">Modifier Medicament</a>
+							<a href="/backoffice/medicament">Supprimer Medicament</a>
+							<a href="/backoffice/medicament">Afficher Medicament</a>
+						</div>
+					</li>
 
-        <li class="menu-item"> 
-          <a class="menu-link" href="/backoffice/fiche"> <i class="icon material-icons md-insert_drive_file"></i> 
-            <span class="text">Fiche</span> 
-          </a> 
-          <div class="submenu">
-            <a href="/backoffice/fiche/new">Ajouter Fiche</a>
-            <a href="/backoffice/fiche/edit">Modifier Fiche</a>
-            <a href="/backoffice/fiche">Supprimer Fiche</a>
-            <a href="/backoffice/fiche">Afficher Fiche</a>
-          </div>
-        </li>
+					<li class="menu-item">
+						<a class="menu-link" href="/backoffice/fiche">
+							<i class="icon material-icons md-insert_drive_file"></i>
+							<span class="text">Fiche</span>
+						</a>
+						<div class="submenu">
+							<a href="/backoffice/fiche/new">Ajouter Fiche</a>
+							<a href="/backoffice/fiche/edit">Modifier Fiche</a>
+							<a href="/backoffice/fiche">Supprimer Fiche</a>
+							<a href="/backoffice/fiche">Afficher Fiche</a>
+						</div>
+					</li>
 
-        <li class="menu-item"> 
-          <a class="menu-link" href="/backoffice/depot"> <i class="icon material-icons md-folder"></i>
-            <span class="text">Depot</span> 
-          </a> 
-          <div class="submenu">
-            <a href="/backoffice/depot/new">Ajouter Depot</a>
-            <a href="/backoffice/depot/{id}/edit">Modifier Depot</a>
-            <a href="/backoffice/depot/{id}">Supprimer Depot</a>
-            <a href="/backoffice/depot/{id}">Afficher Depot</a>
-          </div>
-        </li> 
+					<li class="menu-item">
+						<a class="menu-link" href="/backoffice/depot">
+							<i class="icon material-icons md-folder"></i>
+							<span class="text">Depot</span>
+						</a>
+						<div class="submenu">
+							<a href="/backoffice/depot/new">Ajouter Depot</a>
+							<a href="/backoffice/depot/{id}/edit">Modifier Depot</a>
+							<a href="/backoffice/depot/{id}">Supprimer Depot</a>
+							<a href="/backoffice/depot/{id}">Afficher Depot</a>
+						</div>
+					</li>
 
-        <li class="menu-item"> 
-          <a class="menu-link" href="/backoffice/remboursement"> <i class="icon material-icons md-attach_money"></i> 
-            <span class="text">Remboursement</span> 
-          </a> 
-          <div class="submenu">
-            <a href="/backoffice/remboursement/new">Ajouter Remboursement</a>
-            <a href="/backoffice/remboursement/edit">Modifier Remboursement</a>
-            <a href="/backoffice/remboursement">Supprimer Remboursement</a>
-            <a href="/backoffice/remboursement">Afficher Remboursement</a>
-          </div>
-        </li><li class="menu-item"> 
-          <a class="menu-link" href="{{path('stats')}}"> <i class="icon material-icons md-bar_chart"></i> 
-            <span class="text">Statistiques</span> 
-          </a> 
-          <div class="submenu">
-          
-          </div>
-        </li>
-      </ul>
-    </nav>
-    </aside>
+					<li class="menu-item">
+						<a class="menu-link" href="/backoffice/remboursement">
+							<i class="icon material-icons md-attach_money"></i>
+							<span class="text">Remboursement</span>
+						</a>
+						<div class="submenu">
+							<a href="/backoffice/remboursement/new">Ajouter Remboursement</a>
+							<a href="/backoffice/remboursement/edit">Modifier Remboursement</a>
+							<a href="/backoffice/remboursement">Supprimer Remboursement</a>
+							<a href="/backoffice/remboursement">Afficher Remboursement</a>
+						</div>
+					</li>
+					<li class="menu-item">
+						<a class="menu-link" href="{{path('stats')}}">
+							<i class="icon material-icons md-bar_chart"></i>
+							<span class="text">Statistiques</span>
+						</a>
+						<div class="submenu"></div>
+					</li>
+				</ul>
+			</nav>
+		</aside>
+		<main class="main-wrap">
+			<header class="main-header navbar">
+				<div class="col-search">
+					<form class="searchform">
+						<div class="input-group">
+							<input list="search_terms" type="text" class="form-control" placeholder="Search term">
+							<button class="btn btn-light bg btn-loope" type="button">
+								<i class="material-icons md-search"></i>
+							</button>
+						</div>
+						<datalist id="search_terms">
+							<option value="Produits"></option>
+							<option value="Nouvelle commande"></option>
+							<option value="Apple iphone"></option>
+							<option value="Ahmed Hassan"></option>
+						</datalist>
+					</form>
+				</div>
+				<div class="col-nav">
+					<button class="btn btn-icon btn-mobile me-auto" data-trigger="#offcanvas_aside">
+						<i class="md-28 material-icons md-menu"></i>
+					</button>
+					<ul class="nav">
+						<li class="nav-item">
+							<a class="nav-link btn-icon" onclick="darkmode(this)" title="Dark mode" href="#">
+								<i class="material-icons md-nights_stay"></i>
+							</a>
+						</li>
+						<li class="nav-item">
+							<a class="nav-link btn-icon" href="#">
+								<i class="material-icons md-notifications_active"></i>
+							</a>
+						</li>
+						<li class="nav-item">
+							<a class="nav-link" href="#">
+								English
+							</a>
+						</li>
+						<li class="dropdown nav-item">
+							<a class="dropdown-toggle" data-bs-toggle="dropdown" href="#">
+								<img class="img-xs rounded-circle" src="/images/people/avatar1.jpg" alt="User"></a>
+							<div class="dropdown-menu dropdown-menu-end">
+								<a class="dropdown-item" href="#">Mon profile</a>
+								<a class="dropdown-item" href="#">Paramètres</a>
+								<a class="dropdown-item text-danger" href="#">Sortie</a>
+							</div>
+						</li>
+					</ul>
+				</div>
+			</header>
+			{% block body %}
+				<section class="content-main">
+					<div class="content-header">
+						<h1 class="h2">Dashboard</h1>
+					</div>
+				</section>
+			{% endblock %}
+		</main>
+    {% block javascripts %}
+			{{ encore_entry_script_tags('app') }}
+			<script type="text/javascript">
+				if (localStorage.getItem("darkmode")) {
+var body_el = document.body;
+body_el.className += 'dark';
+}
+			</script>
 
-    <main class="main-wrap"> 
-      <header class="main-header navbar">
-        <div class="dropdown-toggle" data-toggle="dropdown">
-          <span>Admin</span>
-          <i class="feather icon-chevron-down"></i>
-        </div>
-      </header>
+			<script src="{{ asset('js/jquery-3.5.0.min.js') }}"></script>
+			<script src="{{ asset('js/bootstrap.bundle.min.js')}}"></script>
 
-  {% block body %}
-    <h1 class="h2">Dashboard</h1>
-  {% endblock %}
-  </main>
-  
-  </body>
+			<!-- ChartJS files-->
+			<script src="https://cdn.jsdelivr.net/npm/chart.js@2.8.0"></script>
+
+			<!-- Custom JS -->
+		<script src="{{ asset('js/scriptc619.js?v=1.0') }}" type="text/javascript"></script>
+		{% endblock %}
+
+	</body>
 </html>
-    

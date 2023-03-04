@@ -3,8 +3,10 @@
 namespace App\Repository;
 
 use App\Entity\Depot;
-use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
+use App\Entity\Patient;
+use App\Entity\Remboursement;
 use Doctrine\Persistence\ManagerRegistry;
+use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 
 /**
  * @extends ServiceEntityRepository<Depot>
@@ -21,6 +23,17 @@ class DepotRepository extends ServiceEntityRepository
         parent::__construct($registry, Depot::class);
     }
 
+    public function getLatestRemboursement(Patient $patient): ?Remboursement
+    {
+        return $this->createQueryBuilder('d')
+            ->join('d.remboursements', 'r')
+            ->andWhere('d.patient = :patient')
+            ->setParameter('patient', $patient)
+            ->orderBy('r.dateRemboursement', 'DESC')
+            ->setMaxResults(1)
+            ->getQuery()
+            ->getOneOrNullResult();
+    }
     public function save(Depot $entity, bool $flush = false): void
     {
         $this->getEntityManager()->persist($entity);

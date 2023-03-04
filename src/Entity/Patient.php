@@ -40,6 +40,9 @@ class Patient
     #[ORM\OneToMany(mappedBy: 'patient', targetEntity: Depot::class)]
     private Collection $depots;
 
+    #[ORM\Column(length: 255)]
+    private ?string $email = null;
+
     public function __construct()
     {
         $this->depots = new ArrayCollection();
@@ -173,4 +176,17 @@ class Patient
     );
     return implode(' - ', $attributes);
     }
+
+    public function getEmail(): ?string
+    {
+        return $this->email;
+    }
+
+    public function setEmail(string $email): self
+    {
+        $this->email = $email;
+
+        return $this;
+    }
+    
 }

@@ -7,6 +7,8 @@ use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Validator\Constraints as Assert;
 
+
+
 #[ORM\Entity(repositoryClass: RemboursementRepository::class)]
 class Remboursement
 {
@@ -31,6 +33,7 @@ class Remboursement
     #[ORM\OneToOne(cascade: ['persist', 'remove'])]
     #[Assert\NotBlank(message:"Depot is required")]
     private ?Depot $depot = null;
+
 
     public function getId(): ?int
     {
