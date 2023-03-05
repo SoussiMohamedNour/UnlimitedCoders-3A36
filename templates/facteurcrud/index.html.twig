@@ -222,6 +222,7 @@ footer p {
                 <th>actions</th>
             </tr>
         </thead>
+        
         <tbody>
         {% for facteur in facteurs %}
             <tr>
@@ -246,7 +247,7 @@ footer p {
         {% endfor %}
         </tbody>
     </table>
-<div style = "position:relative; left:200px;bottom:700; ">
+<div style = "position:absolute; left:500px;top: 100%; ">
     <a href="{{ path('app_facteurcrud_new') }}">Create new</a></div>
     </div>
 </div></section>
