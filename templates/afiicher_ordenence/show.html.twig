@@ -119,7 +119,7 @@
         <div class="form-group" methode="GET">
             <input type="text" id="searchTerm" class="form-control" placeholder="Enter code">
         </div>
-        <button type="submit"  class="btn btn-primary">Search</button>
+        
     </form>
     <table class="table" style = "position:absolute; top: 100%; ">
         <thead>
@@ -146,7 +146,7 @@
             </tr>
         </tbody>
     </table>
-    <a style = "position:absolute; top: 220%; " class="btn btn-primary" href="{{ path('app_facteurcrud_new', {'id':entity.Consultation.idpatient})}}">remplire fiche assurence</a>
+    <a style = "position:absolute; top: 220%; " class="btn btn-primary" href="{{ path('app_facteurcrud_new', {'id':entity.Consultation.idpatient})}}">remplire facteur</a>
      
 </div>
 {% block javascripts %}
