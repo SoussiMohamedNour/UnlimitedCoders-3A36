@@ -87,6 +87,16 @@ class UserController extends AbstractController
         return $this->renderForm('404/404.html.twig',['utilisateurs'=>$utilisateur]);
     }
 
+    #[Route('/user/ban/{id}', name: 'app_routing', methods: ['GET','POST'])]
+    public function routingforban (): Response
+    {
+    
+        
+        
+        
+        return $this->renderForm('404/404.html.twig');
+    }
+
     #[Route('/user/unban/{id}', name: 'app_unban', methods: ['GET','POST'])]
     public function unban (UtilisateurRepository $utilisateurRepository,Request $request,$id): Response
     {
