@@ -35,7 +35,8 @@ class Ordonnance
     private ?Consultation $consultation = null;
 
     #[ORM\ManyToMany(targetEntity: Medicament::class, inversedBy: 'ordonnances')]
-    #[Groups('ordonnances')]
+     #[ORM\JoinColumn(nullable: false)]
+    //#[Groups('ordonnances')]
     #@Exclude()
 
     private Collection $medicaments;

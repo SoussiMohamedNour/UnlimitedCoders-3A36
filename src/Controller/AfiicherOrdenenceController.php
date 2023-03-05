@@ -26,24 +26,42 @@ class AfiicherOrdenenceController extends AbstractController
             $form->handleRequest($request);
            //initialement le tableau des articles est vide, 
            //c.a.d on affiche les articles que lorsque l'utilisateur clique sur le bouton rechercher
-           $sessions = null; 
+          
             
            if($form->isSubmitted() && $form->isValid()) {
            //on récupère le code d'article tapé dans le formulaire
            $code = $propertySearch->getcode();   
            
-         if ($code!="") 
-              //si on a fourni un code d'article on affiche tous les Ordonnance ayant ce code
-              
-              $sessions= $Ordonnance->searchByName( $code );//doctrineeeee 
-
+      
            }
           
            
           
           }
-          return  $this->render('afiicher_ordenence/index.html.twig',[ 'form' =>$form->createView(), 'sessions' => $sessions]);
+          return  $this->render('afiicher_ordenence/index.html.twig',[ 'form' =>$form->createView()]);
         }
+        #[Route('/afiicher/ordenence/show', name: 'app_afiicher_ordenence_show', methods: ['GET', 'POST'])]
+        public function show(Request $request,OrdonnanceRepository $Ordonnance): Response
+        {
+    
+            {
+    
+               // $propertySearch = new Ordonnance();
+               // $form = $this->createForm(SearchType::class,$propertySearch);
+               // $form->handleRequest($request);
+    
+                $entity = $Ordonnance->findByCode('test');
+            
+              // initialement le tableau des articles est vide, 
+               //c.a.d on affiche les articles que lorsque l'utilisateur clique sur le bouton rechercher
+               
+               //if($form->isSubmitted() && $form->isValid()) {
+               //on récupère le code d'article tapé dans le formulair     
+              
+              }
+              return $this->render('afiicher_ordenence/show.html.twig', compact('entity'));
+              
+            }
          
        //   #[Route('/afiicher/ordenence', name: 'app_afiicher_ordenence')]
 //public function search(Request $request,OrdonnanceRepository $Ordonnance,SerializerInterface $serializer): JsonResponse

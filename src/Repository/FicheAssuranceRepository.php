@@ -5,7 +5,7 @@ namespace App\Repository;
 use App\Entity\FicheAssurance;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
-
+use Doctrine\ORM\Tools\Pagination\Paginator;
 /**
  * @extends ServiceEntityRepository<FicheAssurance>
  *
@@ -60,6 +60,38 @@ class FicheAssuranceRepository extends ServiceEntityRepository
             ->getSingleResult();
     
         return $query['total_ordonnance'];
+    }
+
+    public function findProductsPaginated(int $page, int $limit = 6): array
+    {
+        $limit = abs($limit);
+
+        $result = [];
+
+        $query = $this->getEntityManager()->createQueryBuilder()
+            ->select( 'p')
+            ->from('App\Entity\FicheAssurance', 'p')
+            ->setMaxResults($limit)
+            ->setFirstResult(($page * $limit) - $limit);
+
+
+            $paginator = new Paginator($query);
+            $data = $paginator->getQuery()->getResult();
+            
+           
+            if(empty($data)){
+                return $result;
+            }
+    
+            //On calcule le nombre de pages
+            $pages = ceil($paginator->count() / $limit);
+    
+            // On remplit le tableau
+            $result['data'] = $data;
+            $result['pages'] = $pages;
+            $result['page'] = $page;
+            $result['limit'] = $limit;
+        return $result;
     }
 //    /**
 //     * @return FicheAssurance[] Returns an array of FicheAssurance objects

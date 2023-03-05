@@ -11,6 +11,7 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Mailer\MailerInterface;
 use Symfony\Component\Mime\Email;
+use Knp\Component\Pager\PaginatorInterface;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
@@ -18,11 +19,13 @@ use Symfony\Component\Routing\Annotation\Route;
 class FicheAssurancecrudController extends AbstractController
 {
     #[Route('/', name: 'app_fiche_assurancecrud_index', methods: ['GET'])]
-    public function index(FicheAssuranceRepository $ficheAssuranceRepository): Response
+    public function index(FicheAssuranceRepository $ficheAssuranceRepository, Request $request): Response
     {
-        return $this->render('fiche_assurancecrud/index.html.twig', [
-            'fiche_assurances' => $ficheAssuranceRepository->findAll(),
-        ]);
+
+        $page = $request->query->getInt('page', 2);
+        $ficheAssurances = $ficheAssuranceRepository->findProductsPaginated($page, 3);
+        return $this->render('fiche_assurancecrud/index.html.twig', compact('ficheAssurances'));
+        
     }
 
     #[Route('/statistique',name:'app_ordonnance_statistique', methods: ['GET'])]
@@ -36,6 +39,7 @@ class FicheAssurancecrudController extends AbstractController
         return $this->render('/fiche_assurancecrud/statistique.html.twig',[
             'ficheAssurance'=>json_encode($ficheAssurance),
             'ficheAssuranceé'=>json_encode($ficheAssuranceé)
+           
         ]);
 }
 
@@ -56,12 +60,13 @@ class FicheAssurancecrudController extends AbstractController
             $ficheAssuranceRepository->save($ficheAssurance, true);
             $email = (new Email())
             ->from('ahmed.ridha199@esprit.tn' )
-            ->to('ahmed.ridha199@esprit.tn')
+            ->to('mohamedridha580@gmail.com')
             ->subject('Time for Symfony Mailer!')
             ->text('Sending emails is fun again!')
-            ->html('<p>See Twig integration for better HTML integration!</p>');
+            ->html('<p>See test email</p>');
     
              $mailer->send($email);
+             
             return $this->redirectToRoute('app_fiche_assurancecrud_index', [], Response::HTTP_SEE_OTHER);
         }
        

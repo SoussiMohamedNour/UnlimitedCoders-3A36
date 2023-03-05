@@ -1,14 +1,214 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="UTF-8">
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+       
 
+        <link href="{{ asset('images/LogoApp.png') }}" rel="shortcut icon" >
 
-{% block title %}statistique.html{% endblock %}
+        <link href="{{ asset('css/bootstrapf9e3.css?v=1.1') }}" rel="stylesheet" />
+        
+        
+        <!-- custom style -->
+        <link href="{{ asset('css/uif9e3.css?v=1.1') }}" rel="stylesheet"/>
+        <link href="{{ asset('css/responsivef9e3.css?v=1.1') }}" rel="stylesheet" />
+
+        <link rel="stylesheet" href="{{ asset('fonts/material-icon/css/round.css') }}"/>
+        
+        <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 128 128%22><text y=%221.2em%22 font-size=%2296%22>⚫️</text></svg>">
+        {# Run `composer require symfony/webpack-encore-bundle` to start using Symfony UX #}
+
+    </head>
+    <body>
+        {% block body %}
+        <b class="screen-overlay"></b>
+
+        <aside class="navbar-aside" id="offcanvas_aside">
+        <div class="aside-top">
+        <a href="index.html" class="brand-wrap">
+            <img src="{{ asset('images/LogoApp.png') }}" height="46" class="logo" alt="Healthified dashboard">
+        </a>
+        <div>
+            <button class="btn btn-icon btn-aside-minimize"> <i class="text-muted material-icons md-menu_open"></i> </button>
+        </div>
+    </div> 
+    <nav>
+  <ul class="menu-aside">
+    <li class="menu-item active"> 
+      <a class="menu-link" href="index.html"> <i class="icon material-icons md-home"></i> 
+        <span class="text">Acceuil</span> 
+      </a> 
+    </li>
+   
+   
+	<li class="menu-item has-submenu"> 
+       <a class="menu-link" href="{{ path('app_afiicher_ordenence') }}"> <i class="icon material-icons md-shopping_bag"></i>  
+        <span class="text">Ordonnance</span> 
+      </a>
+      <div class="submenu">
+        <a href="/afiicher/ordenence">Afiicher Ordenence</a>
+        <a href="/facteur">Facture</a>
+        <a href="/ficheassurance">Remplir affiche assourance</a>
+      </div>
+       <li class="menu-item has-submenu"> 
+      <a class="menu-link" href="{{ path('app_facteurcrud_new') }}"> <i class="icon material-icons md-add_box"></i>  
+        <span class="text">Factures</span> 
+      </a> 
+      <div class="submenu">
+        <a href="ajouter_produits.html">Ajouter Produits</a>
+        <a href="modifier_produits.html">Modifier produits</a>
+        <a href="supprimer_produits.html">Supprimer Produits</a>
+        <a href="afficher_produits.html">Afficher Produits</a>
+        <a href="rechercher_tri_produits.html">Recherche & Tri</a>
+        <a href="statistique_produits.html">Statistiques</a>
+        <a href="mailing_boutique.html">Mailing</a>
+        <a href="pdf_Excel_boutique.html">PDF & Excel</a>
+      </div>
+    </li>
+    </li>
+   <li class="menu-item has-submenu"> 
+      <a class="menu-link" href="{{ path('app_facteurcrud_index') }}"> <i class="icon material-icons md-store"></i> 
+        <span class="text">fiche assurance</span> 
+      </a> 
+      <div class="submenu">
+        <a href="ajouter_boutiques.html">Ajouter Boutique</a>
+        <a href="modifier_boutiques.html">Modifier Boutique</a>
+        <a href="supprimer_boutiques.html">Supprimer Boutiques</a>
+        <a href="afficher_boutiques.html">Afficher Boutiques</a>
+        <a href="rechercher_tri_boutiques.html">Recherche & Tri</a>
+        <a href="statistique_boutiques.html">Statistiques</a>
+        <a href="mailing_boutique.html">Mailing</a>
+        <a href="pdf_Excel_boutique.html">PDF & Excel</a>
+		</div>
+    </li>
+   
+   
+  <hr>
+  <ul class="menu-aside">
+  <li class="menu-item"> 
+      <a class="menu-link" disabled href="{{ path('app_ordonnance_statistique') }}"> <i class="icon material-icons md-pie_chart"></i> 
+        <span class="text">Statistiques</span> 
+      </a> 
+    </li>
+    <li class="menu-item has-submenu"> 
+      <a class="menu-link" href="#"> <i class="icon material-icons md-settings"></i> 
+        <span class="text">Paramètres</span> 
+      </a>
+      <div class="submenu">
+        <a href="page-settings-1.html">Setting sample 1</a>
+        <a href="page-settings-2.html">Setting sample 2</a>
+      </div>
+    </li>
+    <li class="menu-item">
+      <a class="menu-link" href="page-0-blank.html"> <i class="icon material-icons md-local_offer"></i> 
+    <span class="text"> Starter page </span>
+      </a> 
+    </li>
+  </ul>
+  <br>
+  <br>
+</nav>
+</aside>
+<main class="main-wrap">
+	<header class="main-header navbar">
+		<div class="col-search">
+			<form class="searchform">
+				<div class="input-group">
+				  <input list="search_terms" type="text" class="form-control" placeholder="Search Ordenencer">
+				  <button class="btn btn-light bg" type="button"> <i class="material-icons md-search"></i> </button>
+				</div>
+				
+			</form>
+		</div>
+        
+		<div class="col-nav">
+     <button class="btn btn-icon btn-mobile me-auto" data-trigger="#offcanvas_aside"> <i class="md-28 material-icons md-menu"></i> </button>
+     <ul class="nav">
+      <li class="nav-item">
+          <a class="nav-link btn-icon" onclick="darkmode(this)" title="Dark mode" href="#"> <i class="material-icons md-nights_stay"></i> </a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link btn-icon" href="#"> <i class="material-icons md-notifications_active"></i> </a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="#"> English </a>
+      </li>
+      <li class="dropdown nav-item">
+        <a class="dropdown-toggle" data-bs-toggle="dropdown" href="#"> <img class="img-xs rounded-circle" src="images/people/avatar1.jpg" alt="User"></a>
+        <div class="dropdown-menu dropdown-menu-end">
+          <a class="dropdown-item" href="#">Mon profile</a>
+          <a class="dropdown-item" href="#">Paramètres</a>
+          <a class="dropdown-item text-danger" href="#">Sortie</a>
+        </div>
+      </li>
+    </ul> 
+  </div>
+  
+	</header>
+</main>
+<script type="text/javascript">
+	if(localStorage.getItem("darkmode")){
+		var body_el = document.body;
+		body_el.className += 'dark';
+	}
+</script>
+
+<script src="{{ asset('js/jquery-3.5.0.min.js') }}"></script>
+<script src="{{ asset('js/bootstrap.bundle.min.js')}}"></script>
+
+<!-- ChartJS files-->
+<script src="https://cdn.jsdelivr.net/npm/chart.js@2.8.0"></script>
+
+<!-- Custom JS -->
+<script src="js/scriptc619.js?v=1.0" type="text/javascript"></script>
+
+<!-- ChartJS customize-->
+<script>
+	var ctx = document.getElementById('myChart').getContext('2d');
+	var chart = new Chart(ctx, {
+	    // The type of chart we want to create
+	    type: 'line',
+
+	    // The data for our dataset
+	    data: {
+	        labels: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'],
+	        datasets: [
+	        {
+	            label: 'Sales',
+	            backgroundColor: 'rgb(44, 120, 220)',
+	            borderColor: 'rgb(44, 120, 220)',
+	            data: [18, 17, 4, 3, 2, 20, 25, 31, 25, 22, 20, 9]
+	        },
+	        {
+	            label: 'Visitors',
+	            backgroundColor: 'rgb(180, 200, 230)',
+	            borderColor: 'rgb(180, 200, 230)',
+	            data: [40, 20, 17, 9, 23, 35, 39, 30, 34, 25, 27, 17]
+	        } 
+
+	        ]
+	    },
+
+	    // Configuration options go here
+	    options: {}
+	});
+</script>
+
+        {% endblock %}
+    </body>
+</html>
+
+{% block title %}{% endblock %}
 {% block stylesheets %}
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.3/Chart.min.css" integrity="sha512-/zs32ZEJh+/EO2N1b0PEdoA10JkdC3zJ8L5FTiQu82LR9S/rOQNfQN7U59U9BC12swNeRAz3HSzIL2vpp4fv3w==" crossorigin="anonymous">
 {% endblock %}
 {% block section %}
-    <div class="container">
-    <h1>Statistiques</h1>
+    <div class="container"  >
+    <h1 style =  "position:relative; left:560px;">Statistiques</h1>
     <canvas id="categories" width="400" height="100"></canvas>
-   {{ dump(ficheAssuranceé) }}
+   
     
 </div>
 {% endblock %}
@@ -20,7 +220,7 @@
     let categGraph = new Chart(categories, {
         type: "pie",
         data: {
-             labels: ['Red', 'Blue'],
+             labels: ['CNAM', 'CINASAS'],
       datasets: [{
         label: '# of Votes',
         data: [{{ ficheAssurance|raw }},{{ ficheAssuranceé|raw }}],

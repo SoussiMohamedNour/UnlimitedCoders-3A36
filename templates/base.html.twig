@@ -52,19 +52,53 @@
    
    
 	<li class="menu-item has-submenu"> 
-      <a class="menu-link" href="ajouter_factures.html"> <i class="icon material-icons md-shopping_bag"></i>  
-        <span class="text">Factures</span> 
+      <a class="menu-link" href="{{ path('app_afiicher_ordenence') }}"> <i class="icon material-icons md-shopping_bag"></i>  
+        <span class="text">Ordonnance</span> 
       </a> 
       <div class="submenu">
         <a href="/afiicher/ordenence">Afiicher Ordenence</a>
         <a href="/facteur">Facture</a>
         <a href="/ficheassurance">Remplir affiche assourance</a>
       </div>
+    <li class="menu-item has-submenu"> 
+      <a class="menu-link" href="{{ path('app_facteurcrud_new') }}"> <i class="icon material-icons md-add_box"></i>  
+        <span class="text">Factures</span> 
+      </a> 
+      <div class="submenu">
+        <a href="ajouter_produits.html">Ajouter Produits</a>
+        <a href="modifier_produits.html">Modifier produits</a>
+        <a href="supprimer_produits.html">Supprimer Produits</a>
+        <a href="afficher_produits.html">Afficher Produits</a>
+        <a href="rechercher_tri_produits.html">Recherche & Tri</a>
+        <a href="statistique_produits.html">Statistiques</a>
+        <a href="mailing_boutique.html">Mailing</a>
+        <a href="pdf_Excel_boutique.html">PDF & Excel</a>
+      </div>
+    </li>
+     <li class="menu-item has-submenu"> 
+      <a class="menu-link" href="{{ path('app_facteurcrud_index') }}"> <i class="icon material-icons md-store"></i> 
+        <span class="text">fiche assurance</span> 
+      </a> 
+      <div class="submenu">
+        <a href="ajouter_boutiques.html">Ajouter Boutique</a>
+        <a href="modifier_boutiques.html">Modifier Boutique</a>
+        <a href="supprimer_boutiques.html">Supprimer Boutiques</a>
+        <a href="afficher_boutiques.html">Afficher Boutiques</a>
+        <a href="rechercher_tri_boutiques.html">Recherche & Tri</a>
+        <a href="statistique_boutiques.html">Statistiques</a>
+        <a href="mailing_boutique.html">Mailing</a>
+        <a href="pdf_Excel_boutique.html">PDF & Excel</a>
+		</div>
     </li>
    
    
   <hr>
   <ul class="menu-aside">
+  <li class="menu-item"> 
+      <a class="menu-link" disabled href="{{ path('app_ordonnance_statistique') }}"> <i class="icon material-icons md-pie_chart"></i> 
+        <span class="text">Statistiques</span> 
+      </a> 
+    </li>
     <li class="menu-item has-submenu"> 
       <a class="menu-link" href="#"> <i class="icon material-icons md-settings"></i> 
         <span class="text">Paramètres</span> 

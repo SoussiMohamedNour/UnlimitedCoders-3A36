@@ -198,16 +198,105 @@ footer p {
     display: inline-block;
 }
 
+h1{
+  font-size: 30px;
+  color: #fff;
+  text-transform: uppercase;
+  font-weight: 300;
+  text-align: center;
+  margin-bottom: 15px;
+}
+table{
+  width:100%;
+  table-layout: fixed;
+}
+.tbl-header{
+  background-color: rgba(255,255,255,0.3);
+ }
+.tbl-content{
+  height:300px;
+  overflow-x:auto;
+  margin-top: 0px;
+  border: 1px solid rgba(255,255,255,0.3);
+}
+th{
+  padding: 20px 15px;
+  text-align: left;
+  font-weight: 500;
+  font-size: 12px;
+  color: #fff;
+  text-transform: uppercase;
+}
+td{
+  padding: 15px;
+  text-align: left;
+  vertical-align:middle;
+  font-weight: 300;
+  font-size: 12px;
+  color: #fff;
+  border-bottom: solid 1px rgba(255,255,255,0.1);
+}
 
+
+/* demo styles */
+
+@import url(https://fonts.googleapis.com/css?family=Roboto:400,500,300,700);
+body{
+  background: -webkit-linear-gradient(left, #25c481, #25b7c4);
+  background: linear-gradient(to right, #25c481, #25b7c4);
+  font-family: 'Roboto', sans-serif;
+}
+section{
+  margin: 50px;
+}
+
+
+/* follow me template */
+.made-with-love {
+  margin-top: 40px;
+  padding: 10px;
+  clear: left;
+  text-align: center;
+  font-size: 10px;
+  font-family: arial;
+  color: #fff;
+}
+.made-with-love i {
+  font-style: normal;
+  color: #F50057;
+  font-size: 14px;
+  position: relative;
+  top: 2px;
+}
+.made-with-love a {
+  color: #fff;
+  text-decoration: none;
+}
+.made-with-love a:hover {
+  text-decoration: underline;
+}
+
+
+/* for custom scrollbar for webkit browser*/
+
+::-webkit-scrollbar {
+    width: 6px;
+} 
+::-webkit-scrollbar-track {
+    -webkit-box-shadow: inset 0 0 6px rgba(0,0,0,0.3); 
+} 
+::-webkit-scrollbar-thumb {
+    -webkit-box-shadow: inset 0 0 6px rgba(0,0,0,0.3); 
+}
 
 
     </style>{% endblock %}
 {% block section %}
     <h1 style = "position:relative; left:500px; ">FicheAssurance index</h1>
 <div  style = "position:relative; left:20px; top:100px;">
-<div class="p-5">
+<div class="p-5" class="tbl-header">
             <section class="top-content bb d-flex justify-content-between">
-    <table class="table" class="my-5 page" size="A4" style = "position:relative; left:200px; ">
+    <table class="table" class="my-5 page" size="A4" style = "position:relative; left:200px; " >
         <thead>
             <tr>
                 <th>Id</th>
@@ -225,7 +314,7 @@ footer p {
             </tr>
         </thead>
         <tbody>
-        {% for fiche_assurance in fiche_assurances %}
+        {% for fiche_assurance in ficheAssurances.data %}
             <tr>
                 <td>{{ fiche_assurance.id }}</td>
                 <td>{{ fiche_assurance.CIN }}</td>
@@ -248,8 +337,44 @@ footer p {
                 <td colspan="12">no records found</td>
             </tr>
         {% endfor %}
+       
         </tbody>
     </table>
 
+    {% set path = 'app_fiche_assurancecrud_index' %}
+    {% set pages = ficheAssurances.pages %}
+    {% set currentPage = ficheAssurances.page %}
+  {% if ficheAssurances.pages > 1 %}
+        <nav aria-label="Page navigation example" style = "position:absolute; left:500px;top: 100%; ">
+  <ul class="pagination">
+  {% if currentPage > 1 %}
+       {% endif %}
+       {% if currentPage > 1 %}
+                <li class="page-item">
+                    <a href="{{ path(path, { page: currentPage - 1}) }}" class="page-link">Previous</a>
+                </li>
+            {% else %}
+                <li class="page-item disabled">
+                    <a class="page-link">Previous</a>    
+                </li>
+            {% endif %} {% for page in 1..pages %}
+                <li class="page-item {{ (page == currentPage) ? 'active' : '' }}">
+                    <a href="{{ path(path, { page: page}) }}" class="page-link">{{ page }}</a>
+                </li>
+            {% endfor %}
+                {% if currentPage < pages %}
+                    <li class="page-item">
+                        <a href="{{ path(path, { page: currentPage + 1}) }}" class="page-link">Next</a>
+                    </li>
+                {% else %}
+                    <li class="page-item disabled">
+                        <a class="page-link">Next</a>    
+                    </li>
+                {% endif %}
+            </li>
+        </ul>
+    </nav>
+   
+ {% endif %}
 </div></section>
 {% endblock %}

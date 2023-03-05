@@ -1,232 +1,243 @@
-{% extends 'base.html.twig' %}
-{% block style %}
-    <style>
-    
-    :root {
-    ---bg: rgb(204, 204, 204);
-    --white: #ffffff;
-    --darkWhite: #ccc;
-    --black: #000000;
-    --dark: #615c60;
-    --themeColor: #22b8d1;
-    --pageShadow: 0 0 0.5cm rgba(0, 0, 0, 0.5);
-}
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="UTF-8">
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+        <title>{% block title %}Healthified Dashboard{% endblock %}</title>
 
-/* Font Include */
-@import url('https://fonts.googleapis.com/css2?family=Rajdhani:wght@600&display=swap');
+        <link href="{{ asset('images/LogoApp.png') }}" rel="shortcut icon" >
 
-section {
-    background-color: var(--body-bg);
-}
+        <link href="{{ asset('css/bootstrapf9e3.css?v=1.1') }}" rel="stylesheet" />
+        
+        
+        <!-- custom style -->
+        <link href="{{ asset('css/uif9e3.css?v=1.1') }}" rel="stylesheet"/>
+        <link href="{{ asset('css/responsivef9e3.css?v=1.1') }}" rel="stylesheet" />
 
-.page {
-    background: var(--white);
-    display: block;
-    margin: 0 auto;
-    position: relative;
-    box-shadow: var(--pageShadow);
-}
+        <link rel="stylesheet" href="{{ asset('fonts/material-icon/css/round.css') }}"/>
+        
+        <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 128 128%22><text y=%221.2em%22 font-size=%2296%22>⚫️</text></svg>">
+        {# Run `composer require symfony/webpack-encore-bundle` to start using Symfony UX #}
 
-.page[size="A4"] {
-    width: 21cm;
-    height: 29.7cm;
-    overflow: hidden;
-}
+        {% block stylesheets %}
+            {{ encore_entry_link_tags('app') }}
+        {% endblock %}
 
-.bb {
-    border-bottom: 3px solid var(--darkWhite);
-}
+       
+    </head>
+    <body>
+        {% block body %}
+        <b class="screen-overlay"></b>
 
-/* Top Section */
-.top-content {
-    padding-bottom: 15px;
-}
-
-.logo img {
-    height: 60px;
-}
-
-.top-left p {
-    margin: 0;
-}
-
-.top-left .graphic-path {
-    height: 40px;
-    position: relative;
-}
-
-.top-left .graphic-path::before {
-    content: "";
-    height: 20px;
-    background-color: var(--dark);
-    position: absolute;
-    left: 15px;
-    right: 0;
-    top: -15px;
-    z-index: 2;
-}
-
-.top-left .graphic-path::after {
-    content: "";
-    height: 22px;
-    width: 17px;
-    background: var(--black);
-    position: absolute;
-    top: -13px;
-    left: 6px;
-    transform: rotate(45deg);
-}
-
-.top-left .graphic-path p {
-    color: var(--white);
-    height: 40px;
-    left: 0;
-    right: -100px;
-    text-transform: uppercase;
-    background-color: var(--themeColor);
-    font: 26px;
-    z-index: 3;
-    position: absolute;
-    padding-left: 10px;
-}
-
-/* User Store Section */
-.store-user {
-    padding-bottom: 25px;
-}
-
-.store-user p {
-    margin: 0;
-    font-weight: 600;
-}
-
-.store-user .address {
-    font-weight: 400;
-}
-
-.store-user h2 {
-    color: var(--themeColor);
-    font-family: 'Rajdhani', sans-serif;
-}
-
-.extra-info p span {
-    font-weight: 400;
-}
-
-/* Product Section */
-thead {
-    color: var(--white);
-    background: var(--themeColor);
-}
-
-.table td,
-.table th {
-    text-align: center;
-    vertical-align: middle;
-}
-
-tr th:first-child,
-tr td:first-child {
-    text-align: left;
-}
-
-.media img {
-    height: 60px;
-    width: 60px;
-}
-
-.media p {
-    font-weight: 400;
-    margin: 0;
-}
-
-.media p.title {
-    font-weight: 600;
-}
-
-/* Balance Info Section */
-.balance-info .table td,
-.balance-info .table th {
-    padding: 0;
-    border: 0;
-}
-
-.balance-info tr td:first-child {
-    font-weight: 600;
-}
-
-tfoot {
-    border-top: 2px solid var(--darkWhite);
-}
-
-tfoot td {
-    font-weight: 600;
-}
-
-/* Cart BG */
-.cart-bg {
-    height: 250px;
-    bottom: 32px;
-    left: -40px;
-    opacity: 0.3;
-    position: absolute;
-}
-
-/* Footer Section */
-footer {
-    text-align: center;
-    position: absolute;
-    bottom: 30px;
-    left: 75px;
-}
-
-footer hr {
-    margin-bottom: -22px;
-    border-top: 3px solid var(--darkWhite);
-}
-
-footer a {
-    color: var(--themeColor);
-}
-
-footer p {
-    padding: 6px;
-    border: 3px solid var(--darkWhite);
-    background-color: var(--white);
-    display: inline-block;
-}
-
-
-
-
-    </style>{% endblock %}
-{% block title %}Facteur{% endblock %}
-
-{% block section %}
-    <h1 style = "position:relative; left:500px; ">Facteur</h1>
-<div  style = "position:relative; left:20px; top:100px;">
-<div class="p-5">
-            <section class="top-content bb d-flex justify-content-between">
-    <table class="table"  class="my-5 page" size="A4" style = "position:relative; left:200px; ">
-        <tbody>
+        <aside class="navbar-aside" id="offcanvas_aside">
+        <div class="aside-top">
+        <a href="index.html" class="brand-wrap">
+            <img src="{{ asset('images/LogoApp.png') }}" height="46" class="logo" alt="Healthified dashboard">
+        </a>
+        <div>
+            <button class="btn btn-icon btn-aside-minimize"> <i class="text-muted material-icons md-menu_open"></i> </button>
+        </div>
+    </div> 
+    <nav>
+  <ul class="menu-aside">
+    <li class="menu-item active"> 
+      <a class="menu-link" href="index.html"> <i class="icon material-icons md-home"></i> 
+        <span class="text">Acceuil</span> 
+      </a> 
+    </li>
+   
+   
+	<li class="menu-item has-submenu"> 
+      <a class="menu-link" href="facteur/index.html.twig"> <i class="icon material-icons md-shopping_bag"></i>  
+        <span class="text">Factures</span> 
+      </a> 
+      <div class="submenu">
+        <a href="/afiicher/ordenence">Afiicher Ordenence</a>
+        <a href="/facteur">Facture</a>
+        <a href="/ficheassurance">Remplir affiche assourance</a>
+      </div>
+    </li>
+   
+   
+  <hr>
+  <ul class="menu-aside">
+    <li class="menu-item has-submenu"> 
+      <a class="menu-link" href="#"> <i class="icon material-icons md-settings"></i> 
+        <span class="text">Paramètres</span> 
+      </a>
+      <div class="submenu">
+        <a href="page-settings-1.html">Setting sample 1</a>
+        <a href="page-settings-2.html">Setting sample 2</a>
+      </div>
+    </li>
+    <li class="menu-item">
+      <a class="menu-link" href="page-0-blank.html"> <i class="icon material-icons md-local_offer"></i> 
+    <span class="text"> Starter page </span>
+      </a> 
+    </li>
+  </ul>
+  <br>
+  <br>
+</nav>
+</aside>
+<main class="main-wrap">
+	<header class="main-header navbar">
+		<div class="col-search">
+   <div class="container">
+    <form id="search">
+        <div class="form-group" methode="GET">
+            <input type="text" id="searchTerm" class="form-control" placeholder="Enter code">
+        </div>
+        <button type="submit"  class="btn btn-primary">Search</button>
+    </form>
+    <table class="table">
+        <thead>
             <tr>
                 <th>Id</th>
-                <td>{{ Ordonnance.validite}}</td>
+                <th>Title</th>
+                <th>Title</th>
             </tr>
-            <tr>
-                <th>Cin</th>
-                <td>{{ Ordonnance.medicaments }}</td>
+            
+        </thead>
+        <tbody >
+<div id="table-body"></div>
+<tr>
+                <th>{{ entity.validite }}</th>
+                <th>{{ entity.code }}</th>
+                 {% for m in entity.medicaments  %}
+                        <li>
+                        {{ m.nom }}
+                        {{ m.prix }}
+                        </li>
+                        {% endfor %}
+               
             </tr>
-            <tr>
-                <th>Nom</th>
-                <td>{{ Ordonnance.code}}</td>
-            </tr>
-           
         </tbody>
     </table>
 </div>
-</div></section>
-<div style = "position:relative; left:400px; ">
-    <a href="{{ path('app_facteurcrud_index') }}">back to list</a>
+{% block javascripts %}
+<script>
+jQuery(document).ready(function() {
+        $('#search').submit(function(event) {
+            event.preventDefault();
+            console.log("error");
+            
+            search();});
+        function search() {
+            var $code = $('input[name=searchTerm]').val();
+            var $searchResults = $('#table-body');
+            $searchResults.empty();
+            $.ajax({
+                type: 'GET',
+                url: '/afiicher/ordenence',
+                data: { code: $code },
+                success: function(response) {
+                    if (response.entity.length === 0) {
+                        // Display message if no sessions were found
+                        $searchResults.html('<tr><td colspan="2">No sessions were found with that name.</td></tr>');
+                    } else {
+                        // Display session data in table
+                        var tableRows = '';
+                        $.each(response.entity, function(index, entity) {
+                            tableRows += '<tr><td>' + entity.validite + '</td><td>' + entity.code + '</td></tr>';
+                        });
+                        $searchResults.html(tableRows);
+                    }
+                },
+                error: function(xhr, status, error) {
+                    console.log(error);
+                }
+            });
+        }
+    });
+</script>{% endblock %}
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.1.1/jquery.min.js%22%3E"</script>
     
+    
+    
+   
+		</div>
+        
+		<div class="col-nav">
+     <button class="btn btn-icon btn-mobile me-auto" data-trigger="#offcanvas_aside"> <i class="md-28 material-icons md-menu"></i> </button>
+     <ul class="nav">
+      <li class="nav-item">
+          <a class="nav-link btn-icon" onclick="darkmode(this)" title="Dark mode" href="#"> <i class="material-icons md-nights_stay"></i> </a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link btn-icon" href="#"> <i class="material-icons md-notifications_active"></i> </a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="#"> English </a>
+      </li>
+      <li class="dropdown nav-item">
+        <a class="dropdown-toggle" data-bs-toggle="dropdown" href="#"> <img class="img-xs rounded-circle" src="images/people/avatar1.jpg" alt="User"></a>
+        <div class="dropdown-menu dropdown-menu-end">
+          <a class="dropdown-item" href="#">Mon profile</a>
+          <a class="dropdown-item" href="#">Paramètres</a>
+          <a class="dropdown-item text-danger" href="#">Sortie</a>
+        </div>
+      </li>
+    </ul> 
+  </div>
+  
+	</header>
+</main>
+<script type="text/javascript">
+	if(localStorage.getItem("darkmode")){
+		var body_el = document.body;
+		body_el.className += 'dark';
+	}
+</script>
+
+<script src="{{ asset('js/jquery-3.5.0.min.js') }}"></script>
+<script src="{{ asset('js/bootstrap.bundle.min.js')}}"></script>
+
+<!-- ChartJS files-->
+<script src="https://cdn.jsdelivr.net/npm/chart.js@2.8.0"></script>
+
+<!-- Custom JS -->
+<script src="js/scriptc619.js?v=1.0" type="text/javascript"></script>
+
+<!-- ChartJS customize-->
+<script>
+	var ctx = document.getElementById('myChart').getContext('2d');
+	var chart = new Chart(ctx, {
+	    // The type of chart we want to create
+	    type: 'line',
+
+	    // The data for our dataset
+	    data: {
+	        labels: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'],
+	        datasets: [
+	        {
+	            label: 'Sales',
+	            backgroundColor: 'rgb(44, 120, 220)',
+	            borderColor: 'rgb(44, 120, 220)',
+	            data: [18, 17, 4, 3, 2, 20, 25, 31, 25, 22, 20, 9]
+	        },
+	        {
+	            label: 'Visitors',
+	            backgroundColor: 'rgb(180, 200, 230)',
+	            borderColor: 'rgb(180, 200, 230)',
+	            data: [40, 20, 17, 9, 23, 35, 39, 30, 34, 25, 27, 17]
+	        } 
+
+	        ]
+	    },
+
+	    // Configuration options go here
+	    options: {}
+	});
+</script>
+
+     
+
+
+
+
 {% endblock %}
+
+ </body>
+</html>

@@ -21,13 +21,21 @@ class OrdonnanceRepository extends ServiceEntityRepository
         parent::__construct($registry, Ordonnance::class);
     }
 
-
+    public function findByCode(string $code): ?Ordonnance
+    {
+        return $this->createQueryBuilder('e')
+            ->andWhere('e.code = :code')
+            ->setParameter('code', $code)
+            ->getQuery()
+            ->getOneOrNullResult();
+            
+    }
     
     public function searchByName(string $code)
     {
         $qb = $this->createQueryBuilder('s')
             ->where('s.code LIKE :code')
-            ->setParameter('code', '%'.$code.'%')
+            ->setParameter('code', $code)
             ->getQuery();
 
         return $qb->execute();
