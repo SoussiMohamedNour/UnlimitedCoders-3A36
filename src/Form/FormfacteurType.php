@@ -16,7 +16,6 @@ class FormfacteurType extends AbstractType
             ->add('nom')
             ->add('prenom')
             ->add('id_patient')
-            ->add('id_medicament')
             ->add('nom_med')
             ->add('dosage')
             ->add('prix')

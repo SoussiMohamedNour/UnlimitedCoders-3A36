@@ -31,7 +31,7 @@ class Facteur
     #[ORM\Column(nullable: true)]
     private ?int $id_patient = null;
 
-    #[Assert\NotBlank(message:"id medicament is required")]
+    
     #[ORM\Column(nullable: true)]
     private ?int $id_medicament = null;
 

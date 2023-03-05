@@ -53,7 +53,7 @@
         <span class="text">Ordonnance</span> 
       </a> 
      <li class="menu-item has-submenu"> 
-      <a class="menu-link" href="{{ path('app_facteurcrud_new') }}"> <i class="icon material-icons md-add_box"></i>  
+      <a class="menu-link" href="{{ path('app_facteurcrud_index') }}"> <i class="icon material-icons md-add_box"></i>  
         <span class="text">Factures</span> 
       </a> 
       <div class="submenu">
@@ -118,10 +118,10 @@
    <header class="main-header navbar">
 		<div class="col-search">
        {{ form_start(form, {'attr': {'class': 'searchform'}}) }}
-
-<div class="input-group">
+    <div class="input-group">
     {{ form_widget(form.code, {'attr': {'class': 'form-control'}}) }}
-    <a id="searchLink" class="btn btn-primary" href="{{ path('app_afiicher_ordenence_show', {'id': ''}) }}">show</a>
+   <button class="btn btn-primary">{{ button_label|default('remplire ') }}</button>
+  
 </div>
 
 {{ form_end(form) }}

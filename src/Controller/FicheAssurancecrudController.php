@@ -48,10 +48,12 @@ class FicheAssurancecrudController extends AbstractController
     {
         $cin= $request->query->get('cin', '');
         $nom = $request->query->get('nom', '');
+        $prenom = $request->query->get('prenom', '');
         $ficheAssurance = new FicheAssurance();
         $form = $this->createForm(FicheAssuranceType::class, $ficheAssurance, [
             'cin' => $cin,
             'nom' => $nom,
+            'prenom' => $prenom,
          ]); 
 
         $form->handleRequest($request);
@@ -61,7 +63,7 @@ class FicheAssurancecrudController extends AbstractController
             $email = (new Email())
             ->from('ahmed.ridha199@esprit.tn' )
             ->to('mohamedridha580@gmail.com')
-            ->subject('Time for Symfony Mailer!')
+            ->subject('une fiche assurence')
             ->text('Sending emails is fun again!')
             ->html('<p>See test email</p>');
     

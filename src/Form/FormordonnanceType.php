@@ -23,6 +23,7 @@ class FormordonnanceType extends AbstractType
     {
         $resolver->setDefaults([
             'data_class' => Ordonnance::class,
+            'code' => null, // add default value for the option
         ]);
     }
 }

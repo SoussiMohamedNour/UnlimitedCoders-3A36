@@ -5,7 +5,9 @@ namespace App\Controller;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use App\Entity\Consultation;
 use App\Entity\Ordonnance;
+use App\Entity\Medicament;
 use App\Form\SearchType;
 use App\Repository\OrdonnanceRepository;
 use Symfony\Component\HttpFoundation\Request;
@@ -22,15 +24,22 @@ class AfiicherOrdenenceController extends AbstractController
 
         {
             $propertySearch = new Ordonnance();
+            $code= $request->query->get('code', '');
             $form = $this->createForm(SearchType::class,$propertySearch);
             $form->handleRequest($request);
            //initialement le tableau des articles est vide, 
            //c.a.d on affiche les articles que lorsque l'utilisateur clique sur le bouton rechercher
-          
+
+         
             
-           if($form->isSubmitted() && $form->isValid()) {
+           if($form->isSubmitted()) {
            //on récupère le code d'article tapé dans le formulaire
-           $code = $propertySearch->getcode();   
+           $code = $propertySearch->getcode();
+           return $this->redirectToRoute('app_afiicher_ordenence_show' , [
+            'code' => $code,
+     
+        ]);
+          
            
       
            }
@@ -49,9 +58,10 @@ class AfiicherOrdenenceController extends AbstractController
                // $propertySearch = new Ordonnance();
                // $form = $this->createForm(SearchType::class,$propertySearch);
                // $form->handleRequest($request);
-    
-                $entity = $Ordonnance->findByCode('test');
-            
+               $code= $request->query->get('code', '');
+                $entity = $Ordonnance->findByCode($code);
+                $Ordonnance = new Ordonnance();
+                
               // initialement le tableau des articles est vide, 
                //c.a.d on affiche les articles que lorsque l'utilisateur clique sur le bouton rechercher
                

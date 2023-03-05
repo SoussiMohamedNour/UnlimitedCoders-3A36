@@ -5,7 +5,7 @@ namespace App\Repository;
 use App\Entity\Facteur;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
-
+use Doctrine\ORM\Tools\Pagination\Paginator;
 /**
  * @extends ServiceEntityRepository<Facteur>
  *
@@ -38,7 +38,37 @@ class FacteurRepository extends ServiceEntityRepository
             $this->getEntityManager()->flush();
         }
     }
+    public function findProductsPaginated(int $page, int $limit = 6): array
+    {
+        $limit = abs($limit);
 
+        $result = [];
+
+        $query = $this->getEntityManager()->createQueryBuilder()
+            ->select( 'p')
+            ->from('App\Entity\Facteur', 'p')
+            ->setMaxResults($limit)
+            ->setFirstResult(($page * $limit) - $limit);
+
+
+            $paginator = new Paginator($query);
+            $data = $paginator->getQuery()->getResult();
+            
+           
+            if(empty($data)){
+                return $result;
+            }
+    
+            //On calcule le nombre de pages
+            $pages = ceil($paginator->count() / $limit);
+    
+            // On remplit le tableau
+            $result['data'] = $data;
+            $result['pages'] = $pages;
+            $result['page'] = $page;
+            $result['limit'] = $limit;
+        return $result;
+    }
 //    /**
 //     * @return Facteur[] Returns an array of Facteur objects
 //     */

@@ -17,7 +17,7 @@ class Medicament
     #[ORM\GeneratedValue]
     #[ORM\Column(name:'id',type:'integer')]
     #[Groups('medicaments')]
-    #[Assert\NotBlank(message:"Identifiant est un champs obligatoire")]
+    
     private ?int $id = null;
 
     #[ORM\Column(length: 255)]

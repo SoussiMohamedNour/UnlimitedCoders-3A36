@@ -18,7 +18,9 @@ class FicheAssuranceType extends AbstractType
             ->add('nom',TextType::class, [
                
                 'data' => $options['nom']])
-            ->add('prenom')
+            ->add('prenom',TextType::class, [
+               
+                'data' => $options['prenom']])
             ->add('addresse')
             ->add('matricule_cnam')
             ->add('matricule_fiscal')
@@ -35,6 +37,7 @@ class FicheAssuranceType extends AbstractType
             'data_class' => FicheAssurance::class,
             'nom' => null, // add default value for the option
             'cin' => null, // add default value for the option
+            'prenom' => null, // add default value for the option
         ]);
     }
 }

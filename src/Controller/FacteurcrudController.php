@@ -14,27 +14,35 @@ use Symfony\Component\Routing\Annotation\Route;
 class FacteurcrudController extends AbstractController
 {
     #[Route('/', name: 'app_facteurcrud_index', methods: ['GET'])]
-    public function index(FacteurRepository $facteurRepository): Response
+    public function index(FacteurRepository $facteurRepository, Request $request): Response
     {
-        return $this->render('facteurcrud/index.html.twig', [
-            'facteurs' => $facteurRepository->findAll(),
-        ]);
+        $page = $request->query->getInt('page', 2);
+        $facteurs= $facteurRepository->findProductsPaginated($page, 7);
+       
+        return $this->render('facteurcrud/index.html.twig', compact('facteurs'));
     }
 
     #[Route('/new', name: 'app_facteurcrud_new', methods: ['GET', 'POST'])]
     public function new(Request $request, FacteurRepository $facteurRepository): Response
     {
         $facteur = new Facteur();
-        $form = $this->createForm(FacteurType::class, $facteur);
+        $id= $request->query->get('id', '');
+        $nom= $request->query->get('nom', '');
+        $form = $this->createForm(FacteurType::class, $facteur, [
+            'id' => $id,
+         ]);
         $form->handleRequest($request);
-
+        
         if ($form->isSubmitted() && $form->isValid()) {
             $facteurRepository->save($facteur, true);
             $nom = $facteur->getnom();
             $cin = $facteur->getCin();
+            $prenom = $facteur->getPrenom();
             return $this->redirectToRoute('app_fiche_assurancecrud_new', [
                 'cin' => $cin,
-                'nom' => $nom
+                'nom' => $nom,
+                'prenom' => $prenom,
+                
                 
             ]);
         }
