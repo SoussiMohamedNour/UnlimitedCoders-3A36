@@ -31,12 +31,12 @@ class RegistrationFormType extends AbstractType
             ->add('age',IntegerType::class,['attr'=>['class' => 'form-input','placeholder'=>"Specifier votre Age"]])
             ->add('cin',TextType::class,['attr'=>['class' => 'form-input','placeholder'=>"Saisir votre CIN"]])
             ->add('numtel',TextType::class,['attr'=>['class' => 'form-input','placeholder'=>"Saisir Votre Numero de telephone"]])
-            ->add('imageFile', VichImageType::class, [
-                'label' => 'Image (JPG or PNG)',
-                'allow_delete' => true,
-                'download_uri' => false,
+            // ->add('imageFile', VichImageType::class, [
+            //     'label' => 'Image (JPG or PNG)',
+            //     'allow_delete' => true,
+            //     'download_uri' => false,
     
-            ])  
+            // ])  
              ->add('plainPassword', PasswordType::class, [
                     // instead of being set onto the object directly,
                     // this is read and encoded in the controller

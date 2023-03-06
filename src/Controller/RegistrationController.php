@@ -67,7 +67,6 @@ class RegistrationController extends AbstractController
     public function verifyUserEmail(Request $request, TranslatorInterface $translator, UtilisateurRepository $utilisateurRepository): Response
     {
         $id = $request->get('id');
-        // 
 
         if (null === $id) {
             return $this->redirectToRoute('app_login');
