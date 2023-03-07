@@ -38,27 +38,5 @@ class LoginController extends AbstractController
             ]);
        
     }
-
-
-//     #[Route('/reset-password',name:'app_resetpw')]
-//     public function sendMail(MailerInterface $mailer,Request $request)
-//     {
-//         $form = $this->createForm(ResetPasswordRequestFormType::class);
-//         $form->handleRequest($request);
-//         $email = (new Email());
-//         if($form->isSubmitted() && $form->isValid())
-//         {
-//             $from = 'healthified.consultation.module@gmail.com';
-//             $to = $form->get('email')->getData();
-//             $subject = 'Password Reset';
-//             $email->from($from)
-//             ->to($to)
-//             ->subject($subject);
-//         }
-//         $mailer->send($email);
-//         return $this->renderForm('reset_password/request.html.twig',['requestForm'=>$form]);
-// }
-
-
     
 }

@@ -20,6 +20,12 @@ use Dompdf\Options;
 use Symfony\Component\Serializer\Normalizer\NormalizerInterface;
 use Symfony\Component\Serializer\SerializerInterface;
 use Knp\Component\Pager\PaginatorInterface;
+use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
+use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
+use Symfony\Component\Serializer\Normalizer\ObjectNormalizer;
+use Symfony\Component\HttpFoundation\JsonResponse;
+use Symfony\Component\Serializer\Serializer;
+
 
 
 class UserController extends AbstractController
@@ -149,6 +155,32 @@ class UserController extends AbstractController
 
 
     // Workshop JSON
+
+
+
+    #[Route('/loginmobile', name: 'api_login')]
+    public function Login(Request $request){
+        $email = $request->query->get("email");
+        $password = $request->query->get("password");
+
+        $em = $this->getDoctrine()->getManager();
+        $user = $em->getRepository(Utilisateur::class)->findOneBy(['email'=>$email]);
+        if($user){
+            if(password_verify($password,$user->getPassword())){
+                $serializer = new Serializer([new ObjectNormalizer()]);
+                $formatted = $serializer->normalize($user);
+                return new JsonResponse($formatted);
+            }
+            else{
+                return new Response("Not Found Password");
+            }
+        }
+        else{
+            return new Response("User Not Found");
+        }
+    }
+
+
     #[Route('/index_json',name:'app_user_index_json')]
     public function indexJson(UtilisateurRepository $utilisateurRepository,SerializerInterface $serializerInterface) 
     {
@@ -174,7 +206,7 @@ class UserController extends AbstractController
         $utilisateur->setAge($request->get('age'));
         $utilisateur->setCin($request->get('cin'));
         $utilisateur->setNumTel($request->get('numtel'));
-        // $utilisateur->setImage($request->get('image'));
+        $utilisateur->getImageName($request->get('image'));
         $utilisateur->setPassword($request->get('plainPassword'));
         $utilisateur->setSexe($request->get('sexe'));
 
@@ -213,6 +245,7 @@ class UserController extends AbstractController
         $jsonContent = $normalizerInterface->normalize($utilisateur,'json',['groups'=>'utilisateurs']);
         return new Response("Utilisateur supprimer avec succees".json_encode($jsonContent));
     }
+
 
 
   
