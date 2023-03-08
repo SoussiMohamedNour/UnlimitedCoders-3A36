@@ -136,7 +136,7 @@ class UserApiController extends AbstractController
         $user->setEmail($email);
         $user->setRoles(['ROLE_USER']);
         $user->setApproved(true);
-        $user->setIsCoach(false);
+       
 
         try{
             $em = $this->getDoctrine()->getManager();
@@ -150,7 +150,7 @@ class UserApiController extends AbstractController
     }
 
 
-    #[Route('/api/getPasswordByEmail', name: 'api_password')]
+    #[Route('/api/getPasswordByEmail', name: 'api_passwordbymail')]
     public function getPasswordByEmail(Request $request){
 
         $email = $request->get('email');
